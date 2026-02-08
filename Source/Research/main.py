@@ -27,6 +27,8 @@ def coupleOfPoints():
     plt.title("Spectrum after changing couple of points")
 
     plt.subplot(1, 3, 3)
+    print("-------Data image after changing a couple of point-------")
+    print(np.fft.ifft2(spectrum))
     image = np.real(np.fft.ifft2(spectrum))
     plt.imshow(image, cmap="gray")
     plt.axis('off')
@@ -58,6 +60,8 @@ def manyCoupleOfPoints():
     plt.title("Spectrum after changing couple of points")
 
     plt.subplot(1, 3, 3)
+    print("-------Data image after changing a few couples of point-------")
+    print(np.fft.ifft2(spectrum))
     image = np.real(np.fft.ifft2(spectrum))
     plt.imshow(image, cmap="gray")
     plt.axis('off')
@@ -84,6 +88,8 @@ def phase():
     plt.title("Spectrum after changing phase")
 
     plt.subplot(1, 3, 3)
+    print("-------Data image after changing phase-------")
+    print(np.fft.ifft2(spectrum))
     image = np.real(np.fft.ifft2(spectrum))
     plt.imshow(image, cmap="gray")
     plt.axis('off')
