@@ -1,16 +1,16 @@
-import numpy as np
 import matplotlib.pyplot as plt
-
-from Source.Research.utils import bit_error
-from utils import compression_spectrum, add_qr_to_spectrum, extract_qr_from_image
+from Source.Research.utils import *
 
 
-def couple_of_points(image: np.ndarray):
+def couple_of_points(image: np.ndarray, x: int, y: int):
     """
     Showing analyse what was happened when changed 1 couple of points in spectrum
     :param image: image in form np.ndarray
+    :param x: position x for adding QR
+    :param y: position y for adding QR
     :return: None
     """
+    print("Research about changing 1 couple of point")
     plt.figure(figsize=(15, 8))
     N = image.shape[0]
 
@@ -21,17 +21,20 @@ def couple_of_points(image: np.ndarray):
 
     plt.subplot(1, 3, 2)
     spectrum = np.fft.fft2(image)
-    spectrum[2][N-2] = 1
-    spectrum[N-2][2] = 1
+
+    spectrum[x][y] = 1
+    spectrum[(N-x) % N][(N -y) % N] = 1
+
     spectrum_compression = compression_spectrum(spectrum)
     plt.imshow(spectrum_compression, cmap="gray")
     plt.axis('off')
     plt.title("Spectrum after changing couple of points")
 
     plt.subplot(1, 3, 3)
-    print("-------Data image after changing a couple of point-------")
-    print(np.fft.ifft2(spectrum))
-    image_with_watermark = np.real(np.fft.ifft2(spectrum))
+
+    image_after_research = np.fft.ifft2(spectrum)
+    print(f"Number of wrong pixel: {check_error_data(image_after_research)}")
+    image_with_watermark = np.real(image_after_research)
     plt.imshow(image_with_watermark, cmap="gray")
     plt.axis('off')
     plt.title("Image after changing couple of points")
@@ -39,12 +42,15 @@ def couple_of_points(image: np.ndarray):
     plt.show()
 
 
-def many_couple_of_points(image: np.ndarray):
+def many_couple_of_points(image: np.ndarray, x: np.ndarray, y: np.ndarray):
     """
     Showing analyse what has happened when changed a little couple of points in spectrum
+    :param x: list position x for adding QR
+    :param y: list position y for adding QR
     :param image: image in form np.ndarray
     :return: None
     """
+    print("Research about changing many couples of point")
     plt.figure(figsize=(15, 8))
     N = image.shape[0]
 
@@ -55,12 +61,10 @@ def many_couple_of_points(image: np.ndarray):
 
     plt.subplot(1, 3, 2)
     spectrum = np.fft.fft2(image)
-    m = [2, 4, 14]
-    n = [2, 0, 2]
 
-    for i in range(3):
-        spectrum[m[i], n[i]] = 1
-        spectrum[(N-m[i]) % N, (N-n[i]) % N] = 1
+    for i in range(x.shape[0]):
+        spectrum[x[i], y[i]] = 1
+        spectrum[(N-x[i]) % N, (N-y[i]) % N] = 1
 
     spectrum_compression = compression_spectrum(spectrum)
     plt.imshow(spectrum_compression, cmap="gray")
@@ -68,9 +72,9 @@ def many_couple_of_points(image: np.ndarray):
     plt.title("Spectrum after changing couple of points")
 
     plt.subplot(1, 3, 3)
-    print("-------Data image after changing a few couples of point-------")
-    print(np.fft.ifft2(spectrum))
-    image_with_watermark = np.real(np.fft.ifft2(spectrum))
+    image_after_research = np.fft.ifft2(spectrum)
+    print(f"Number of wrong pixel: {check_error_data(image_after_research)}")
+    image_with_watermark = np.real(image_after_research)
     plt.imshow(image_with_watermark, cmap="gray")
     plt.axis('off')
     plt.title("Image after changing couple of points")
@@ -78,38 +82,44 @@ def many_couple_of_points(image: np.ndarray):
     plt.show()
 
 
-def phase(image: np.ndarray):
+def phase_research(image: np.ndarray, x: np.ndarray, y: np.ndarray, phase: float = np.pi):
     """
     Showing analyse what was happened when add phase e^(i*phi)
     :param image: image in form np.ndarray
+    :param x: list position x for adding QR
+    :param y: list position y for adding QR
+    :param phase: phase using in adding (e^i*phi)
     :return: None
     """
+    print("Research about changing phase many couple of point")
     plt.figure(figsize=(15, 8))
     N = image.shape[0]
 
     plt.subplot(1, 3, 1)
-    plt.imshow(blackImage, cmap="gray")
+    plt.imshow(image, cmap="gray")
     plt.axis('off')
     plt.title("Original image")
 
     plt.subplot(1, 3, 2)
-    spectrum = np.fft.fft2(blackImage)
-    spectrum[2, 2] = np.exp(1j * np.pi)
-    spectrum[N-2, N-2] = np.exp(-1j * np.pi)
-    spectrum[2, 14] = np.exp(1j * np.pi)
-    spectrum[N-2, N-14] = np.exp(-1j * np.pi)
-    spectrum[3, 6] = np.exp(1j * np.pi)
-    spectrum[N-3, N-6] = np.exp(-1j * np.pi)
+    spectrum = np.fft.fft2(image)
+
+    e_pos = np.exp(1j * phase)
+    e_neg = np.exp(-1j * phase)
+
+    for i in range(x.shape[0]):
+        spectrum[x[i], y[i]] += e_pos
+        spectrum[(N - x[i]) % N, (N - y[i]) % N] = e_neg
+
     spectrum_compression = compression_spectrum(spectrum)
     plt.imshow(spectrum_compression, cmap="gray")
     plt.axis('off')
     plt.title("Spectrum after changing phase")
 
     plt.subplot(1, 3, 3)
-    print("-------Data image after changing phase-------")
-    print(np.fft.ifft2(spectrum))
-    image = np.real(np.fft.ifft2(spectrum))
-    plt.imshow(image, cmap="gray")
+    image_after_research = np.fft.ifft2(spectrum)
+    print(f"Number of wrong pixel: {check_error_data(image_after_research)}")
+    image_with_watermark = np.real(image_after_research)
+    plt.imshow(image_with_watermark, cmap="gray")
     plt.axis('off')
     plt.title("Image after changing phase")
 
@@ -118,7 +128,7 @@ def phase(image: np.ndarray):
 
 def high_frequency():
     """
-    For watching frenquency
+    For watching frequency
     :return: None
     """
     image_test = plt.imread("C://Users//Hoang//OneDrive//Desktop//Study//copyright_protection//Image//goldhilf.tif")
@@ -139,13 +149,14 @@ def high_frequency():
     plt.show()
 
 
-def research_qr(image: np.ndarray, L, x, y):
+def research_qr(image: np.ndarray, L: int, x: int, y: int):
     """
     Show analyse when adding QR code in spectrum
     :param image: image in form np.ndarray
     :param L: Shape of QR  L x L
     :return: None
     """
+    print("Research about marking QR")
     rng = np.random.default_rng(0)
     qr = (rng.random((L, L)) > 0.5).astype(np.uint8)
 
@@ -175,7 +186,9 @@ def research_qr(image: np.ndarray, L, x, y):
     plt.axis("off")
 
     plt.subplot(2, 4,5)
-    image_with_watermark = np.real(np.fft.ifft2(spectrum_embed_qr))
+    image_after_research = np.fft.ifft2(spectrum_embed_qr)
+    print(f"Number of wrong pixel: {check_error_data(image_after_research)}")
+    image_with_watermark = np.real(image_after_research)
     plt.imshow(image_with_watermark, cmap="gray")
     plt.title("Image after adding QR code")
     plt.axis("off")
@@ -200,14 +213,3 @@ def research_qr(image: np.ndarray, L, x, y):
     plt.show()
 
 
-
-if __name__ == "__main__":
-    N = 32
-    blackImage = np.zeros((N, N))
-    image = plt.imread("C://Users//Hoang//OneDrive//Desktop//Study//copyright_protection//Image//goldhilf.tif")
-    # couple_of_points(blackImage)
-    # many_couple_of_points(blackImage)
-    # phase(blackImage)
-    # high_frequency()
-    #research_qr(blackImage, 9, 3, 4)
-    research_qr(image, 41, 40, 50)

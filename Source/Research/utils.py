@@ -1,6 +1,7 @@
 import numpy as np
-import matplotlib.pyplot as plt
-epsilon = 10**-5
+
+epsilon = 1e-8
+
 
 def compression_spectrum(spectrum: np.ndarray):
     """
@@ -8,34 +9,51 @@ def compression_spectrum(spectrum: np.ndarray):
     :param spectrum: spectrum in from np.ndarray
     :return: data of spectrum after optimizing
     """
-    #spectrum_shift = np.fft.fftshift(spectrum)
     return np.log(1 + np.abs(spectrum))
 
 
-def add_qr_to_spectrum(qr: np.ndarray, spectrum: np.ndarray, x: int, y: int ):
+def check_error_data(image_research: np.ndarray):
+    image_imag = np.imag(image_research)
+    return image_imag[np.abs(image_imag) > epsilon].size
+
+
+def add_qr_to_spectrum(qr: np.ndarray, spectrum: np.ndarray, x: int, y: int, phase: float = np.pi/5):
     """
     Add QR into spectrum by position (x, y), but QR will be divided to 2 part (left-right)
     :param qr: QR code in from np.ndarray
     :param spectrum: spectrum in from np.ndarray
+    :param phase: phi in e^i*phi
     :param x: position X in spectrum for adding
     :param y: position Y in spectrum for adding
     :return:
     """
     N = spectrum.shape[0]
     L = qr.shape[0]
+    L_mid = L//2
 
     if x > N//2 - L or y > N//2 - L:
         assert "fix x, y please!"
 
+    e_pos = np.exp(1j * phase)
+    e_neg = np.exp(-1j * phase)
+
+    rows = slice(x, x+L)
+    left_columns = slice(y, y + L_mid+1)
+    spectrum[rows, left_columns] += qr[:, :L_mid+1] * e_pos
+
+
+    right_columns = slice(N - L_mid, N)
+    spectrum[rows, right_columns] += qr[:, L_mid+1:] * e_pos
+
     for i in range(L):
         for j in range(L//2):
-            spectrum[i+x][j+y] += qr[i][j] * np.exp(1j * np.pi/5)
-            spectrum[N-i-x][N-j-y] += qr[i][j] * np.exp(-1j * np.pi/5)
-            spectrum[i+x][-1- j] += qr[i][-1-j] * np.exp(1j * np.pi/5)
-            spectrum[N - i - x][j+1] += qr[i][-1-j] * np.exp(-1j * np.pi/5)
+            spectrum[i+x][j+y] += qr[i][j] * e_pos
+            spectrum[N-i-x][N-j-y] += qr[i][j] * e_neg
+            spectrum[i+x][-1- j] += qr[i][-1-j] * e_pos
+            spectrum[N - i - x][j+1] += qr[i][-1-j] * e_neg
 
-        spectrum[i+x][L//2 + y] += qr[i][L//2] * np.exp(1j * np.pi/5)
-        spectrum[N - i - x][N - L//2 - y] += qr[i][L//2] * np.exp(-1j * np.pi/5)
+        spectrum[i+x][L//2 + y] += qr[i][L//2] * e_pos
+        spectrum[N - i - x][N - L//2 - y] += qr[i][L//2] * e_neg
     return spectrum
 
 
