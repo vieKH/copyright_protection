@@ -33,7 +33,8 @@ def couple_of_points(image: np.ndarray, x: int, y: int):
     plt.subplot(1, 3, 3)
 
     image_after_research = np.fft.ifft2(spectrum)
-    print(f"Number of wrong pixel: {check_error_data(image_after_research)}")
+    print(f"The wrong pixels:")
+    check_error_data(image_after_research)
     image_with_watermark = np.real(image_after_research)
     plt.imshow(image_with_watermark, cmap="gray")
     plt.axis('off')
@@ -73,7 +74,8 @@ def many_couple_of_points(image: np.ndarray, x: np.ndarray, y: np.ndarray):
 
     plt.subplot(1, 3, 3)
     image_after_research = np.fft.ifft2(spectrum)
-    print(f"Number of wrong pixel: {check_error_data(image_after_research)}")
+    print(f"The wrong pixels:")
+    check_error_data(image_after_research)
     image_with_watermark = np.real(image_after_research)
     plt.imshow(image_with_watermark, cmap="gray")
     plt.axis('off')
@@ -117,7 +119,8 @@ def phase_research(image: np.ndarray, x: np.ndarray, y: np.ndarray, phase: float
 
     plt.subplot(1, 3, 3)
     image_after_research = np.fft.ifft2(spectrum)
-    print(f"Number of wrong pixel: {check_error_data(image_after_research)}")
+    print(f"The wrong pixels:")
+    check_error_data(image_after_research)
     image_with_watermark = np.real(image_after_research)
     plt.imshow(image_with_watermark, cmap="gray")
     plt.axis('off')
@@ -187,7 +190,8 @@ def research_qr(image: np.ndarray, L: int, x: int, y: int):
 
     plt.subplot(2, 4,5)
     image_after_research = np.fft.ifft2(spectrum_embed_qr)
-    print(f"Number of wrong pixel: {check_error_data(image_after_research)}")
+    print(f"The wrong pixels:")
+    check_error_data(image_after_research)
     image_with_watermark = np.real(image_after_research)
     plt.imshow(image_with_watermark, cmap="gray")
     plt.title("Image after adding QR code")
@@ -204,12 +208,11 @@ def research_qr(image: np.ndarray, L: int, x: int, y: int):
 
     plt.subplot(2, 4, 7)
     qr_extracted = extract_qr_from_image(spectrum_image_only_qr, L)
-    print(qr_extracted)
     plt.imshow(qr_extracted, cmap="gray")
     plt.axis("off")
     plt.title("QR was be extracted")
 
-    print(f"Error extract  = {bit_error(qr, qr_extracted)}")
+    print(f"Error extraction  = {bit_error(qr, qr_extracted)}")
     plt.show()
 
 

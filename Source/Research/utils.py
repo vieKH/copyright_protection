@@ -14,7 +14,10 @@ def compression_spectrum(spectrum: np.ndarray):
 
 def check_error_data(image_research: np.ndarray):
     image_imag = np.imag(image_research)
-    return image_imag[np.abs(image_imag) > epsilon].size
+    rows, columns = np.where(np.abs(image_imag) > epsilon)
+    for i, j in zip(rows, columns):
+        print(i, j, image_imag[i, j])
+    return None
 
 
 def add_qr_to_spectrum(qr: np.ndarray, spectrum: np.ndarray, x: int, y: int, phase: float = np.pi/5):
@@ -37,13 +40,14 @@ def add_qr_to_spectrum(qr: np.ndarray, spectrum: np.ndarray, x: int, y: int, pha
     e_pos = np.exp(1j * phase)
     e_neg = np.exp(-1j * phase)
 
-    rows = slice(x, x+L)
-    left_columns = slice(y, y + L_mid+1)
-    spectrum[rows, left_columns] += qr[:, :L_mid+1] * e_pos
-
-
-    right_columns = slice(N - L_mid, N)
-    spectrum[rows, right_columns] += qr[:, L_mid+1:] * e_pos
+    # rows = slice(x, x+L)
+    # left_columns = slice(y, y + L_mid+1)
+    #
+    # spectrum[rows, left_columns] += qr[:, :L_mid+1] * e_pos
+    # spectrum[N - x - L: N-x, N - (y + L_mid): N - y] += qr[:, :L_mid+1] * e_neg
+    #
+    # right_columns = slice(N - L_mid, N)
+    # spectrum[rows, right_columns] += qr[:, L_mid+1:] * e_pos
 
     for i in range(L):
         for j in range(L//2):
@@ -71,27 +75,24 @@ def extract_qr_from_image(spectrum_qr: np.ndarray, L):
     return qr_bits
 
 def energy_region_qr(x: int, y: int, L: int, spectrum: np.ndarray):
-    sum = 0
-    for i in range(L):
-        for j in range(L//2):
-            sum += np.abs(np.real(spectrum[i + x][j + y]))
-            sum += np.abs(np.real(spectrum[i + x][-1 - j]))
-
-        sum += np.abs(np.real(spectrum[i + x][L // 2 + y]))
-    return sum
+    L_mid = L // 2
+    left = spectrum[x:x + L, y:y + L_mid]
+    right = spectrum[x:x + L, -L_mid:]
+    mid = spectrum[x:x + L, y + L_mid]
+    return np.abs(np.real(left)).sum() + np.abs(np.real(right)).sum() + np.abs(np.real(mid)).sum()
 
 
 def extract_qr(x: int, y: int, spectrum_qr: np.ndarray, L: int):
+    L_mid = L // 2
     qr = np.zeros((L, L), dtype=np.complex128)
-    for i in range(L):
-        for j in range(L//2):
-            qr[i][j] = spectrum_qr[i+x][j+y]
-            qr[i][-1-j] = spectrum_qr[i+x][-1- j]
 
-        qr[i][L//2] = spectrum_qr[i+x][L//2 + y]
+    qr[:, :L_mid] = spectrum_qr[x:x+L, y:y+L_mid]
+    qr[:, -L_mid:] = spectrum_qr[x:x+L, -L_mid:]
+    qr[:, L_mid] = spectrum_qr[x:x+L, y+L_mid]
+
     return qr
 
 
 def bit_error(qr: np.ndarray, qr_extracted: np.ndarray):
     L = qr.shape[0]
-    return (qr ^ qr_extracted).sum() // L**2
+    return (qr ^ qr_extracted).sum() / (L**2)

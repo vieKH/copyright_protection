@@ -9,5 +9,6 @@ if __name__ == "__main__":
     # plt.imshow(qr, cmap="gray")
     # plt.axis("off")
     # plt.show()
-    sum = np.zeros((32 //2 - L, 32//2 - L))
-    print(sum.shape[0], sum.shape[1])
+    sum = np.array([1,2,3,4,5])
+
+    print(sum.shape[0])
