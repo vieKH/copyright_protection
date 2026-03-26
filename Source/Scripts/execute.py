@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 blackImage = np.zeros((8,8))
 
 
