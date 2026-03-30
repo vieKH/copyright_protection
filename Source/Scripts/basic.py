@@ -13,7 +13,7 @@ if __name__ == "__main__":
     couple_of_points(blackImage, 3, 4, path_couple_of_points)
 
     x = np.array([2, 4, 14])
-    y = np.array([2, 0, 2])
+    y = np.array([2, 8, 2])
 
     path_many_couple_of_points = os.path.join(SAVE_PATH, "2_many_couple_of_points.png")
     many_couple_of_points(blackImage, x, y, path_many_couple_of_points )

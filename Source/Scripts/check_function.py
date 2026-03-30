@@ -1,7 +1,7 @@
 import numpy as np
 from Source.Utils import my_fft2, my_ifft2
 
-EPSILON = 1e-10
+EPSILON = 1e-20
 
 def calculate_mse(image1: np.ndarray, image2: np.ndarray):
     """ Mean Square Error (MSE)"""

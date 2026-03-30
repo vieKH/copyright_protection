@@ -1,8 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
 from .my_function import my_ifft2, my_fft2
-from .utils import compression_spectrum, check_error_data, make_balanced_qr, embed_qr_into_black_image
+from .utils import compression_spectrum, generate_watermark,embed_watermark_into_image
 
 def couple_of_points(image: np.ndarray, x: int, y: int, save_path: str):
     """
@@ -14,6 +13,7 @@ def couple_of_points(image: np.ndarray, x: int, y: int, save_path: str):
     :return: None
     """
     print("Research about changing 1 couple of point")
+
     plt.figure(figsize=(15, 8))
     N = image.shape[0]
 
@@ -36,8 +36,6 @@ def couple_of_points(image: np.ndarray, x: int, y: int, save_path: str):
     ax3 = plt.subplot(1, 3, 3)
 
     image_after_research = my_ifft2(spectrum)
-    print(f"The wrong pixels:")
-    check_error_data(image_after_research)
     image_with_watermark = np.real(image_after_research)
     ax3.imshow(image_with_watermark, cmap="gray")
     ax3.axis('off')
@@ -79,8 +77,6 @@ def many_couple_of_points(image: np.ndarray, x: np.ndarray, y: np.ndarray, save_
 
     ax3 = plt.subplot(1, 3, 3)
     image_after_research = my_ifft2(spectrum)
-    print(f"The wrong pixels:")
-    check_error_data(image_after_research)
     image_with_watermark = np.real(image_after_research)
     ax3.imshow(image_with_watermark, cmap="gray")
     ax3.axis('off')
@@ -92,7 +88,7 @@ def many_couple_of_points(image: np.ndarray, x: np.ndarray, y: np.ndarray, save_
 
 def phase_research(image: np.ndarray, x: np.ndarray, y: np.ndarray,save_path: str, phase: float = np.pi):
     """
-    Showing analyse what was happened when add phase e^(i*phi)
+    Showing analyze what was happened when add phase e^(i*phi)
     :param image: image in form np.ndarray
     :param x: list position x for adding QR
     :param y: list position y for adding QR
@@ -126,8 +122,6 @@ def phase_research(image: np.ndarray, x: np.ndarray, y: np.ndarray,save_path: st
 
     ax3 = plt.subplot(1, 3, 3)
     image_after_research = my_ifft2(spectrum)
-    print(f"The wrong pixels:")
-    check_error_data(image_after_research)
     image_with_watermark = np.real(image_after_research)
     ax3.imshow(image_with_watermark, cmap="gray")
     ax3.axis('off')
@@ -164,11 +158,11 @@ def show_frequency(image_path: str, save_path: str):
     plt.show()
 
 
-def research_qr(image: np.ndarray, L: int, x: int, y: int, save_path: str, S: int=60, phase:float=np.pi/5):
+def research_qr(image: np.ndarray, size_qr: int, x: int, y: int, save_path: str, S: int=60, phase: float=np.pi/2):
     """
-    Show analyse when adding QR code in spectrum
+    Show analyze when adding QR code in spectrum
     :param image: image in form np.ndarray
-    :param L: Shape of QR  L x L
+    :param size_qr: Shape of QR  L x L
     :param x: list position x for adding QR
     :param y: list position y for adding QR
     :param save_path: path for saving
@@ -176,8 +170,7 @@ def research_qr(image: np.ndarray, L: int, x: int, y: int, save_path: str, S: in
     :param phase: phase using in adding (e^i*phi)
     :return: None
     """
-
-    qr = make_balanced_qr(L,0)
+    qr = generate_watermark(size_qr, seed=42)
 
     plt.figure(figsize=(16,8))
     ax1 = plt.subplot(2, 3, 1)
@@ -198,22 +191,18 @@ def research_qr(image: np.ndarray, L: int, x: int, y: int, save_path: str, S: in
     ax3.axis("off")
 
     ax4 = plt.subplot(2, 3, 4)
-    image_after_embedding = embed_qr_into_black_image(qr, spectrum_original_image,64, x, y, phase)
-    # spectrum_compression = compression_spectrum(spectrum_embed_qr)
+    image_after_embedding = embed_watermark_into_image(image, qr, phase, 1)
     ax4.imshow(image_after_embedding, cmap="gray")
-    ax4.set_title("Spectrum after adding QR code")
+    ax4.set_title("Image after adding QR code")
     ax4.axis("off")
 
 
-    # plt.subplot(2, 3, 5)
-    # image_after_research = np.fft.ifft2(spectrum_embed_qr)
-    # print(f"The wrong pixels:")
-    # check_error_data(image_after_research)
-    # print("--------")
-    # image_with_watermark = np.real(image_after_research)
-    # plt.imshow(image_with_watermark, cmap="gray")
-    # plt.set_title("Image after adding QR code")
-    # plt.axis("off")
+    ax5 = plt.subplot(2, 3, 5)
+    spectrum_image_after_embedding = my_fft2(image_after_embedding)
+    spectrum_compression = compression_spectrum(spectrum_image_after_embedding)
+    ax5.imshow(spectrum_compression, cmap="gray")
+    ax5.set_title("Spectrum after adding QR code")
+    ax5.axis("off")
 
 
     # plt.subplot(2, 3, 6)

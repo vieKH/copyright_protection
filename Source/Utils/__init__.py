@@ -1,12 +1,12 @@
-from .utils import compression_spectrum, check_error_data, make_balanced_qr, embed_qr_into_black_image
+from .utils import generate_watermark, compression_spectrum, embed_wm_to_black_region, split_into_blocks
 from .research_plot import couple_of_points, many_couple_of_points, phase_research, show_frequency, research_qr
 from .my_function import my_ifft2, my_fft2
 
 __all__ = [
+    'generate_watermark',
     'compression_spectrum',
-    'check_error_data',
-    'make_balanced_qr',
-    'embed_qr_into_black_image',
+    'embed_wm_to_black_region',
+    'split_into_blocks',
     'couple_of_points',
     'many_couple_of_points',
     'phase_research',
