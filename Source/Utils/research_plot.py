@@ -47,7 +47,6 @@ def couple_of_points(image: np.ndarray, x: int, y: int, save_path: str):
     plt.show()
 
 
-
 def many_couple_of_points(image: np.ndarray, x: np.ndarray, y: np.ndarray, save_path: str):
     """
     Showing analyse what has happened when changed a little couple of points in spectrum
