@@ -1,11 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
+
+from . import split_into_blocks
 from .my_function import my_ifft2, my_fft2
-from .utils import compression_spectrum, generate_watermark,embed_watermark_into_image
+from .utils import compression_spectrum, generate_watermark,embed_watermark_into_image, merge_blocks, split_into_blocks
 
 def couple_of_points(image: np.ndarray, x: int, y: int, save_path: str):
     """
-    Showing analyse what was happened when changed 1 couple of points in spectrum
+    Showing analyze what was happened when changed 1 couple of points in spectrum
     :param image: image in form np.ndarray
     :param x: position x for adding QR
     :param y: position y for adding QR
@@ -47,7 +49,7 @@ def couple_of_points(image: np.ndarray, x: int, y: int, save_path: str):
 
 def many_couple_of_points(image: np.ndarray, x: np.ndarray, y: np.ndarray, save_path: str):
     """
-    Showing analyse what has happened when changed a little couple of points in spectrum
+    Showing analyze what has happened when changed a little couple of points in spectrum
     :param x: list position x for adding QR
     :param y: list position y for adding QR
     :param image: image in form np.ndarray
@@ -157,16 +159,45 @@ def show_frequency(image_path: str, save_path: str):
     plt.savefig(save_path, dpi=300, bbox_inches="tight")
     plt.show()
 
+def spectrum_image_draw_and_compare(image: np.ndarray, size_region: int):
 
-def research_qr(image: np.ndarray, size_qr: int, x: int, y: int, save_path: str, S: int=60, phase: float=np.pi/2):
+    blocks_image = split_into_blocks(image, size_region)
+    blocks_spectrum = np.zeros_like(blocks_image, dtype=np.complex128)
+    blocks_spectrum_compression = np.zeros_like(blocks_image, dtype=np.float64)
+    rows, cols = blocks_spectrum.shape[:2]
+    for row in range(rows):
+        for col in range(cols):
+            blocks_spectrum[row, col] = my_fft2(blocks_image[row, col])
+            blocks_spectrum_compression[row, col] = compression_spectrum(blocks_spectrum[row, col])
+
+    spectrum = merge_blocks(blocks_spectrum)
+    spectrum_compression = merge_blocks(blocks_spectrum_compression)
+    return spectrum, spectrum_compression
+
+def diff_spectrum(spectrum1: np.ndarray, spectrum2: np.ndarray, size_region: int):
+    blocks_spectrum1 = split_into_blocks(spectrum1, size_region)
+    blocks_spectrum2 = split_into_blocks(spectrum2, size_region)
+    diff_spectrum_compression = np.zeros_like(blocks_spectrum1, dtype=np.float64)
+    rows, cols = blocks_spectrum1.shape[:2]
+
+    for row in range(rows):
+        for col in range(cols):
+            diff_spectrum_compression[row, col] = compression_spectrum(blocks_spectrum1[row, col] - blocks_spectrum2[row, col])
+
+    return merge_blocks(diff_spectrum_compression)
+
+
+def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: int, offset: int, q: float, phase: float, save_path: str):
     """
     Show analyze when adding QR code in spectrum
     :param image: image in form np.ndarray
     :param size_qr: Shape of QR  L x L
+    :param size_region: shape black region for embedding qr
     :param x: list position x for adding QR
     :param y: list position y for adding QR
+    :param offset: offset of position embedding QR
     :param save_path: path for saving
-    :param S: signal/ noise
+    :param q: strength
     :param phase: phase using in adding (e^i*phi)
     :return: None
     """
@@ -179,9 +210,8 @@ def research_qr(image: np.ndarray, size_qr: int, x: int, y: int, save_path: str,
     ax1.axis("off")
 
     ax2 = plt.subplot(2, 3, 2)
-    spectrum_original_image = my_fft2(image)
-    spectrum_compression = compression_spectrum(spectrum_original_image)
-    ax2.imshow(spectrum_compression, cmap="gray")
+    spectrum_original_image, spectrum_original_compression_image = spectrum_image_draw_and_compare(image, size_region)
+    ax2.imshow(spectrum_original_compression_image, cmap="gray")
     ax2.set_title("Spectrum original image")
     ax2.axis("off")
 
@@ -191,30 +221,32 @@ def research_qr(image: np.ndarray, size_qr: int, x: int, y: int, save_path: str,
     ax3.axis("off")
 
     ax4 = plt.subplot(2, 3, 4)
-    image_after_embedding = embed_watermark_into_image(image, qr, phase, 1)
+    image_after_embedding = embed_watermark_into_image(image, qr, size_region, x, y, offset, phase, q)
     ax4.imshow(image_after_embedding, cmap="gray")
     ax4.set_title("Image after adding QR code")
     ax4.axis("off")
 
 
     ax5 = plt.subplot(2, 3, 5)
-    spectrum_image_after_embedding = my_fft2(image_after_embedding)
-    spectrum_compression = compression_spectrum(spectrum_image_after_embedding)
-    ax5.imshow(spectrum_compression, cmap="gray")
+    spectrum_after_embedding, spectrum_after_embedding_compression_image = spectrum_image_draw_and_compare(image_after_embedding, size_region)
+    ax5.imshow(spectrum_after_embedding_compression_image, cmap="gray")
     ax5.set_title("Spectrum after adding QR code")
     ax5.axis("off")
 
 
-    # plt.subplot(2, 3, 6)
-    # spectrum_with_watermark = np.fft.fft2(image_with_watermark)
-    # qr_extracted = extract_qr_from_watermarked_image(spectrum_with_watermark)
-    #
+    ax6 = plt.subplot(2, 3, 6)
+    diff_spectrum_compress = diff_spectrum(spectrum_after_embedding, spectrum_original_image, size_region)
+    ax6.imshow(diff_spectrum_compress, cmap="gray")
+    ax6.axis("off")
+    ax6.set_title("Difference spectrum")
+
     # plt.imshow(qr_extracted, cmap="gray")
     # plt.set_title("Extract QR")
     # plt.axis("off")
 
 
     # print(f"Error extraction  = {bit_error(qr, qr_extracted)}")
+    # plt.savefig(save_path, dpi=300, bbox_inches="tight")
     plt.show()
 
 

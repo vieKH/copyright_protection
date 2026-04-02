@@ -29,7 +29,7 @@ def generate_watermark(size: int, seed: int = 42):
     return arr.reshape(size, size)
 
 
-def embed_wm_to_black_region(watermark: np.ndarray, size_region: int, x: int, y: int, offset: int = 0, phase: float = np.pi / 2, q: float = 1):
+def embed_wm_to_black_region(watermark: np.ndarray, size_region: int, x: int, y: int, offset: int = 0, phase: float = np.pi / 2):
     """
     Embed watermark into black region
     :param watermark: watermark image
@@ -38,7 +38,6 @@ def embed_wm_to_black_region(watermark: np.ndarray, size_region: int, x: int, y:
     :param y: position of y for embed watermark
     :param offset: parameter for offset
     :param phase: parameter for phase when embed watermark
-    :param q: strength of phase when embed watermark
     :return: spectrum after embed watermark
     """
     l = watermark.shape[0]
@@ -50,13 +49,13 @@ def embed_wm_to_black_region(watermark: np.ndarray, size_region: int, x: int, y:
     e_neg = np.exp(-1j * phase)
 
     left = watermark[:, :l_mid]
-    spectrum_qr[x:x + l, y:y + l_mid] = q * left * e_pos
+    spectrum_qr[x:x + l, y:y + l_mid] = left * e_pos
     spectrum_qr[size_region - x - l + 1: size_region - x + 1,
-                size_region - y - l_mid + 1: size_region - y + 1] = q * left[::-1, ::-1] * e_neg
+                size_region - y - l_mid + 1: size_region - y + 1] = left[::-1, ::-1] * e_neg
 
     right = watermark[:, l_mid:]
-    spectrum_qr[x:x + l, size_region - l + l_mid - offset: size_region - offset] = q * right * e_pos
-    spectrum_qr[size_region - x - l + 1: size_region - x + 1, 1 + offset : 1 + l - l_mid + offset] = q * right[::-1, ::-1] * e_neg
+    spectrum_qr[x:x + l, size_region - l + l_mid - offset: size_region - offset] = right * e_pos
+    spectrum_qr[size_region - x - l + 1: size_region - x + 1, 1 + offset : 1 + l - l_mid + offset] = right[::-1, ::-1] * e_neg
 
     return spectrum_qr
 
@@ -81,8 +80,8 @@ def merge_blocks(blocks: np.ndarray) -> np.ndarray:
     return img
 
 
-def embed_watermark_into_image(image: np.ndarray, qr: np.ndarray, phase: float, q: float):
-    watermark = embed_wm_to_black_region(qr, 64, 4, 4, 8, phase, q)
+def embed_watermark_into_image(image: np.ndarray, qr: np.ndarray, size_region: int, x: int, y:int, offset: int, phase: float, q: float):
+    watermark = embed_wm_to_black_region(qr, size_region, x, y, offset, phase)
 
     blocks = split_into_blocks(image, block_size=64)
     block_height, block_weight = blocks.shape[:2]
