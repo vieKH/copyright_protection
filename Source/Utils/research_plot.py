@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from . import split_into_blocks
 from .my_function import my_ifft2, my_fft2
-from .utils import compression_spectrum, generate_watermark,embed_watermark_into_image, merge_blocks, split_into_blocks
+from .utils import (compression_spectrum, generate_watermark, embed_watermark_into_image, merge_blocks, split_into_blocks,
+                    extract_watermark, count_psnr, bit_accuracy, extract_watermark_search_offsets, design_params)
 
 def couple_of_points(image: np.ndarray, x: int, y: int, save_path: str):
     """
@@ -187,7 +187,7 @@ def diff_spectrum(spectrum1: np.ndarray, spectrum2: np.ndarray, size_region: int
     return merge_blocks(diff_spectrum_compression)
 
 
-def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: int, offset: int, q: float, phase: float, save_path: str):
+def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: int, offset: int, phase: float, q: float,  save_path: str):
     """
     Show analyze when adding QR code in spectrum
     :param image: image in form np.ndarray
@@ -196,58 +196,95 @@ def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: in
     :param x: list position x for adding QR
     :param y: list position y for adding QR
     :param offset: offset of position embedding QR
+    :param phase: phase for embedding QR
     :param save_path: path for saving
     :param q: strength
-    :param phase: phase using in adding (e^i*phi)
     :return: None
     """
-    qr = generate_watermark(size_qr, seed=42)
+    qr = generate_watermark(size_qr, seed=123)
 
     plt.figure(figsize=(16,8))
-    ax1 = plt.subplot(2, 3, 1)
+    ax1 = plt.subplot(2, 4, 1)
     ax1.imshow(image, cmap="gray")
     ax1.set_title("Original Image")
     ax1.axis("off")
 
-    ax2 = plt.subplot(2, 3, 2)
+    ax2 = plt.subplot(2, 4, 2)
     spectrum_original_image, spectrum_original_compression_image = spectrum_image_draw_and_compare(image, size_region)
     ax2.imshow(spectrum_original_compression_image, cmap="gray")
     ax2.set_title("Spectrum original image")
     ax2.axis("off")
 
-    ax3 = plt.subplot(2, 3, 3)
+    ax3 = plt.subplot(2, 4, 3)
     ax3.imshow(qr, cmap="gray")
     ax3.set_title("QR code")
     ax3.axis("off")
 
-    ax4 = plt.subplot(2, 3, 4)
-    image_after_embedding = embed_watermark_into_image(image, qr, size_region, x, y, offset, phase, q)
+    ax4 = plt.subplot(2, 4, 4)
+    image_after_embedding = embed_watermark_into_image(image, qr, size_region, q, phase, 2, x, y, offset)
     ax4.imshow(image_after_embedding, cmap="gray")
     ax4.set_title("Image after adding QR code")
     ax4.axis("off")
 
-
-    ax5 = plt.subplot(2, 3, 5)
+    ax5 = plt.subplot(2, 4, 5)
     spectrum_after_embedding, spectrum_after_embedding_compression_image = spectrum_image_draw_and_compare(image_after_embedding, size_region)
     ax5.imshow(spectrum_after_embedding_compression_image, cmap="gray")
     ax5.set_title("Spectrum after adding QR code")
     ax5.axis("off")
 
-
-    ax6 = plt.subplot(2, 3, 6)
+    ax6 = plt.subplot(2, 4, 6)
     diff_spectrum_compress = diff_spectrum(spectrum_after_embedding, spectrum_original_image, size_region)
     ax6.imshow(diff_spectrum_compress, cmap="gray")
     ax6.axis("off")
     ax6.set_title("Difference spectrum")
 
-    # plt.imshow(qr_extracted, cmap="gray")
-    # plt.set_title("Extract QR")
-    # plt.axis("off")
+    offset_candidates = [(20, 20)]
 
+    best = extract_watermark_search_offsets(
+        image=image_after_embedding,
+        qr_size=size_qr,
+        size_region=size_region,
+        phi=phase,
+        ones_ratio=0.5,
+        offset_candidates=offset_candidates,
+        pitch=2,
+        x=x,
+        y=y,
+        offset=offset,
+        phase_sign_candidates=(1, -1)
+    )
 
-    # print(f"Error extraction  = {bit_error(qr, qr_extracted)}")
-    # plt.savefig(save_path, dpi=300, bbox_inches="tight")
+    qr_extracted = best["recovered_qr"]
+
+    qr_extracted = best["recovered_qr"]
+    print(best["start_x"], best["start_y"], best["metric"])
+
+    score_map = best["score_map"]
+    # qr_extracted, score_map = extract_watermark(image_after_embedding, size_qr, size_region, x, y, offset, phase, start_x, start_y)
+    ax7 = plt.subplot(2, 4, 7)
+    ax7.imshow(qr_extracted, cmap="gray")
+    ax7.set_title("Extract QR")
+    ax7.axis("off")
+
+    ax8 = plt.subplot(2, 4, 8)
+    ax8.imshow(score_map, cmap="gray")
+    ax8.set_title("Score map")
+    ax8.axis("off")
+
+    print(f"Q = {q}, PSNR = {count_psnr(image_after_embedding, image)}")
+
+    if qr_extracted.size == qr.size:
+        print(f"Accuracy: {bit_accuracy(qr, qr_extracted)}")
+    print('-'*30)
+    # # plt.savefig(save_path, dpi=300, bbox_inches="tight")
     plt.show()
+    return None
+
+
+def calculate_q(snr: float, l: int, n: int) -> float:
+    return (255 * n * n) / (snr * l)
+
+
 
 
 
