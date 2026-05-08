@@ -90,13 +90,12 @@ def _resolve_embedding_params(
 def _protected_spectrum_coordinates(
     qr_size: int,
     size_region: int,
-    pitch: int = 1,
     x: int = 0,
     y: int = 0,
     offset: int = 0,
 ) -> set[Tuple[int, int]]:
     protected: set[Tuple[int, int]] = set()
-    positions = qr_to_spectrum_positions(qr_size, size_region, pitch, x, y, offset)
+    positions = qr_to_spectrum_positions(qr_size, size_region, x, y, offset)
     for pos in positions:
         u = pos["row"]
         v = pos["col"]
@@ -150,7 +149,6 @@ def score_watermark_map(
     qr_size: int,
     size_region: int,
     phi: float,
-    pitch: int = 1,
     x: Optional[int] = None,
     y: Optional[int] = None,
     offset: Optional[int] = None,
@@ -166,10 +164,10 @@ def score_watermark_map(
     """
     x, y, offset = _resolve_embedding_params(size_region, x, y, offset)
     if ring_radius is None:
-        ring_radius = max(2, 2 * pitch)
+        ring_radius = 2
 
-    positions = qr_to_spectrum_positions(qr_size, size_region, pitch, x, y, offset)
-    protected = _protected_spectrum_coordinates(qr_size, size_region, pitch, x, y, offset)
+    positions = qr_to_spectrum_positions(qr_size, size_region, x, y, offset)
+    protected = _protected_spectrum_coordinates(qr_size, size_region, x, y, offset)
     mag = np.abs(avg_spectrum)
     raw = np.zeros((qr_size, qr_size), dtype=np.float64)
 
@@ -324,7 +322,6 @@ def extract_progressive_by_blocks(
     phi: float,
     start_x: int,
     start_y: int,
-    pitch: int = 1,
     x: Optional[int] = None,
     y: Optional[int] = None,
     offset: Optional[int] = None,
@@ -375,7 +372,6 @@ def extract_progressive_by_blocks(
             qr_size=qr_size,
             size_region=size_region,
             phi=phi,
-            pitch=pitch,
             x=x,
             y=y,
             offset=offset,

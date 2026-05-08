@@ -49,7 +49,7 @@ def _conj_index(u: int, v: int, n: int) -> Tuple[int, int]:
     return (-u) % n, (-v) % n
 
 
-def max_qr_size_for_block(block_size: int, pitch: int = 1) -> int:
+def max_qr_size_for_block(block_size: int) -> int:
     x, y, offset = design_params(block_size)
 
     best = 0
@@ -57,10 +57,10 @@ def max_qr_size_for_block(block_size: int, pitch: int = 1) -> int:
         l_mid = (L + 1) // 2
         right_w = L - l_mid
 
-        if x + (L - 1) * pitch >= block_size:
+        if x + (L - 1) >= block_size:
             break
 
-        left_end = y + (l_mid - 1) * pitch
+        left_end = y + (l_mid - 1)
         if left_end >= block_size:
             break
 
@@ -68,7 +68,7 @@ def max_qr_size_for_block(block_size: int, pitch: int = 1) -> int:
             best = L
             continue
 
-        base_v = block_size - 1 - offset - (right_w - 1) * pitch
+        base_v = block_size - 1 - offset - (right_w - 1)
         if base_v < 0:
             break
 
@@ -80,30 +80,33 @@ def max_qr_size_for_block(block_size: int, pitch: int = 1) -> int:
     return best
 
 
-def recommended_qr_range(block_size: int, pitch: int = 1) -> Tuple[int, int]:
-    """"""
-    geom_max = max_qr_size_for_block(block_size, pitch)
+def recommended_qr_range(block_size: int) -> Tuple[int, int]:
+    geom_max = max_qr_size_for_block(block_size)
     low = max(5, geom_max // 6)
     high = max(low, geom_max // 3)
     return low, high
 
 
-def qr_to_spectrum_positions(qr_size: int, size_region: int, pitch: int, x: int, y: int , offset: int) -> List[Dict[str, int]]:
-    """"""
+def qr_to_spectrum_positions(
+    qr_size: int,
+    size_region: int,
+    x: int,
+    y: int,
+    offset: int,
+) -> List[Dict[str, int]]:
     positions: List[Dict[str, int]] = []
+
     l_mid = (qr_size + 1) // 2
     right_w = qr_size - l_mid
 
-    if x + (qr_size - 1) * pitch >= size_region:
+    if x + (qr_size - 1) >= size_region:
         raise ValueError("QR exceeds row bound")
 
-    left_end = y + (l_mid - 1) * pitch
-
+    left_end = y + (l_mid - 1)
     if left_end >= size_region:
         raise ValueError("Left half exceeds col bound")
 
-    base_v = size_region - 1 - offset - (right_w - 1) * pitch
-
+    base_v = size_region - 1 - offset - (right_w - 1)
     if base_v < 0:
         raise ValueError("Right half start negative")
 
@@ -112,11 +115,12 @@ def qr_to_spectrum_positions(qr_size: int, size_region: int, pitch: int, x: int,
 
     for i in range(qr_size):
         for j in range(qr_size):
-            u = x + i * pitch
+            u = x + i
+
             if j < l_mid:
-                v = y + j * pitch
+                v = y + j
             else:
-                v = base_v + (j - l_mid) * pitch
+                v = base_v + (j - l_mid)
 
             if not (0 <= u < size_region and 0 <= v < size_region):
                 raise ValueError("QR mapping index out of bounds")
@@ -125,16 +129,30 @@ def qr_to_spectrum_positions(qr_size: int, size_region: int, pitch: int, x: int,
                 "qr_i": i,
                 "qr_j": j,
                 "row": u,
-                "col": v
+                "col": v,
             })
+
     return positions
 
 
-def build_wm_spectrum(qr: np.ndarray,  size_region: int, phi: float, pitch: int = 1, x: int = None, y: int = None, offset: int = None) -> np.ndarray:
-
+def build_wm_spectrum(
+    qr: np.ndarray,
+    size_region: int,
+    phi: float,
+    x: int = None,
+    y: int = None,
+    offset: int = None,
+) -> np.ndarray:
     qr = np.asarray(qr, dtype=np.uint8)
     spectrum_qr = np.zeros((size_region, size_region), dtype=np.complex128)
-    positions = qr_to_spectrum_positions(qr.shape[0], size_region, pitch, x, y, offset)
+
+    positions = qr_to_spectrum_positions(
+        qr_size=qr.shape[0],
+        size_region=size_region,
+        x=x,
+        y=y,
+        offset=offset,
+    )
 
     for pos in positions:
         i = pos["qr_i"]
@@ -146,10 +164,50 @@ def build_wm_spectrum(qr: np.ndarray,  size_region: int, phi: float, pitch: int 
             continue
 
         spectrum_qr[u, v] += np.exp(1j * phi)
+
         uc, vc = _conj_index(u, v, size_region)
         spectrum_qr[uc, vc] += np.exp(-1j * phi)
 
     return spectrum_qr
+
+
+def embed_watermark_into_image(
+    image: np.ndarray,
+    qr: np.ndarray,
+    size_region: int,
+    q: float,
+    phi: float,
+    x: int = None,
+    y: int = None,
+    offset: int = None,
+) -> np.ndarray:
+    image = np.asarray(image)
+
+    if image.ndim != 2:
+        raise ValueError("Input image must be grayscale")
+
+    spectrum_qr = build_wm_spectrum(
+        qr=qr,
+        size_region=size_region,
+        phi=phi,
+        x=x,
+        y=y,
+        offset=offset,
+    )
+
+    blocks = split_into_blocks(image, block_size=size_region)
+    watermarked_blocks = np.zeros_like(blocks, dtype=np.float64)
+
+    for i in range(blocks.shape[0]):
+        for j in range(blocks.shape[1]):
+            block = blocks[i, j].astype(np.float64)
+            wm_spectrum = my_fft2(block) + q * spectrum_qr
+            watermarked_blocks[i, j] = np.real(my_ifft2(wm_spectrum))
+
+    watermarked_image = merge_blocks(watermarked_blocks)
+    watermarked_image = np.clip(watermarked_image, 0, 255).astype(np.uint8)
+
+    return watermarked_image
 
 
 
@@ -165,27 +223,6 @@ def split_into_blocks(img: np.ndarray, block_size: int) -> np.ndarray:
 def merge_blocks(blocks: np.ndarray) -> np.ndarray:
     block_height, block_width, h, w = blocks.shape
     return blocks.transpose(0, 2, 1, 3).reshape(block_height * h, block_width * w)
-
-
-def embed_watermark_into_image(image: np.ndarray, qr: np.ndarray, size_region: int, q: float, phi: float, pitch: int = 1, x: int = None, y: int = None, offset: int = None) -> np.ndarray:
-    image = np.asarray(image)
-    if image.ndim != 2:
-        raise ValueError("Input image must be grayscale")
-
-    spectrum_qr = build_wm_spectrum(qr, size_region, phi, pitch, x, y, offset)
-    blocks = split_into_blocks(image, block_size=size_region)
-    watermarked_blocks = np.zeros_like(blocks, dtype=np.float64)
-
-    for i in range(blocks.shape[0]):
-        for j in range(blocks.shape[1]):
-            block = blocks[i, j].astype(np.float64)
-            wm_spectrum = my_fft2(block) + q * spectrum_qr
-            watermarked_blocks[i, j] = np.real(my_ifft2(wm_spectrum))
-
-    watermarked_image = merge_blocks(watermarked_blocks)
-    watermarked_image = np.clip(watermarked_image, 0, 255).astype(np.uint8)
-
-    return watermarked_image
 
 
 def iter_offset_blocks(image: np.ndarray, block_size: int, start_x: int, start_y: int):
@@ -216,15 +253,30 @@ def average_offset_spectrum(image: np.ndarray, block_size: int, start_x: int, st
     return acc / count, count
 
 
-def _build_neighbor_exclusion_set(qr_size: int, size_region: int, pitch: int = 1, x: int = None, y: int = None, offset: int = None) -> Set[Tuple[int, int]]:
-    """"""
+def _build_neighbor_exclusion_set(
+    qr_size: int,
+    size_region: int,
+    x: int = None,
+    y: int = None,
+    offset: int = None,
+) -> Set[Tuple[int, int]]:
     protected: Set[Tuple[int, int]] = set()
-    positions = qr_to_spectrum_positions(qr_size, size_region, pitch, x, y, offset)
+
+    positions = qr_to_spectrum_positions(
+        qr_size=qr_size,
+        size_region=size_region,
+        x=x,
+        y=y,
+        offset=offset,
+    )
+
     for pos in positions:
         u = pos["row"]
         v = pos["col"]
+
         protected.add((u, v))
         protected.add(_conj_index(u, v, size_region))
+
     return protected
 
 
@@ -280,25 +332,46 @@ def _recover_topk(score_map: np.ndarray, ones_ratio: float = 0.5) -> Tuple[np.nd
     return recovered.reshape(score_map.shape), tau
 
 
-def default_ring_radius(pitch: int) -> int:
-    return max(2, 2 * pitch)
 
-
-def blind_score_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int, phi: float, pitch: int, x: int , y: int, offset: int, ring_radius: Optional[int] = None) -> np.ndarray:
-    """"""
+def blind_score_map(
+    avg_spectrum: np.ndarray,
+    qr_size: int,
+    size_region: int,
+    phi: float,
+    x: int,
+    y: int,
+    offset: int,
+    ring_radius: Optional[int] = None,
+) -> np.ndarray:
     if ring_radius is None:
-        ring_radius = default_ring_radius(pitch)
+        ring_radius = 2
 
     raw_score = np.zeros((qr_size, qr_size), dtype=np.float64)
-    positions = qr_to_spectrum_positions(qr_size, size_region, pitch, x, y, offset)
+
+    positions = qr_to_spectrum_positions(
+        qr_size=qr_size,
+        size_region=size_region,
+        x=x,
+        y=y,
+        offset=offset,
+    )
+
     mag = np.abs(avg_spectrum)
-    exclude_coords = _build_neighbor_exclusion_set(qr_size, size_region, pitch, x, y, offset)
+
+    exclude_coords = _build_neighbor_exclusion_set(
+        qr_size=qr_size,
+        size_region=size_region,
+        x=x,
+        y=y,
+        offset=offset,
+    )
 
     for pos in positions:
         qi = pos["qr_i"]
         qj = pos["qr_j"]
         u = pos["row"]
         v = pos["col"]
+
         uc, vc = _conj_index(u, v, size_region)
 
         signal = np.real(avg_spectrum[u, v] * np.exp(-1j * phi))
@@ -306,30 +379,69 @@ def blind_score_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int, ph
 
         bg1 = _ring_background(mag, u, v, ring_radius, exclude_coords)
         bg2 = _ring_background(mag, uc, vc, ring_radius, exclude_coords)
+
         raw_score[qi, qj] = signal / (bg1 + bg2 + 1e-6)
 
     return _robust_normalize(_detrend_score_map(raw_score))
 
 
-def extract_watermark(image: np.ndarray, qr_size: int, size_region: int, phi: float, ones_ratio: float, start_x: int = 0,  start_y: int = 0,
-                      pitch: int = 1, x: int = None, y: int = None, offset: int = None, ring_radius: Optional[int] = None, phase_sign: int = 1):
-    """ """
+def extract_watermark(
+    image: np.ndarray,
+    qr_size: int,
+    size_region: int,
+    phi: float,
+    ones_ratio: float,
+    start_x: int = 0,
+    start_y: int = 0,
+    x: int = None,
+    y: int = None,
+    offset: int = None,
+    ring_radius: Optional[int] = None,
+    phase_sign: int = 1,
+):
     image = np.asarray(image)
+
     if image.ndim != 2:
         raise ValueError("Input image must be grayscale")
 
-    avg_spectrum, blocks_used = average_offset_spectrum(image, size_region, start_x, start_y, phase_sign)
+    avg_spectrum, blocks_used = average_offset_spectrum(
+        image=image,
+        block_size=size_region,
+        start_x=start_x,
+        start_y=start_y,
+        phase_sign=phase_sign,
+    )
 
-    score_map = blind_score_map(avg_spectrum, qr_size, size_region, phi, pitch, x, y, offset, ring_radius)
+    score_map = blind_score_map(
+        avg_spectrum=avg_spectrum,
+        qr_size=qr_size,
+        size_region=size_region,
+        phi=phi,
+        x=x,
+        y=y,
+        offset=offset,
+        ring_radius=ring_radius,
+    )
 
     recovered, tau = _recover_topk(score_map, ones_ratio)
+
     return recovered, score_map, avg_spectrum, blocks_used, tau
 
 
-def extract_watermark_search_offsets(image: np.ndarray, qr_size: int, size_region: int, phi: float, ones_ratio: float,
-        offset_candidates: List[Tuple[int, int]], pitch: int = 1, x: int = None, y: int = None, offset: int = None,
-        ring_radius: Optional[int] = None, phase_sign_candidates: Tuple[int, ...] = (1, -1)):
 
+def extract_watermark_search_offsets(
+    image: np.ndarray,
+    qr_size: int,
+    size_region: int,
+    phi: float,
+    ones_ratio: float,
+    offset_candidates: List[Tuple[int, int]],
+    x: int = None,
+    y: int = None,
+    offset: int = None,
+    ring_radius: Optional[int] = None,
+    phase_sign_candidates: Tuple[int, ...] = (1, -1),
+):
     best = None
     diagnostics = []
 
@@ -343,12 +455,11 @@ def extract_watermark_search_offsets(image: np.ndarray, qr_size: int, size_regio
                 ones_ratio=ones_ratio,
                 start_x=start_x,
                 start_y=start_y,
-                pitch=pitch,
                 x=x,
                 y=y,
                 offset=offset,
                 ring_radius=ring_radius,
-                phase_sign=phase_sign
+                phase_sign=phase_sign,
             )
 
             flat = score_map.ravel()
@@ -356,7 +467,10 @@ def extract_watermark_search_offsets(image: np.ndarray, qr_size: int, size_regio
             idx0 = recovered.ravel() == 0
 
             if np.any(idx1) and np.any(idx0):
-                metric = float((np.mean(flat[idx1]) - np.mean(flat[idx0])) / (np.std(flat) + 1e-6))
+                metric = float(
+                    (np.mean(flat[idx1]) - np.mean(flat[idx0]))
+                    / (np.std(flat) + 1e-6)
+                )
             else:
                 metric = -np.inf
 
@@ -371,6 +485,7 @@ def extract_watermark_search_offsets(image: np.ndarray, qr_size: int, size_regio
                 "threshold": tau,
                 "metric": metric,
             }
+
             diagnostics.append({
                 "start_x": start_x,
                 "start_y": start_y,
@@ -437,7 +552,6 @@ def extract_watermark_limited_blocks(
     max_blocks: int,
     random_blocks: bool = False,
     seed: int | None = None,
-    pitch: int = 1,
     x: int = None,
     y: int = None,
     offset: int = None,
@@ -456,20 +570,16 @@ def extract_watermark_limited_blocks(
     )
 
     score_map = blind_score_map(
-        avg_spectrum, qr_size, size_region, phi,
-        pitch, x, y, offset, ring_radius
+        avg_spectrum=avg_spectrum,
+        qr_size=qr_size,
+        size_region=size_region,
+        phi=phi,
+        x=x,
+        y=y,
+        offset=offset,
+        ring_radius=ring_radius,
     )
 
     recovered, tau = _recover_topk(score_map, ones_ratio)
 
     return recovered, score_map, avg_spectrum, blocks_used, tau
-
-
-def random_nonzero_start(block_size: int, seed: int | None = None) -> Tuple[int, int]:
-    rng = np.random.default_rng(seed)
-
-    while True:
-        start_x = int(rng.integers(0, block_size / 4))
-        start_y = int(rng.integers(0, block_size / 4))
-        if (start_x, start_y) != (0, 0):
-            return start_x, start_y

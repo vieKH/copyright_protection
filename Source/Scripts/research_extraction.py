@@ -23,7 +23,6 @@ OUTPUT_DIR = os.path.join("Results", "Research")
 
 REGION_SIZE = 64
 QR_SIZE = 6
-PITCH = 1
 PHI = np.pi / 3
 
 # Embedding position in the spectrum. These are fixed during the experiment.
@@ -126,7 +125,6 @@ if __name__ == "__main__":
         size_region=REGION_SIZE,
         q=q,
         phi=PHI,
-        pitch=PITCH,
         x=EMBED_X,
         y=EMBED_Y,
         offset=EMBED_OFFSET,
@@ -145,7 +143,6 @@ if __name__ == "__main__":
         phi=PHI,
         start_x=start_x,
         start_y=start_y,
-        pitch=PITCH,
         x=EMBED_X,
         y=EMBED_Y,
         offset=EMBED_OFFSET,

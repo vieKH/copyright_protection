@@ -221,7 +221,7 @@ def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: in
     ax3.axis("off")
 
     ax4 = plt.subplot(2, 4, 4)
-    image_after_embedding = embed_watermark_into_image(image, qr, size_region, q, phase, 2, x, y, offset)
+    image_after_embedding = embed_watermark_into_image(image, qr, size_region, q, phase, x, y, offset)
     ax4.imshow(image_after_embedding, cmap="gray")
     ax4.set_title("Image after adding QR code")
     ax4.axis("off")
@@ -247,7 +247,6 @@ def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: in
         phi=phase,
         ones_ratio=0.5,
         offset_candidates=offset_candidates,
-        pitch=1,
         x=x,
         y=y,
         offset=offset,
