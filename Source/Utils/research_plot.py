@@ -247,14 +247,12 @@ def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: in
         phi=phase,
         ones_ratio=0.5,
         offset_candidates=offset_candidates,
-        pitch=2,
+        pitch=1,
         x=x,
         y=y,
         offset=offset,
         phase_sign_candidates=(1, -1)
     )
-
-    qr_extracted = best["recovered_qr"]
 
     qr_extracted = best["recovered_qr"]
     print(best["start_x"], best["start_y"], best["metric"])

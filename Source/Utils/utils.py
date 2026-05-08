@@ -49,7 +49,7 @@ def _conj_index(u: int, v: int, n: int) -> Tuple[int, int]:
     return (-u) % n, (-v) % n
 
 
-def max_qr_size_for_block(block_size: int, pitch: int = 2) -> int:
+def max_qr_size_for_block(block_size: int, pitch: int = 1) -> int:
     x, y, offset = design_params(block_size)
 
     best = 0
@@ -80,7 +80,7 @@ def max_qr_size_for_block(block_size: int, pitch: int = 2) -> int:
     return best
 
 
-def recommended_qr_range(block_size: int, pitch: int = 2) -> Tuple[int, int]:
+def recommended_qr_range(block_size: int, pitch: int = 1) -> Tuple[int, int]:
     """"""
     geom_max = max_qr_size_for_block(block_size, pitch)
     low = max(5, geom_max // 6)
@@ -88,7 +88,7 @@ def recommended_qr_range(block_size: int, pitch: int = 2) -> Tuple[int, int]:
     return low, high
 
 
-def qr_to_spectrum_positions(qr_size: int, size_region: int, pitch: int = 2, x: int = None, y: int = None, offset: int = None) -> List[Dict[str, int]]:
+def qr_to_spectrum_positions(qr_size: int, size_region: int, pitch: int, x: int, y: int , offset: int) -> List[Dict[str, int]]:
     """"""
     positions: List[Dict[str, int]] = []
     l_mid = (qr_size + 1) // 2
@@ -130,7 +130,7 @@ def qr_to_spectrum_positions(qr_size: int, size_region: int, pitch: int = 2, x: 
     return positions
 
 
-def build_wm_spectrum(qr: np.ndarray,  size_region: int, phi: float, pitch: int = 2, x: int = None, y: int = None, offset: int = None) -> np.ndarray:
+def build_wm_spectrum(qr: np.ndarray,  size_region: int, phi: float, pitch: int = 1, x: int = None, y: int = None, offset: int = None) -> np.ndarray:
 
     qr = np.asarray(qr, dtype=np.uint8)
     spectrum_qr = np.zeros((size_region, size_region), dtype=np.complex128)
@@ -167,7 +167,7 @@ def merge_blocks(blocks: np.ndarray) -> np.ndarray:
     return blocks.transpose(0, 2, 1, 3).reshape(block_height * h, block_width * w)
 
 
-def embed_watermark_into_image(image: np.ndarray, qr: np.ndarray, size_region: int, q: float, phi: float, pitch: int = 2, x: int = None, y: int = None, offset: int = None) -> np.ndarray:
+def embed_watermark_into_image(image: np.ndarray, qr: np.ndarray, size_region: int, q: float, phi: float, pitch: int = 1, x: int = None, y: int = None, offset: int = None) -> np.ndarray:
     image = np.asarray(image)
     if image.ndim != 2:
         raise ValueError("Input image must be grayscale")
@@ -216,7 +216,7 @@ def average_offset_spectrum(image: np.ndarray, block_size: int, start_x: int, st
     return acc / count, count
 
 
-def _build_neighbor_exclusion_set(qr_size: int, size_region: int, pitch: int = 2, x: int = None, y: int = None, offset: int = None) -> Set[Tuple[int, int]]:
+def _build_neighbor_exclusion_set(qr_size: int, size_region: int, pitch: int = 1, x: int = None, y: int = None, offset: int = None) -> Set[Tuple[int, int]]:
     """"""
     protected: Set[Tuple[int, int]] = set()
     positions = qr_to_spectrum_positions(qr_size, size_region, pitch, x, y, offset)
@@ -284,7 +284,7 @@ def default_ring_radius(pitch: int) -> int:
     return max(2, 2 * pitch)
 
 
-def blind_score_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int, phi: float, pitch: int = 2, x: int = None, y: int = None, offset: int = None, ring_radius: Optional[int] = None) -> np.ndarray:
+def blind_score_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int, phi: float, pitch: int, x: int , y: int, offset: int, ring_radius: Optional[int] = None) -> np.ndarray:
     """"""
     if ring_radius is None:
         ring_radius = default_ring_radius(pitch)
@@ -312,7 +312,7 @@ def blind_score_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int, ph
 
 
 def extract_watermark(image: np.ndarray, qr_size: int, size_region: int, phi: float, ones_ratio: float, start_x: int = 0,  start_y: int = 0,
-                      pitch: int = 2, x: int = None, y: int = None, offset: int = None, ring_radius: Optional[int] = None, phase_sign: int = 1):
+                      pitch: int = 1, x: int = None, y: int = None, offset: int = None, ring_radius: Optional[int] = None, phase_sign: int = 1):
     """ """
     image = np.asarray(image)
     if image.ndim != 2:
@@ -327,7 +327,7 @@ def extract_watermark(image: np.ndarray, qr_size: int, size_region: int, phi: fl
 
 
 def extract_watermark_search_offsets(image: np.ndarray, qr_size: int, size_region: int, phi: float, ones_ratio: float,
-        offset_candidates: List[Tuple[int, int]], pitch: int = 2, x: int = None, y: int = None, offset: int = None,
+        offset_candidates: List[Tuple[int, int]], pitch: int = 1, x: int = None, y: int = None, offset: int = None,
         ring_radius: Optional[int] = None, phase_sign_candidates: Tuple[int, ...] = (1, -1)):
 
     best = None
@@ -384,3 +384,92 @@ def extract_watermark_search_offsets(image: np.ndarray, qr_size: int, size_regio
 
     best["diagnostics"] = diagnostics
     return best
+
+def average_offset_spectrum_limited(
+    image: np.ndarray,
+    block_size: int,
+    start_x: int,
+    start_y: int,
+    max_blocks: int | None = None,
+    random_blocks: bool = False,
+    seed: int | None = None,
+    phase_sign: int = 1,
+) -> Tuple[np.ndarray, int]:
+    blocks = list(iter_offset_blocks(image, block_size, start_x, start_y))
+
+    if len(blocks) == 0:
+        raise ValueError("No blocks were extracted")
+
+    if max_blocks is not None:
+        max_blocks = min(max_blocks, len(blocks))
+        if random_blocks:
+            rng = np.random.default_rng(seed)
+            idx = rng.choice(len(blocks), size=max_blocks, replace=False)
+            blocks = [blocks[i] for i in idx]
+        else:
+            blocks = blocks[:max_blocks]
+
+    acc = np.zeros((block_size, block_size), dtype=np.complex128)
+
+    uu, vv = np.meshgrid(
+        np.arange(block_size),
+        np.arange(block_size),
+        indexing="ij"
+    )
+    base_phase = np.exp(
+        phase_sign * 1j * 2.0 * np.pi * ((uu * start_x + vv * start_y) / block_size)
+    )
+
+    for block, _, _ in blocks:
+        acc += my_fft2(block.astype(np.float64)) * base_phase
+
+    return acc / len(blocks), len(blocks)
+
+
+def extract_watermark_limited_blocks(
+    image: np.ndarray,
+    qr_size: int,
+    size_region: int,
+    phi: float,
+    ones_ratio: float,
+    start_x: int,
+    start_y: int,
+    max_blocks: int,
+    random_blocks: bool = False,
+    seed: int | None = None,
+    pitch: int = 1,
+    x: int = None,
+    y: int = None,
+    offset: int = None,
+    ring_radius: Optional[int] = None,
+    phase_sign: int = 1,
+):
+    avg_spectrum, blocks_used = average_offset_spectrum_limited(
+        image=image,
+        block_size=size_region,
+        start_x=start_x,
+        start_y=start_y,
+        max_blocks=max_blocks,
+        random_blocks=random_blocks,
+        seed=seed,
+        phase_sign=phase_sign,
+    )
+
+    score_map = blind_score_map(
+        avg_spectrum, qr_size, size_region, phi,
+        pitch, x, y, offset, ring_radius
+    )
+
+    recovered, tau = _recover_topk(score_map, ones_ratio)
+
+    return recovered, score_map, avg_spectrum, blocks_used, tau
+
+
+def random_nonzero_start(block_size: int, seed: int | None = None) -> Tuple[int, int]:
+    rng = np.random.default_rng(seed)
+
+    while True:
+        start_x = int(rng.integers(0, block_size / 4))
+        start_y = int(rng.integers(0, block_size / 4))
+        if (start_x, start_y) != (0, 0):
+            return start_x, start_y
