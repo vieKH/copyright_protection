@@ -1,9 +1,19 @@
+import os
+
 import numpy as np
 import matplotlib.pyplot as plt
 
 from .my_function import my_ifft2, my_fft2
-from .utils import (compression_spectrum, generate_watermark, embed_watermark_into_image, merge_blocks, split_into_blocks,
-                    extract_watermark, count_psnr, bit_accuracy, extract_watermark_search_offsets, design_params)
+from .utils import (
+    compression_spectrum,
+    generate_watermark,
+    embed_watermark_into_image,
+    merge_blocks,
+    split_into_blocks,
+    count_psnr,
+    bit_accuracy,
+    extract_watermark_search_offsets,
+)
 
 def couple_of_points(image: np.ndarray, x: int, y: int, save_path: str):
     """
@@ -238,26 +248,32 @@ def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: in
     ax6.axis("off")
     ax6.set_title("Difference spectrum")
 
-    offset_candidates = [(20, 20)]
+    offset_candidates = [(10,10)]
 
     best = extract_watermark_search_offsets(
         image=image_after_embedding,
         qr_size=size_qr,
         size_region=size_region,
         phi=phase,
-        ones_ratio=0.5,
         offset_candidates=offset_candidates,
         x=x,
         y=y,
         offset=offset,
-        phase_sign_candidates=(1, -1)
+        phase_sign_candidates=(1, -1),
+        detrend=(size_qr <= 8),
     )
 
     qr_extracted = best["recovered_qr"]
-    print(best["start_x"], best["start_y"], best["metric"])
+    print(
+        "start:", best["start_x"], best["start_y"],
+        "| phase_sign:", best["phase_sign"],
+        "| metric:", best["metric"],
+        "| blocks:", best["blocks_used"],
+        "| predicted_ones:", best["predicted_ones"],
+        "| threshold:", best["threshold"],
+    )
 
     score_map = best["score_map"]
-    # qr_extracted, score_map = extract_watermark(image_after_embedding, size_qr, size_region, x, y, offset, phase, start_x, start_y)
     ax7 = plt.subplot(2, 4, 7)
     ax7.imshow(qr_extracted, cmap="gray")
     ax7.set_title("Extract QR")
@@ -273,7 +289,11 @@ def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: in
     if qr_extracted.size == qr.size:
         print(f"Accuracy: {bit_accuracy(qr, qr_extracted)}")
     print('-'*30)
-    # # plt.savefig(save_path, dpi=300, bbox_inches="tight")
+    if save_path:
+        save_dir = os.path.dirname(save_path)
+        if save_dir:
+            os.makedirs(save_dir, exist_ok=True)
+        plt.savefig(save_path, dpi=300, bbox_inches="tight")
     plt.show()
     return None
 

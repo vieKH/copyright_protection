@@ -3,13 +3,13 @@ import matplotlib.pyplot as plt
 import os
 from Source.Utils import research_qr
 
-SIZE_QR = 6
+SIZE_QR = 10
 SIZE_REGION = 64
 X = SIZE_REGION // 8
 Y = SIZE_REGION // 8
 OFFSET = SIZE_REGION // 16
 PHASE = np.pi / 3
-S = 140
+S = 300
 
 
 def calculate_q(snr: float, l: int, n: int) -> float:
@@ -19,6 +19,7 @@ IMAGE_PATH = os.path.join('Image', 'lena.tif')
 SAVE_PATH = os.path.join('Results','QR_Research')
 
 if __name__ == '__main__':
+    os.makedirs(SAVE_PATH, exist_ok=True)
     image = plt.imread(IMAGE_PATH)
 
     path_save = os.path.join(SAVE_PATH, 'QR_Research.png')

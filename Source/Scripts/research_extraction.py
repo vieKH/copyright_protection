@@ -22,7 +22,7 @@ IMAGE_PATH = os.path.join("Image","lena.tif")
 OUTPUT_DIR = os.path.join("Results", "Research")
 
 REGION_SIZE = 64
-QR_SIZE = 6
+QR_SIZE = 14
 PHI = np.pi / 3
 
 # Embedding position in the spectrum. These are fixed during the experiment.
@@ -43,15 +43,12 @@ AVOID_ZERO_ZERO_START = True
 
 # If False, blocks are accumulated in raster order from the extraction grid.
 # If True, the block order is shuffled once, then accumulated progressively.
-SHUFFLE_BLOCK_ORDER = False
+SHUFFLE_BLOCK_ORDER = True
 
-# Recommended: "otsu". Other options: "zero", "median", "topk".
-# "topk" is kept only for comparison because it requires ONES_RATIO_FOR_TOPK.
-DECISION_METHOD = "topk"
-ONES_RATIO_FOR_TOPK = 0.5
 
 PHASE_SIGN = -1
-DETREND_SCORE = False
+detrend = QR_SIZE <= 8
+
 
 
 # =========================
@@ -130,11 +127,14 @@ if __name__ == "__main__":
         offset=EMBED_OFFSET,
     )
 
-    start_x, start_y = random_extract_start(
-        REGION_SIZE,
-        seed=EXTRACT_START_SEED,
-        avoid_zero_zero=AVOID_ZERO_ZERO_START,
-    )
+    # start_x, start_y = random_extract_start(
+    #     REGION_SIZE,
+    #     seed=EXTRACT_START_SEED,
+    #     avoid_zero_zero=AVOID_ZERO_ZERO_START,
+    # )
+
+    start_x = 20
+    start_y = 20
 
     results, n_available = extract_progressive_by_blocks(
         image=watermarked,
@@ -146,13 +146,11 @@ if __name__ == "__main__":
         x=EMBED_X,
         y=EMBED_Y,
         offset=EMBED_OFFSET,
-        decision_method=DECISION_METHOD,
-        ones_ratio=ONES_RATIO_FOR_TOPK,
         qr_true=qr_true,
         phase_sign=PHASE_SIGN,
         shuffle_blocks=SHUFFLE_BLOCK_ORDER,
         seed=BLOCK_ORDER_SEED,
-        detrend=DETREND_SCORE,
+        detrend=(QR_SIZE<=8),
     )
 
     print("Experiment config")
@@ -164,7 +162,7 @@ if __name__ == "__main__":
     print("- embed x/y/offset:", (EMBED_X, EMBED_Y, EMBED_OFFSET))
     print("- extract start_x/start_y:", (start_x, start_y))
     print("- available blocks:", n_available)
-    print("- decision method:", DECISION_METHOD)
+    print("- decision rule: median threshold on phase-projection score")
     print()
 
     for r in results:

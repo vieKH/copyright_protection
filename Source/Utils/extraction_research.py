@@ -110,24 +110,49 @@ def _local_median_magnitude(
     v: int,
     radius: int,
     protected: set[Tuple[int, int]],
+    min_samples: int = 8,
+    max_radius: Optional[int] = None,
 ) -> float:
-    u1 = max(0, u - radius)
-    u2 = min(mag.shape[0], u + radius + 1)
-    v1 = max(0, v - radius)
-    v2 = min(mag.shape[1], v + radius + 1)
+    if max_radius is None:
+        max_radius = max(radius + 1, min(mag.shape) // 4)
 
-    vals: List[float] = []
-    for uu in range(u1, u2):
-        for vv in range(v1, v2):
-            if (uu, vv) == (u, v):
-                continue
-            if (uu, vv) in protected:
-                continue
-            vals.append(float(mag[uu, vv]))
+    h, w = mag.shape
 
-    if not vals:
-        return 0.0
-    return float(np.median(vals))
+    for r in range(radius, max_radius + 1):
+        u1 = max(0, u - r)
+        u2 = min(h, u + r + 1)
+        v1 = max(0, v - r)
+        v2 = min(w, v + r + 1)
+
+        vals: List[float] = []
+
+        for uu in range(u1, u2):
+            for vv in range(v1, v2):
+                if (uu, vv) == (u, v):
+                    continue
+
+                if (uu, vv) in protected:
+                    continue
+
+                val = float(mag[uu, vv])
+                if val > EPS:
+                    vals.append(val)
+
+        if len(vals) >= min_samples:
+            return float(np.median(vals))
+
+
+    vals = [
+        float(mag[uu, vv])
+        for uu in range(h)
+        for vv in range(w)
+        if (uu, vv) not in protected and float(mag[uu, vv]) > EPS
+    ]
+
+    if vals:
+        return float(np.median(vals))
+
+    return EPS
 
 
 def _detrend_score_map(score_map: np.ndarray) -> np.ndarray:
@@ -188,11 +213,7 @@ def score_watermark_map(
             + np.real(avg_spectrum[uc, vc] * e_pos)
         )
 
-        bg = 0.5 * (
-            _local_median_magnitude(mag, u, v, ring_radius, protected)
-            + _local_median_magnitude(mag, uc, vc, ring_radius, protected)
-        )
-        raw[qi, qj] = signal / (bg + EPS)
+        raw[qi, qj] = signal
 
     if detrend:
         raw = _detrend_score_map(raw)
@@ -229,48 +250,13 @@ def otsu_threshold(values: np.ndarray) -> float:
     return best_threshold
 
 
-def recover_qr_from_score(
-    score_map: np.ndarray,
-    method: str = "otsu",
-    ones_ratio: Optional[float] = None,
-) -> Tuple[np.ndarray, float]:
-    """Convert score map to binary QR.
-
-    method:
-      - "otsu": data-driven threshold, recommended for the research plot.
-      - "zero": threshold at score 0 after robust normalization.
-      - "median": threshold at the median score.
-      - "topk": legacy/oracle-style mode; requires ones_ratio.
-    """
+def recover_qr_from_score(score_map: np.ndarray) -> Tuple[np.ndarray, float]:
     flat = np.asarray(score_map, dtype=np.float64).ravel()
-    method = method.lower().strip()
 
-    if method == "otsu":
-        tau = otsu_threshold(flat)
-        recovered = (flat > tau).astype(np.uint8)
-    elif method == "zero":
-        tau = 0.0
-        recovered = (flat > tau).astype(np.uint8)
-    elif method == "median":
-        tau = float(np.median(flat))
-        recovered = (flat > tau).astype(np.uint8)
-    elif method == "topk":
-        if ones_ratio is None:
-            raise ValueError("ones_ratio is required when method='topk'")
-        n = flat.size
-        k = int(round(n * float(ones_ratio)))
-        k = max(0, min(k, n))
-        recovered = np.zeros(n, dtype=np.uint8)
-        if k > 0:
-            idx = np.argsort(flat)[-k:]
-            recovered[idx] = 1
-            tau = float(np.min(flat[idx]))
-        else:
-            tau = float(np.max(flat) + 1.0)
-    else:
-        raise ValueError("method must be one of: 'otsu', 'zero', 'median', 'topk'")
+    threshold = float(np.median(flat))
+    recovered = (flat > threshold).astype(np.uint8)
 
-    return recovered.reshape(score_map.shape), tau
+    return recovered.reshape(score_map.shape), threshold
 
 
 def collect_block_spectra(
@@ -326,8 +312,6 @@ def extract_progressive_by_blocks(
     y: Optional[int] = None,
     offset: Optional[int] = None,
     block_counts: Optional[Sequence[int]] = None,
-    decision_method: str = "otsu",
-    ones_ratio: Optional[float] = None,
     qr_true: Optional[np.ndarray] = None,
     ring_radius: Optional[int] = None,
     phase_sign: int = 1,
@@ -378,11 +362,7 @@ def extract_progressive_by_blocks(
             ring_radius=ring_radius,
             detrend=detrend,
         )
-        recovered_qr, threshold = recover_qr_from_score(
-            score_map,
-            method=decision_method,
-            ones_ratio=ones_ratio,
-        )
+        recovered_qr, threshold = recover_qr_from_score(score_map)
 
         accuracy = None
         if qr_true is not None:

@@ -316,21 +316,11 @@ def _detrend_score_map(score_map: np.ndarray) -> np.ndarray:
     return s
 
 
-def _recover_topk(score_map: np.ndarray, ones_ratio: float = 0.5) -> Tuple[np.ndarray, float]:
+def _recover_median(score_map: np.ndarray) -> Tuple[np.ndarray, float]:
     flat = np.asarray(score_map, dtype=np.float64).ravel()
-    n = flat.size
-    k = max(0, min(int(round(n * ones_ratio)), n))
-
-    recovered = np.zeros(n, dtype=np.uint8)
-    if k > 0:
-        idx = np.argsort(flat)[-k:]
-        recovered[idx] = 1
-        tau = float(np.min(flat[idx]))
-    else:
-        tau = float(np.max(flat) + 1.0)
-
+    tau = float(np.median(flat))
+    recovered = (flat > tau).astype(np.uint8)
     return recovered.reshape(score_map.shape), tau
-
 
 
 def blind_score_map(
@@ -342,6 +332,7 @@ def blind_score_map(
     y: int,
     offset: int,
     ring_radius: Optional[int] = None,
+    detrend: bool = True,
 ) -> np.ndarray:
     if ring_radius is None:
         ring_radius = 2
@@ -349,16 +340,6 @@ def blind_score_map(
     raw_score = np.zeros((qr_size, qr_size), dtype=np.float64)
 
     positions = qr_to_spectrum_positions(
-        qr_size=qr_size,
-        size_region=size_region,
-        x=x,
-        y=y,
-        offset=offset,
-    )
-
-    mag = np.abs(avg_spectrum)
-
-    exclude_coords = _build_neighbor_exclusion_set(
         qr_size=qr_size,
         size_region=size_region,
         x=x,
@@ -377,12 +358,12 @@ def blind_score_map(
         signal = np.real(avg_spectrum[u, v] * np.exp(-1j * phi))
         signal += np.real(avg_spectrum[uc, vc] * np.exp(1j * phi))
 
-        bg1 = _ring_background(mag, u, v, ring_radius, exclude_coords)
-        bg2 = _ring_background(mag, uc, vc, ring_radius, exclude_coords)
+        raw_score[qi, qj] = 0.5 * signal
 
-        raw_score[qi, qj] = signal / (bg1 + bg2 + 1e-6)
+    if detrend:
+        raw_score = _detrend_score_map(raw_score)
 
-    return _robust_normalize(_detrend_score_map(raw_score))
+    return _robust_normalize(raw_score)
 
 
 def extract_watermark(
@@ -390,7 +371,6 @@ def extract_watermark(
     qr_size: int,
     size_region: int,
     phi: float,
-    ones_ratio: float,
     start_x: int = 0,
     start_y: int = 0,
     x: int = None,
@@ -398,6 +378,7 @@ def extract_watermark(
     offset: int = None,
     ring_radius: Optional[int] = None,
     phase_sign: int = 1,
+    detrend: bool = True,
 ):
     image = np.asarray(image)
 
@@ -421,9 +402,10 @@ def extract_watermark(
         y=y,
         offset=offset,
         ring_radius=ring_radius,
+        detrend=detrend,
     )
 
-    recovered, tau = _recover_topk(score_map, ones_ratio)
+    recovered, tau = _recover_median(score_map)
 
     return recovered, score_map, avg_spectrum, blocks_used, tau
 
@@ -434,13 +416,13 @@ def extract_watermark_search_offsets(
     qr_size: int,
     size_region: int,
     phi: float,
-    ones_ratio: float,
     offset_candidates: List[Tuple[int, int]],
     x: int = None,
     y: int = None,
     offset: int = None,
     ring_radius: Optional[int] = None,
     phase_sign_candidates: Tuple[int, ...] = (1, -1),
+    detrend: bool = True,
 ):
     best = None
     diagnostics = []
@@ -452,7 +434,6 @@ def extract_watermark_search_offsets(
                 qr_size=qr_size,
                 size_region=size_region,
                 phi=phi,
-                ones_ratio=ones_ratio,
                 start_x=start_x,
                 start_y=start_y,
                 x=x,
@@ -460,6 +441,7 @@ def extract_watermark_search_offsets(
                 offset=offset,
                 ring_radius=ring_radius,
                 phase_sign=phase_sign,
+                detrend=detrend,
             )
 
             flat = score_map.ravel()
@@ -483,6 +465,7 @@ def extract_watermark_search_offsets(
                 "avg_spectrum": avg_spectrum,
                 "blocks_used": blocks_used,
                 "threshold": tau,
+                "predicted_ones": int(np.sum(recovered)),
                 "metric": metric,
             }
 
@@ -492,6 +475,8 @@ def extract_watermark_search_offsets(
                 "phase_sign": phase_sign,
                 "metric": metric,
                 "blocks_used": blocks_used,
+                "predicted_ones": int(np.sum(recovered)),
+                "threshold": tau,
             })
 
             if best is None or item["metric"] > best["metric"]:
@@ -546,7 +531,6 @@ def extract_watermark_limited_blocks(
     qr_size: int,
     size_region: int,
     phi: float,
-    ones_ratio: float,
     start_x: int,
     start_y: int,
     max_blocks: int,
@@ -557,6 +541,7 @@ def extract_watermark_limited_blocks(
     offset: int = None,
     ring_radius: Optional[int] = None,
     phase_sign: int = 1,
+    detrend: bool = True,
 ):
     avg_spectrum, blocks_used = average_offset_spectrum_limited(
         image=image,
@@ -578,8 +563,9 @@ def extract_watermark_limited_blocks(
         y=y,
         offset=offset,
         ring_radius=ring_radius,
+        detrend=detrend,
     )
 
-    recovered, tau = _recover_topk(score_map, ones_ratio)
+    recovered, tau = _recover_median(score_map)
 
     return recovered, score_map, avg_spectrum, blocks_used, tau
