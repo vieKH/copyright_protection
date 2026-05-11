@@ -4,52 +4,32 @@ import csv
 import math
 import os
 import shutil
-from dataclasses import dataclass
-from typing import Callable, List, Sequence, Union
-
 import matplotlib.pyplot as plt
 import numpy as np
-from PIL import Image
 
-from Source.Utils.distorter import ImageDistorter
-from Source.Utils.extraction_research import extract_progressive_by_blocks
-from Source.Utils.utils import (
-    bit_accuracy,
-    count_psnr,
-    embed_watermark_into_image,
-    generate_watermark,
-)
+from PIL import Image
+from dataclasses import dataclass
+from typing import Callable, List, Sequence, Union
+from Source.Utils import (bit_accuracy, count_psnr, embed_watermark_into_image, generate_watermark,
+                          ImageDistorter, extract_progressive_by_blocks)
 
 Number = Union[int, float]
 
-# ============================================================
-# Main experiment configuration
-# ============================================================
 IMAGE_PATH = os.path.join("Image", "lena.tif")
 OUTPUT_DIR = os.path.join("Results", "Distortion_Research")
 
 REGION_SIZE = 64
 QR_SIZE = 14
 PHI = np.pi / 3
-
-# Embedding position in every Fourier block.
 EMBED_X = 8
 EMBED_Y = 8
 EMBED_OFFSET = 4
-
-# Watermark strength parameter.
 S_PARAM = 300
 QR_SEED = 42
-
-
 START_X = 5
 START_Y = 8
 PHASE_SIGN = -1
-
-# Only small QR sizes usually need detrending.
 DETREND = QR_SIZE <= 8
-
-# Figure layout. The number of rows is computed automatically.
 MAX_GRID_COLS = 5
 
 
@@ -64,10 +44,12 @@ class AttackSpec:
 
 
 def calculate_q(s_param: float, qr_size: int, region_size: int) -> float:
+    """ Calculate the QR decomposition of a signal """
     return (255 * region_size * region_size) / (s_param * qr_size)
 
 
 def load_grayscale(path: str) -> np.ndarray:
+    """ Load image in grayscale format """
     image = plt.imread(path)
     if image.ndim == 3:
         image = image[:, :, 0]
@@ -77,6 +59,7 @@ def load_grayscale(path: str) -> np.ndarray:
 
 
 def ensure_dir(path: str) -> None:
+    """Make directory if it doesn't exist."""
     os.makedirs(path, exist_ok=True)
 
 
@@ -95,19 +78,8 @@ def reset_dir(path: str) -> None:
 
 
 def prepare_attack_dir(attack_dir: str) -> str:
-    """Keep only the figures folder inside every attack directory.
-
-    This also removes legacy outputs from older runs:
-    - attacked/
-    - extracted_qr/
-    - metrics.csv
-    """
+    """Keep only the figures folder inside every attack directory."""
     ensure_dir(attack_dir)
-
-    remove_path(os.path.join(attack_dir, "attacked"))
-    remove_path(os.path.join(attack_dir, "extracted_qr"))
-    remove_path(os.path.join(attack_dir, "metrics.csv"))
-
     figures_dir = os.path.join(attack_dir, "figures")
     remove_path(figures_dir)
     ensure_dir(figures_dir)
@@ -149,6 +121,7 @@ def irange(start: int, stop: int, step: int) -> List[int]:
 
 
 def value_to_text(value: Number) -> str:
+    """Convert a number to its corresponding text representation."""
     if isinstance(value, (int, np.integer)):
         return str(int(value))
     text = f"{float(value):.6f}".rstrip("0").rstrip(".")
@@ -156,10 +129,12 @@ def value_to_text(value: Number) -> str:
 
 
 def value_to_filename(value: Number) -> str:
+    """Convert a number to its corresponding filename representation. """
     return value_to_text(value).replace("-", "m").replace(".", "p")
 
 
 def save_gray_image(path: str, image: np.ndarray, vmin=None, vmax=None) -> None:
+    """Save a gray image as an image."""
     ensure_dir(os.path.dirname(path))
     arr = np.asarray(image)
 
@@ -183,6 +158,7 @@ def save_gray_image(path: str, image: np.ndarray, vmin=None, vmax=None) -> None:
 
 
 def save_csv(path: str, rows: Sequence[dict]) -> None:
+    """Save data in csv format"""
     if not rows:
         return
     ensure_dir(os.path.dirname(path))
@@ -192,14 +168,9 @@ def save_csv(path: str, rows: Sequence[dict]) -> None:
         writer.writerows(rows)
 
 
-def save_image_grid(
-    images: Sequence[np.ndarray],
-    titles: Sequence[str],
-    save_path: str,
-    suptitle: str,
-    vmin=None,
-    vmax=None,
-) -> None:
+def save_image_grid(images: Sequence[np.ndarray], titles: Sequence[str], save_path: str,
+                    suptitle: str, vmin=None, vmax=None) -> None:
+    """Save plot after drawing"""
     if len(images) != len(titles):
         raise ValueError("images and titles must have the same length")
     if not images:
@@ -227,16 +198,9 @@ def save_image_grid(
     plt.close(fig)
 
 
-def save_metric_plot(
-    rows: Sequence[dict],
-    save_path: str,
-    x_key: str,
-    y_key: str,
-    title: str,
-    xlabel: str,
-    ylabel: str,
-    ylim=None,
-) -> None:
+def save_metric_plot(rows: Sequence[dict], save_path: str, x_key: str, y_key: str, title: str,
+                     xlabel: str, ylabel: str,  ylim=None) -> None:
+    """Save data metric plot"""
     if not rows:
         return
 
@@ -323,12 +287,16 @@ def build_attack_specs() -> List[AttackSpec]:
             ).image,
         ),
         AttackSpec(
-            name="cyclic_shift",
+            name="shift",
             group="geometric",
             param_name="shift_fraction",
             param_symbol="r",
-            values=frange(0.1, 0.9, 0.1),
-            apply=lambda img, v: ImageDistorter(img).cyclic_shift(float(v)).image,
+            values=frange(0.02, 0.20, 0.02),
+            apply=lambda img, v: ImageDistorter(img).translate(
+                shift_y=int(round(float(v) * img.shape[0])),
+                shift_x=int(round(float(v) * img.shape[1])),
+                fill_value=0,
+            ).image,
         ),
         AttackSpec(
             name="smooth",
@@ -415,12 +383,7 @@ def extract_last_result(image: np.ndarray, qr_true: np.ndarray):
     return results[-1], n_available
 
 
-def run_one_attack(
-    spec: AttackSpec,
-    watermarked: np.ndarray,
-    qr_true: np.ndarray,
-    attack_dir: str,
-) -> List[dict]:
+def run_one_attack(spec: AttackSpec, watermarked: np.ndarray, qr_true: np.ndarray, attack_dir: str) -> List[dict]:
     figures_dir = prepare_attack_dir(attack_dir)
 
     rows: List[dict] = []
@@ -552,9 +515,7 @@ def save_summary_ber_plot(rows: Sequence[dict], save_path: str) -> None:
     plt.close()
 
 
-def main() -> None:
-    # Start from a clean output directory so old attacked/ and extracted_qr/
-    # folders from previous versions cannot remain visible.
+if __name__ == "__main__":
     reset_dir(OUTPUT_DIR)
     summary_dir = os.path.join(OUTPUT_DIR, "summary")
     ensure_dir(summary_dir)
@@ -563,16 +524,9 @@ def main() -> None:
     qr_true = generate_watermark(QR_SIZE, seed=QR_SEED)
     q = calculate_q(S_PARAM, QR_SIZE, REGION_SIZE)
 
-    watermarked = embed_watermark_into_image(
-        image=image,
-        qr=qr_true,
-        size_region=REGION_SIZE,
-        q=q,
-        phi=PHI,
-        x=EMBED_X,
-        y=EMBED_Y,
-        offset=EMBED_OFFSET,
-    )
+    watermarked = embed_watermark_into_image( image=image, qr=qr_true, size_region=REGION_SIZE, q=q,
+                                              phi=PHI, x=EMBED_X, y=EMBED_Y, offset=EMBED_OFFSET)
+
     watermarked = np.clip(watermarked, 0, 255).astype(np.uint8)
 
     save_gray_image(os.path.join(OUTPUT_DIR, "watermarked.png"), watermarked)
@@ -598,14 +552,8 @@ def main() -> None:
 
     all_csv_path = os.path.join(summary_dir, "all_results.csv")
     save_csv(all_csv_path, all_rows)
-    save_summary_accuracy_plot(
-        all_rows,
-        os.path.join(summary_dir, "accuracy_summary_all_attacks.png"),
-    )
-    save_summary_ber_plot(
-        all_rows,
-        os.path.join(summary_dir, "ber_summary_all_attacks.png"),
-    )
+    save_summary_accuracy_plot(all_rows, os.path.join(summary_dir, "accuracy_summary_all_attacks.png"))
+    save_summary_ber_plot(all_rows, os.path.join(summary_dir, "ber_summary_all_attacks.png"))
 
     print("\nSaved summary:")
     print("-", all_csv_path)
@@ -616,6 +564,3 @@ def main() -> None:
     print("\nCSV output is stored only in:")
     print("-", all_csv_path)
 
-
-if __name__ == "__main__":
-    main()

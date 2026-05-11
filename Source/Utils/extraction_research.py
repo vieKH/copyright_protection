@@ -1,25 +1,10 @@
-"""Progressive watermark extraction utilities.
-
-This module keeps the embedding algorithm unchanged and adds a research-oriented
-extractor: it averages more and more extraction blocks, then recovers the QR from
-the averaged spectrum with a data-driven threshold.
-"""
-
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple
-
 import numpy as np
-
+from dataclasses import dataclass
+from typing import List, Optional, Sequence, Tuple
 from .my_function import my_fft2
-from .utils import (
-    bit_accuracy,
-    design_params,
-    iter_offset_blocks,
-    qr_to_spectrum_positions,
-)
-
+from .utils import bit_accuracy, design_params, iter_offset_blocks, qr_to_spectrum_positions
 EPS = 1e-6
 
 
@@ -31,26 +16,6 @@ class ProgressiveExtractionResult:
     threshold: float
     predicted_ones: int
     accuracy: Optional[float] = None
-
-
-def random_extract_start(
-    block_size: int,
-    seed: Optional[int] = None,
-    avoid_zero_zero: bool = True,
-) -> Tuple[int, int]:
-    """Pick a random extraction start inside one block.
-
-    start_x/start_y are extraction offsets in the image domain, not the QR
-    embedding position in the spectrum. If avoid_zero_zero=True, (0, 0) is
-    rejected so the experiment is not the trivial aligned case.
-    """
-    rng = np.random.default_rng(seed)
-    while True:
-        start_x = int(rng.integers(0, block_size))
-        start_y = int(rng.integers(0, block_size))
-        if not avoid_zero_zero or (start_x, start_y) != (0, 0):
-            return start_x, start_y
-
 
 def progressive_block_counts(n_available_blocks: int) -> List[int]:
     """Return 1, 2, 4, 8, ... and finally all available blocks."""
@@ -70,15 +35,13 @@ def progressive_block_counts(n_available_blocks: int) -> List[int]:
 
 
 def _conj_index(u: int, v: int, n: int) -> Tuple[int, int]:
+    """ Count symmetrical position"""
     return (-u) % n, (-v) % n
 
 
-def _resolve_embedding_params(
-    size_region: int,
-    x: Optional[int],
-    y: Optional[int],
-    offset: Optional[int],
-) -> Tuple[int, int, int]:
+def _resolve_embedding_params(size_region: int, x: Optional[int], y: Optional[int],
+                              offset: Optional[int]) -> Tuple[int, int, int]:
+    """Fix param embedding if not right"""
     dx, dy, doffset = design_params(size_region)
     return (
         dx if x is None else int(x),
@@ -87,13 +50,9 @@ def _resolve_embedding_params(
     )
 
 
-def _protected_spectrum_coordinates(
-    qr_size: int,
-    size_region: int,
-    x: int = 0,
-    y: int = 0,
-    offset: int = 0,
-) -> set[Tuple[int, int]]:
+def _protected_spectrum_coordinates(qr_size: int, size_region: int, x: int = 0, y: int = 0,
+                                    offset: int = 0) -> set[Tuple[int, int]]:
+    """ Protect spectrum coordinates, where embedded wm"""
     protected: set[Tuple[int, int]] = set()
     positions = qr_to_spectrum_positions(qr_size, size_region, x, y, offset)
     for pos in positions:
@@ -104,15 +63,8 @@ def _protected_spectrum_coordinates(
     return protected
 
 
-def _local_median_magnitude(
-    mag: np.ndarray,
-    u: int,
-    v: int,
-    radius: int,
-    protected: set[Tuple[int, int]],
-    min_samples: int = 8,
-    max_radius: Optional[int] = None,
-) -> float:
+def _local_median_magnitude(mag: np.ndarray, u: int, v: int, radius: int, protected: set[Tuple[int, int]],
+                            min_samples: int = 8, max_radius: Optional[int] = None) -> float:
     if max_radius is None:
         max_radius = max(radius + 1, min(mag.shape) // 4)
 
@@ -156,6 +108,7 @@ def _local_median_magnitude(
 
 
 def _detrend_score_map(score_map: np.ndarray) -> np.ndarray:
+    """Count score map"""
     score = np.asarray(score_map, dtype=np.float64).copy()
     score -= np.mean(score, axis=1, keepdims=True)
     score -= np.mean(score, axis=0, keepdims=True)
@@ -169,17 +122,9 @@ def _robust_zscore(values: np.ndarray) -> np.ndarray:
     return (values - med) / (1.4826 * mad + EPS)
 
 
-def score_watermark_map(
-    avg_spectrum: np.ndarray,
-    qr_size: int,
-    size_region: int,
-    phi: float,
-    x: Optional[int] = None,
-    y: Optional[int] = None,
-    offset: Optional[int] = None,
-    ring_radius: Optional[int] = None,
-    detrend: bool = True,
-) -> np.ndarray:
+def score_watermark_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int, phi: float,
+                        x: Optional[int] = None, y: Optional[int] = None, offset: Optional[int] = None,
+                        ring_radius: Optional[int] = None, detrend: bool = True) -> np.ndarray:
     """Build a QR score map from the averaged spectrum.
 
     A high score means the frequency pair is aligned with the expected watermark
@@ -206,12 +151,7 @@ def score_watermark_map(
         v = pos["col"]
         uc, vc = _conj_index(u, v, size_region)
 
-        # Paired phase projection: watermark bit 1 should align with +phi at
-        # (u, v) and -phi at the conjugate coordinate.
-        signal = 0.5 * (
-            np.real(avg_spectrum[u, v] * e_neg)
-            + np.real(avg_spectrum[uc, vc] * e_pos)
-        )
+        signal = 0.5 * ( np.real(avg_spectrum[u, v] * e_neg) + np.real(avg_spectrum[uc, vc] * e_pos))
 
         raw[qi, qj] = signal
 
@@ -219,35 +159,6 @@ def score_watermark_map(
         raw = _detrend_score_map(raw)
 
     return _robust_zscore(raw)
-
-
-def otsu_threshold(values: np.ndarray) -> float:
-    """Otsu threshold for a small vector, without extra dependencies."""
-    flat = np.sort(np.asarray(values, dtype=np.float64).ravel())
-    if flat.size < 2:
-        return float(flat[0]) if flat.size else 0.0
-
-    unique = np.unique(flat)
-    if unique.size < 2:
-        return float(unique[0])
-
-    thresholds = (unique[:-1] + unique[1:]) / 2.0
-    best_threshold = float(np.median(flat))
-    best_score = -np.inf
-
-    for tau in thresholds:
-        left = flat[flat <= tau]
-        right = flat[flat > tau]
-        if left.size == 0 or right.size == 0:
-            continue
-        w0 = left.size / flat.size
-        w1 = right.size / flat.size
-        score = w0 * w1 * (float(np.mean(left)) - float(np.mean(right))) ** 2
-        if score > best_score:
-            best_score = score
-            best_threshold = float(tau)
-
-    return best_threshold
 
 
 def recover_qr_from_score(score_map: np.ndarray) -> Tuple[np.ndarray, float]:
@@ -259,15 +170,8 @@ def recover_qr_from_score(score_map: np.ndarray) -> Tuple[np.ndarray, float]:
     return recovered.reshape(score_map.shape), threshold
 
 
-def collect_block_spectra(
-    image: np.ndarray,
-    block_size: int,
-    start_x: int,
-    start_y: int,
-    phase_sign: int = 1,
-    shuffle_blocks: bool = False,
-    seed: Optional[int] = None,
-) -> List[np.ndarray]:
+def collect_block_spectra(image: np.ndarray, block_size: int, start_x: int, start_y: int, phase_sign: int = 1,
+                          shuffle_blocks: bool = False,  seed: Optional[int] = None) -> List[np.ndarray]:
     """Extract all valid blocks at an offset and return their corrected spectra."""
     image = np.asarray(image)
     if image.ndim != 2:
@@ -282,18 +186,8 @@ def collect_block_spectra(
         order = rng.permutation(len(blocks))
         blocks = [blocks[int(i)] for i in order]
 
-    uu, vv = np.meshgrid(
-        np.arange(block_size),
-        np.arange(block_size),
-        indexing="ij",
-    )
-    phase_correction = np.exp(
-        phase_sign
-        * 1j
-        * 2.0
-        * np.pi
-        * ((uu * start_x + vv * start_y) / block_size)
-    )
+    uu, vv = np.meshgrid( np.arange(block_size),  np.arange(block_size), indexing="ij")
+    phase_correction = np.exp( phase_sign * 1j * 2.0 * np.pi * ((uu * start_x + vv * start_y) / block_size))
 
     spectra: List[np.ndarray] = []
     for block, _, _ in blocks:
@@ -301,35 +195,16 @@ def collect_block_spectra(
     return spectra
 
 
-def extract_progressive_by_blocks(
-    image: np.ndarray,
-    qr_size: int,
-    size_region: int,
-    phi: float,
-    start_x: int,
-    start_y: int,
-    x: Optional[int] = None,
-    y: Optional[int] = None,
-    offset: Optional[int] = None,
-    block_counts: Optional[Sequence[int]] = None,
-    qr_true: Optional[np.ndarray] = None,
-    ring_radius: Optional[int] = None,
-    phase_sign: int = 1,
-    shuffle_blocks: bool = False,
-    seed: Optional[int] = None,
-    detrend: bool = True,
-) -> Tuple[List[ProgressiveExtractionResult], int]:
+def extract_progressive_by_blocks(image: np.ndarray, qr_size: int, size_region: int, phi: float,
+                                  start_x: int, start_y: int, x: Optional[int] = None, y: Optional[int] = None,
+                                  offset: Optional[int] = None, block_counts: Optional[Sequence[int]] = None,
+                                  qr_true: Optional[np.ndarray] = None,  ring_radius: Optional[int] = None,
+                                  phase_sign: int = 1, shuffle_blocks: bool = False, seed: Optional[int] = None,
+                                  detrend: bool = True) -> Tuple[List[ProgressiveExtractionResult], int]:
     """Average 1, 2, 4, ... blocks and recover QR at each step."""
     x, y, offset = _resolve_embedding_params(size_region, x, y, offset)
-    spectra = collect_block_spectra(
-        image=image,
-        block_size=size_region,
-        start_x=start_x,
-        start_y=start_y,
-        phase_sign=phase_sign,
-        shuffle_blocks=shuffle_blocks,
-        seed=seed,
-    )
+    spectra = collect_block_spectra(image=image, block_size=size_region, start_x=start_x, start_y=start_y,
+                                    phase_sign=phase_sign, shuffle_blocks=shuffle_blocks, seed=seed)
 
     n_available = len(spectra)
     if block_counts is None:
@@ -351,17 +226,8 @@ def extract_progressive_by_blocks(
             continue
 
         avg_spectrum = running_sum / idx
-        score_map = score_watermark_map(
-            avg_spectrum=avg_spectrum,
-            qr_size=qr_size,
-            size_region=size_region,
-            phi=phi,
-            x=x,
-            y=y,
-            offset=offset,
-            ring_radius=ring_radius,
-            detrend=detrend,
-        )
+        score_map = score_watermark_map(avg_spectrum=avg_spectrum, qr_size=qr_size, size_region=size_region,phi=phi,
+                                        x=x, y=y, offset=offset, ring_radius=ring_radius, detrend=detrend)
         recovered_qr, threshold = recover_qr_from_score(score_map)
 
         accuracy = None
@@ -369,14 +235,8 @@ def extract_progressive_by_blocks(
             accuracy = bit_accuracy(qr_true, recovered_qr)
 
         results.append(
-            ProgressiveExtractionResult(
-                blocks_used=idx,
-                recovered_qr=recovered_qr,
-                score_map=score_map,
-                threshold=threshold,
-                predicted_ones=int(np.sum(recovered_qr)),
-                accuracy=accuracy,
-            )
+            ProgressiveExtractionResult(blocks_used=idx, recovered_qr=recovered_qr, score_map=score_map,
+                                         threshold=threshold, predicted_ones=int(np.sum(recovered_qr)), accuracy=accuracy)
         )
 
         next_count_idx += 1

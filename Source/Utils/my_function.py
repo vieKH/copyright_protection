@@ -1,6 +1,7 @@
 import numpy as np
 
 def dft_matrix(size: int, inverse: bool = False) -> np.ndarray:
+    """DFT for matrix 1D"""
     n = np.arange(size)
     k = n.reshape(size, 1)
     sign = 1 if inverse else -1
@@ -10,6 +11,7 @@ def dft_matrix(size: int, inverse: bool = False) -> np.ndarray:
     return w
 
 def my_fft2(img: np.ndarray) -> np.ndarray:
+    """FFT for matrix 2D"""
     img = np.asarray(img, dtype=np.complex128)
     h, w = img.shape
 
@@ -19,6 +21,7 @@ def my_fft2(img: np.ndarray) -> np.ndarray:
     return w_h @ img @ w_w
 
 def my_ifft2(spectrum: np.ndarray) -> np.ndarray:
+    """IFFT for matrix 2D"""
     spectrum = np.asarray(spectrum, dtype=np.complex128)
     h, w = spectrum.shape
 

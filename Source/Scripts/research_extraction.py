@@ -4,57 +4,35 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-from Source.Utils.extraction_research import (
-    extract_progressive_by_blocks,
-    random_extract_start,
-)
-from Source.Utils.utils import (
-    bit_accuracy,
-    count_psnr,
-    embed_watermark_into_image,
-    generate_watermark,
-)
+from Source.Utils import extract_progressive_by_blocks
+from Source.Utils import count_psnr, embed_watermark_into_image, generate_watermark
 
-# =========================
-# Experiment parameters
-# =========================
+
 IMAGE_PATH = os.path.join("Image","lena.tif")
 OUTPUT_DIR = os.path.join("Results", "Extraction_Research")
 
 REGION_SIZE = 64
 QR_SIZE = 14
 PHI = np.pi / 3
-
-# Embedding position in the spectrum. These are fixed during the experiment.
 EMBED_X = 8
 EMBED_Y = 8
 EMBED_OFFSET = 4
-
-# Strength parameter, kept explicit instead of hidden as a default.
 S_PARAM = 300
-
-# Seeds are parameters so the experiment is reproducible.
 QR_SEED = 42
 EXTRACT_START_SEED = 6513
 BLOCK_ORDER_SEED = 2026
-
-# Extraction start is random once, but not (0, 0).
 AVOID_ZERO_ZERO_START = True
-
-# If False, blocks are accumulated in raster order from the extraction grid.
-# If True, the block order is shuffled once, then accumulated progressively.
 SHUFFLE_BLOCK_ORDER = True
-
-
 PHASE_SIGN = -1
-detrend = QR_SIZE <= 8
+DETREND = QR_SIZE <= 8
 
 
 def calculate_q(s_param: float, qr_size: int, region_size: int) -> float:
     return (255 * region_size * region_size) / (s_param * qr_size)
 
 
-def plot_figure_1(image, qr_true, watermarked, results, save_path: str):
+def plot_figure_1(image: np.ndarray, qr_true: np.ndarray, watermarked: np.ndarray, results, save_path: str):
+    """ Plot for extracted blocks vs number of extracted blocks """
     n_items = 3 + len(results)
     n_cols = 4
     n_rows = math.ceil(n_items / n_cols)
@@ -90,6 +68,7 @@ def plot_figure_1(image, qr_true, watermarked, results, save_path: str):
 
 
 def plot_figure_2(results, save_path: str):
+    """Plot for accuracy vs number of extracted blocks"""
     blocks = [r.blocks_used for r in results]
     accuracies = [r.accuracy for r in results]
 
@@ -112,16 +91,8 @@ if __name__ == "__main__":
     qr_true = generate_watermark(QR_SIZE, seed=QR_SEED)
     q = calculate_q(S_PARAM, QR_SIZE, REGION_SIZE)
 
-    watermarked = embed_watermark_into_image(
-        image=image,
-        qr=qr_true,
-        size_region=REGION_SIZE,
-        q=q,
-        phi=PHI,
-        x=EMBED_X,
-        y=EMBED_Y,
-        offset=EMBED_OFFSET,
-    )
+    watermarked = embed_watermark_into_image(image=image, qr=qr_true, size_region=REGION_SIZE, q=q,
+                                             phi=PHI, x=EMBED_X, y=EMBED_Y, offset=EMBED_OFFSET)
 
     start_x = 5
     start_y = 8

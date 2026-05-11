@@ -24,5 +24,4 @@ if __name__ == "__main__":
     path_show_frequency = os.path.join(SAVE_PATH, "4_show_frequency.png")
     show_frequency(IMAGE_PATH, path_show_frequency)
 
-    # research_qr(blackImage, 8, 1, 1)
 

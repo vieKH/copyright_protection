@@ -1,15 +1,7 @@
-"""Image distortion utilities for watermark robustness experiments.
-
-The methods return a new ImageDistorter instance and keep the output image size
-unchanged whenever possible. Keeping the size unchanged is convenient for the
-current block-based extractor, which expects a fixed block grid.
-"""
-
 from __future__ import annotations
 
 import io
 from typing import Literal, Optional, Tuple
-
 import numpy as np
 from PIL import Image
 from scipy.signal import convolve2d
@@ -31,9 +23,7 @@ class ImageDistorter:
         """Return the distorted image."""
         return self._image
 
-    # ------------------------------------------------------------------
-    # Non-geometric attacks: they mainly modify pixel values.
-    # ------------------------------------------------------------------
+
     def contrast(self, contrast_factor: float) -> "ImageDistorter":
         """Linear contrast change: I' = contrast_factor * I."""
         contrasted = np.clip(
@@ -141,9 +131,7 @@ class ImageDistorter:
         compressed = np.asarray(Image.open(buffer)).astype(self._image.dtype)
         return ImageDistorter(compressed)
 
-    # ------------------------------------------------------------------
-    # Geometric attacks: they modify the spatial coordinate system.
-    # ------------------------------------------------------------------
+
     def cyclic_shift(self, shift_fraction: float) -> "ImageDistorter":
         """Cyclic diagonal shift. This preserves size but changes block alignment."""
         shift_height = int(np.floor(shift_fraction * self._height))
@@ -151,12 +139,7 @@ class ImageDistorter:
         shifted = np.roll(self._image, shift=(shift_height, shift_width), axis=(0, 1))
         return ImageDistorter(shifted)
 
-    def translate(
-        self,
-        shift_y: int,
-        shift_x: int,
-        fill_value: int = 0,
-    ) -> "ImageDistorter":
+    def translate(self, shift_y: int, shift_x: int, fill_value: int = 0) -> "ImageDistorter":
         """Non-cyclic translation with constant padding."""
         result = self._constant_canvas(self._height, self._width, fill_value)
 
@@ -175,13 +158,8 @@ class ImageDistorter:
 
         return ImageDistorter(result.astype(self._image.dtype))
 
-    def crop_restore(
-        self,
-        retained_fraction: float,
-        position: Position = "center",
-        fill_value: int = 0,
-        seed: Optional[int] = None,
-    ) -> "ImageDistorter":
+    def crop_restore(self, retained_fraction: float, position: Position = "center", fill_value: int = 0,
+                     seed: Optional[int] = None) -> "ImageDistorter":
         """Crop a retained image region and pad it back to the original size.
 
         This is the direct implementation of обрезка изображения for the current
@@ -199,13 +177,8 @@ class ImageDistorter:
         restored = self._center_to_canvas(cropped, self._height, self._width, fill_value)
         return ImageDistorter(restored.astype(self._image.dtype))
 
-    def cutout(
-        self,
-        area_fraction: float,
-        position: Position = "center",
-        fill_value: int = 0,
-        seed: Optional[int] = None,
-    ) -> "ImageDistorter":
+    def cutout(self, area_fraction: float, position: Position = "center", fill_value: int = 0,
+               seed: Optional[int] = None) -> "ImageDistorter":
         """Remove one rectangular area by filling it with a constant value."""
         if not 0 <= area_fraction <= 1:
             raise ValueError("area_fraction must be between 0 and 1")
@@ -249,39 +222,22 @@ class ImageDistorter:
 
         return ImageDistorter(replacement.astype(self._image.dtype))
 
-    def rotation(
-        self,
-        angle: float,
-        interpolation: Interpolation = "bilinear",
-        fill_value: int = 0,
-    ) -> "ImageDistorter":
+    def rotation(self, angle: float, interpolation: Interpolation = "bilinear",fill_value: int = 0) -> "ImageDistorter":
         """Rotate and return the central crop with the original size."""
         rotated = self._rotate(self._image, angle, interpolation, expand=True, fill_value=fill_value)
         cropped = self._crop_or_pad_center(rotated, self._height, self._width, fill_value)
         return ImageDistorter(cropped.astype(self._image.dtype))
 
-    def rotation_rest(
-        self,
-        angle: float,
-        interpolation: Interpolation = "bilinear",
-        fill_value: int = 0,
-    ) -> "ImageDistorter":
-        """Rotate by angle, then rotate back by -angle.
-
-        This tests interpolation damage even when the final orientation is
-        restored.
-        """
+    def rotation_rest(self, angle: float, interpolation: Interpolation = "bilinear",
+                      fill_value: int = 0) -> "ImageDistorter":
+        """Rotate by angle, then rotate back by -angle."""
         rotated = self._rotate(self._image, angle, interpolation, expand=True, fill_value=fill_value)
         restored = self._rotate(rotated, -angle, interpolation, expand=True, fill_value=fill_value)
         cropped = self._crop_or_pad_center(restored, self._height, self._width, fill_value)
         return ImageDistorter(cropped.astype(self._image.dtype))
 
-    def scale(
-        self,
-        scale_factor: float,
-        interpolation: Interpolation = "bilinear",
-        fill_value: int = 0,
-    ) -> "ImageDistorter":
+    def scale( self, scale_factor: float,  interpolation: Interpolation = "bilinear",
+               fill_value: int = 0) -> "ImageDistorter":
         """Scale image, then crop/pad to the original size."""
         if scale_factor <= 0:
             raise ValueError("scale_factor must be positive")
@@ -290,12 +246,8 @@ class ImageDistorter:
         restored_size = self._crop_or_pad_center(scaled, self._height, self._width, fill_value)
         return ImageDistorter(restored_size.astype(self._image.dtype))
 
-    def scale_rest(
-        self,
-        scale_factor: float,
-        interpolation: Interpolation = "bilinear",
-        fill_value: int = 0,
-    ) -> "ImageDistorter":
+    def scale_rest(self, scale_factor: float, interpolation: Interpolation = "bilinear",
+                   fill_value: int = 0) -> "ImageDistorter":
         """Scale by factor and then restore by 1/factor."""
         if scale_factor <= 0:
             raise ValueError("scale_factor must be positive")
@@ -305,11 +257,7 @@ class ImageDistorter:
         cropped = self._crop_or_pad_center(restored, self._height, self._width, fill_value)
         return ImageDistorter(cropped.astype(self._image.dtype))
 
-    def resampling(
-        self,
-        sampling_factor: float,
-        interpolation: Interpolation = "bilinear",
-    ) -> "ImageDistorter":
+    def resampling(self, sampling_factor: float, interpolation: Interpolation = "bilinear") -> "ImageDistorter":
         """Change sampling step and restore the original image size.
 
         sampling_factor < 1 means downsample then upsample. This is the clearest
@@ -322,9 +270,7 @@ class ImageDistorter:
         restored = self._resize_to_shape(tmp, self._height, self._width, interpolation)
         return ImageDistorter(restored.astype(self._image.dtype))
 
-    # ------------------------------------------------------------------
-    # Static helpers.
-    # ------------------------------------------------------------------
+
     @staticmethod
     def _make_odd(window_size: int) -> int:
         window_size = int(window_size)
@@ -401,13 +347,7 @@ class ImageDistorter:
             return np.full((height, width), fill_value, dtype=self._image.dtype)
         return np.full((height, width, self._image.shape[2]), fill_value, dtype=self._image.dtype)
 
-    def _center_to_canvas(
-        self,
-        image: np.ndarray,
-        target_height: int,
-        target_width: int,
-        fill_value: int,
-    ) -> np.ndarray:
+    def _center_to_canvas(self, image: np.ndarray, target_height: int, target_width: int, fill_value: int) -> np.ndarray:
         result = self._constant_canvas(target_height, target_width, fill_value)
         h, w = image.shape[:2]
 
@@ -426,22 +366,12 @@ class ImageDistorter:
         result[y_start:y_end, x_start:x_end, ...] = image[src_y_start:src_y_end, src_x_start:src_x_end, ...]
         return result
 
-    def _crop_or_pad_center(
-        self,
-        image: np.ndarray,
-        target_height: int,
-        target_width: int,
-        fill_value: int,
-    ) -> np.ndarray:
+    def _crop_or_pad_center(self, image: np.ndarray, target_height: int, target_width: int,
+                            fill_value: int) -> np.ndarray:
         return self._center_to_canvas(image, target_height, target_width, fill_value)
 
-    def _position_to_top_left(
-        self,
-        patch_h: int,
-        patch_w: int,
-        position: Position,
-        seed: Optional[int],
-    ) -> Tuple[int, int]:
+    def _position_to_top_left(self, patch_h: int, patch_w: int, position: Position,
+                              seed: Optional[int]) -> Tuple[int, int]:
         max_y = self._height - patch_h
         max_x = self._width - patch_w
 

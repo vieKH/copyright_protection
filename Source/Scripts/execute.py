@@ -13,6 +13,7 @@ S = 300
 
 
 def calculate_q(snr: float, l: int, n: int) -> float:
+    """ Calculate the QR decomposition of a signal """
     return (255 * n * n) / (snr * l)
 
 IMAGE_PATH = os.path.join('Image', 'lena.tif')
@@ -23,8 +24,6 @@ if __name__ == '__main__':
     image = plt.imread(IMAGE_PATH)
 
     path_save = os.path.join(SAVE_PATH, 'QR_Research.png')
-
-    # plot_qr_s_grid(image, SIZE_QR, SIZE_REGION, X, Y, OFFSET, PHASE, S)
 
     q = calculate_q(S, SIZE_QR, SIZE_REGION)
 
