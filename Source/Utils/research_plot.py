@@ -4,16 +4,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from .my_function import my_ifft2, my_fft2
-from .utils import (
-    compression_spectrum,
-    generate_watermark,
-    embed_watermark_into_image,
-    merge_blocks,
-    split_into_blocks,
-    count_psnr,
-    bit_accuracy,
-    extract_watermark_search_offsets,
-)
+from .utils import (compression_spectrum, generate_watermark, embed_watermark_into_image, merge_blocks,
+                    split_into_blocks, count_psnr, bit_accuracy)
+from .extraction_research import extract_watermark_search_offsets
 
 def couple_of_points(image: np.ndarray, x: int, y: int, save_path: str):
     """
