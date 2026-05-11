@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c8b8900-12c5-4c22-8797-3ce249f75048" name="Changes" comment="75%">
-      <change afterPath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" afterDir="false" />
+    <list default="true" id="0c8b8900-12c5-4c22-8797-3ce249f75048" name="Changes" comment="80%">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/execute.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/execute.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/distorter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/distorter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +75,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.research distorter">
+  <component name="RunManager" selected="Python.execute">
     <configuration name="execute" type="PythonConfigurationType" factoryName="Python">
       <module name="copyright_protection" />
       <option name="ENV_FILES" value="" />
@@ -235,7 +235,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778391332467</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="80%">
+      <option name="closed" value="true" />
+      <created>1778500690447</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1778500690447</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,7 +255,8 @@
     <MESSAGE value="push .idea" />
     <MESSAGE value="commit for new version" />
     <MESSAGE value="75%" />
-    <option name="LAST_COMMIT_MESSAGE" value="75%" />
+    <MESSAGE value="80%" />
+    <option name="LAST_COMMIT_MESSAGE" value="80%" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/copyright_protection$execute.coverage" NAME="execute Coverage Results" MODIFIED="1776272998944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\Hoang\OneDrive\Desktop\Study\copyright_protection" />

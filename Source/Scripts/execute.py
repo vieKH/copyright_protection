@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import os
 from Source.Utils import research_qr
 
-SIZE_QR = 10
+SIZE_QR = 14
 SIZE_REGION = 64
 X = SIZE_REGION // 8
 Y = SIZE_REGION // 8

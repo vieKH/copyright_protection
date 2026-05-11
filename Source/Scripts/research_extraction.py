@@ -19,7 +19,7 @@ from Source.Utils.utils import (
 # Experiment parameters
 # =========================
 IMAGE_PATH = os.path.join("Image","lena.tif")
-OUTPUT_DIR = os.path.join("Results", "Research")
+OUTPUT_DIR = os.path.join("Results", "Extraction_Research")
 
 REGION_SIZE = 64
 QR_SIZE = 14
@@ -31,7 +31,7 @@ EMBED_Y = 8
 EMBED_OFFSET = 4
 
 # Strength parameter, kept explicit instead of hidden as a default.
-S_PARAM = 200
+S_PARAM = 300
 
 # Seeds are parameters so the experiment is reproducible.
 QR_SEED = 42
