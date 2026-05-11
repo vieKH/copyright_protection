@@ -31,7 +31,7 @@ EMBED_Y = 8
 EMBED_OFFSET = 4
 
 # Strength parameter, kept explicit instead of hidden as a default.
-S_PARAM = 140
+S_PARAM = 200
 
 # Seeds are parameters so the experiment is reproducible.
 QR_SEED = 42
@@ -50,10 +50,6 @@ PHASE_SIGN = -1
 detrend = QR_SIZE <= 8
 
 
-
-# =========================
-# Helpers
-# =========================
 def calculate_q(s_param: float, qr_size: int, region_size: int) -> float:
     return (255 * region_size * region_size) / (s_param * qr_size)
 
@@ -127,14 +123,8 @@ if __name__ == "__main__":
         offset=EMBED_OFFSET,
     )
 
-    # start_x, start_y = random_extract_start(
-    #     REGION_SIZE,
-    #     seed=EXTRACT_START_SEED,
-    #     avoid_zero_zero=AVOID_ZERO_ZERO_START,
-    # )
-
-    start_x = 20
-    start_y = 20
+    start_x = 5
+    start_y = 8
 
     results, n_available = extract_progressive_by_blocks(
         image=watermarked,

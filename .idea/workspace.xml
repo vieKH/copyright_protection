@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c8b8900-12c5-4c22-8797-3ce249f75048" name="Changes" comment="commit for new version">
+    <list default="true" id="0c8b8900-12c5-4c22-8797-3ce249f75048" name="Changes" comment="75%">
+      <change afterPath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/execute.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/execute.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/extract_by_blocks.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/extraction_research.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/extraction_research.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/research_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/research_plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/distorter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/distorter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +56,7 @@
     &quot;Python.execute.executor&quot;: &quot;Run&quot;,
     &quot;Python.extrac_by_blocks.executor&quot;: &quot;Run&quot;,
     &quot;Python.extract by blocks.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research distorter.executor&quot;: &quot;Run&quot;,
     &quot;Python.research extraction.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -77,7 +75,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.execute">
+  <component name="RunManager" selected="Python.research distorter">
     <configuration name="execute" type="PythonConfigurationType" factoryName="Python">
       <module name="copyright_protection" />
       <option name="ENV_FILES" value="" />
@@ -95,6 +93,30 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/execute.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="research distorter" type="PythonConfigurationType" factoryName="Python">
+      <module name="copyright_protection" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.13 (copyright_protection)" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\Hoang\OneDrive\Desktop\Study\copyright_protection" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/research_distorter.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -129,6 +151,7 @@
     </configuration>
     <list>
       <item itemvalue="Python.execute" />
+      <item itemvalue="Python.research distorter" />
       <item itemvalue="Python.research extraction" />
     </list>
   </component>
@@ -204,7 +227,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778237438763</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="75%">
+      <option name="closed" value="true" />
+      <created>1778391332467</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1778391332467</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,7 +246,8 @@
     <MESSAGE value="basic research" />
     <MESSAGE value="push .idea" />
     <MESSAGE value="commit for new version" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit for new version" />
+    <MESSAGE value="75%" />
+    <option name="LAST_COMMIT_MESSAGE" value="75%" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/copyright_protection$execute.coverage" NAME="execute Coverage Results" MODIFIED="1776272998944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\Hoang\OneDrive\Desktop\Study\copyright_protection" />
