@@ -6,7 +6,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 import numpy as np
 
 from .my_function import my_fft2
-from .utils import  EPSILON,  bit_accuracy, conjugate_index, iter_offset_blocks, qr_to_spectrum_positions, resolve_embedding_params
+from .utils import  EPSILON,  bit_accuracy, _conj_index, iter_offset_blocks, qr_to_spectrum_positions, resolve_embedding_params
 
 
 @dataclass(frozen=True)
@@ -95,7 +95,7 @@ def score_watermark_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int
         qj = pos["qr_j"]
         u = pos["row"]
         v = pos["col"]
-        uc, vc = conjugate_index(u, v, size_region)
+        uc, vc = _conj_index(u, v, size_region)
 
         signal = 0.5 * (
             np.real(avg[u, v] * e_neg) + np.real(avg[uc, vc] * e_pos)
@@ -112,15 +112,8 @@ def score_watermark_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int
 blind_score_map = score_watermark_map
 
 
-def collect_block_spectra(
-    image: np.ndarray,
-    block_size: int,
-    start_x: int,
-    start_y: int,
-    phase_sign: int = 1,
-    shuffle_blocks: bool = False,
-    seed: Optional[int] = None,
-) -> List[np.ndarray]:
+def collect_block_spectra(image: np.ndarray, block_size: int, start_x: int, start_y: int, phase_sign: int = 1,
+                          shuffle_blocks: bool = False, seed: Optional[int] = None) -> List[np.ndarray]:
     """Extract all valid offset blocks and return their phase-corrected spectra."""
     img = np.asarray(image)
     if img.ndim != 2:
@@ -148,13 +141,7 @@ def collect_block_spectra(
     ]
 
 
-def average_offset_spectrum(
-    image: np.ndarray,
-    block_size: int,
-    start_x: int,
-    start_y: int,
-    phase_sign: int = 1,
-) -> Tuple[np.ndarray, int]:
+def average_offset_spectrum( image: np.ndarray, block_size: int, start_x: int, start_y: int, phase_sign: int = 1) -> Tuple[np.ndarray, int]:
     """Average all phase-corrected spectra from one offset extraction grid."""
     spectra = collect_block_spectra(
         image=image,

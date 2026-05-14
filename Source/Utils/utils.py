@@ -1,29 +1,10 @@
-"""Core utilities for spectral QR watermarking.
-
-This module intentionally contains only reusable, algorithm-level helpers:
-- image metrics;
-- QR generation;
-- image block handling;
-- QR-to-spectrum mapping;
-- watermark embedding.
-
-Extraction/research helpers belong in ``extraction_research.py``.
-"""
-
 from __future__ import annotations
-
 from typing import Dict, Iterator, List, Optional, Tuple
 
 import numpy as np
-
 from .my_function import my_fft2, my_ifft2
-
 EPSILON = 1e-6
 
-
-# -----------------------------------------------------------------------------
-# Basic metrics and QR generation
-# -----------------------------------------------------------------------------
 
 def count_psnr(image1: np.ndarray, image2: np.ndarray) -> float:
     """Compute PSNR between two equally shaped images."""
@@ -75,10 +56,6 @@ def calculate_q(s_param: float, qr_size: int, region_size: int) -> float:
     return float((255 * region_size * region_size) / (s_param * qr_size))
 
 
-# -----------------------------------------------------------------------------
-# Spectrum mapping helpers
-# -----------------------------------------------------------------------------
-
 def design_params(block_size: int) -> Tuple[int, int, int]:
     """Default spectral embedding parameters for one block size."""
     if block_size <= 0:
@@ -89,12 +66,8 @@ def design_params(block_size: int) -> Tuple[int, int, int]:
     return x, y, offset
 
 
-def resolve_embedding_params(
-    size_region: int,
-    x: Optional[int] = None,
-    y: Optional[int] = None,
-    offset: Optional[int] = None,
-) -> Tuple[int, int, int]:
+def resolve_embedding_params(size_region: int, x: Optional[int] = None, y: Optional[int] = None,
+                             offset: Optional[int] = None) -> Tuple[int, int, int]:
     """Use explicit embedding parameters or fall back to design_params()."""
     dx, dy, doffset = design_params(size_region)
     return (
@@ -104,13 +77,9 @@ def resolve_embedding_params(
     )
 
 
-def conjugate_index(u: int, v: int, n: int) -> Tuple[int, int]:
+def _conj_index(u: int, v: int, n: int) -> Tuple[int, int]:
     """Coordinate of the conjugate Fourier coefficient."""
     return (-u) % n, (-v) % n
-
-
-# Backward-compatible private alias for old code that imported it indirectly.
-_conj_index = conjugate_index
 
 
 def max_qr_size_for_block(block_size: int) -> int:
@@ -128,15 +97,9 @@ def max_qr_size_for_block(block_size: int) -> int:
     return best
 
 
-def qr_to_spectrum_positions(
-    qr_size: int,
-    size_region: int,
-    x: Optional[int] = None,
-    y: Optional[int] = None,
-    offset: Optional[int] = None,
-) -> List[Dict[str, int]]:
-    """Map QR bit coordinates to Fourier-spectrum coordinates.
-
+def qr_to_spectrum_positions(qr_size: int, size_region: int, x: Optional[int] = None, y: Optional[int] = None,
+                             offset: Optional[int] = None) -> List[Dict[str, int]]:
+    """Map QR bit coordinates to Fourier-spectrum coordinates
     The QR is split into a low-frequency left part and a high-frequency right
     part. The conjugate coordinates are handled later by ``build_wm_spectrum``.
     """
@@ -177,15 +140,9 @@ def qr_to_spectrum_positions(
 
             if not (0 <= u < size_region and 0 <= v < size_region):
                 raise ValueError("QR mapping index is out of bounds")
-
             positions.append({"qr_i": i, "qr_j": j, "row": u, "col": v})
-
     return positions
 
-
-# -----------------------------------------------------------------------------
-# Image block helpers
-# -----------------------------------------------------------------------------
 
 def split_into_blocks(img: np.ndarray, block_size: int) -> np.ndarray:
     """Split a 2D image into non-overlapping square blocks."""
@@ -214,12 +171,7 @@ def merge_blocks(blocks: np.ndarray) -> np.ndarray:
     return arr.transpose(0, 2, 1, 3).reshape(n_rows * h, n_cols * w)
 
 
-def iter_offset_blocks(
-    image: np.ndarray,
-    block_size: int,
-    start_x: int,
-    start_y: int,
-) -> Iterator[Tuple[np.ndarray, int, int]]:
+def iter_offset_blocks(image: np.ndarray, block_size: int, start_x: int,  start_y: int) -> Iterator[Tuple[np.ndarray, int, int]]:
     """Yield square blocks from an offset extraction grid."""
     img = np.asarray(image)
     if img.ndim != 2:
@@ -234,10 +186,6 @@ def iter_offset_blocks(
         for c in range(start_y, width - block_size + 1, block_size):
             yield img[r : r + block_size, c : c + block_size], r, c
 
-
-# -----------------------------------------------------------------------------
-# Embedding
-# -----------------------------------------------------------------------------
 
 def build_wm_spectrum(qr: np.ndarray, size_region: int, phi: float, x: Optional[int] = None, y: Optional[int] = None,
                       offset: Optional[int] = None) -> np.ndarray:
@@ -263,7 +211,7 @@ def build_wm_spectrum(qr: np.ndarray, size_region: int, phi: float, x: Optional[
         v = pos["col"]
         spectrum_qr[u, v] += e_pos
 
-        uc, vc = conjugate_index(u, v, size_region)
+        uc, vc = _conj_index(u, v, size_region)
         spectrum_qr[uc, vc] += e_neg
 
     return spectrum_qr

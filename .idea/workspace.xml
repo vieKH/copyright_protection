@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c8b8900-12c5-4c22-8797-3ce249f75048" name="Changes" comment="Update project for HIPC">
+    <list default="true" id="0c8b8900-12c5-4c22-8797-3ce249f75048" name="Changes" comment="Update project for HIPC ver2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Utils/extraction_research.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/extraction_research.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/my_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/my_function.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -267,7 +266,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778530881774</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Update project for HIPC ver2">
+      <option name="closed" value="true" />
+      <created>1778532668861</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1778532668861</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,7 +300,8 @@
     <MESSAGE value="80%" />
     <MESSAGE value="90%" />
     <MESSAGE value="Update project for HIPC" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update project for HIPC" />
+    <MESSAGE value="Update project for HIPC ver2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update project for HIPC ver2" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/copyright_protection$execute.coverage" NAME="execute Coverage Results" MODIFIED="1776272998944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\Hoang\OneDrive\Desktop\Study\copyright_protection" />
