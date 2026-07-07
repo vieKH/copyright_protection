@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thông tin cá nhân</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#181818;
+    color:white;
+    display:flex;
+    justify-content:center;
+    padding:30px 10px;
+}
+
+.container{
+    width:360px;
+    background:#202020;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 0 20px rgba(0,0,0,.5);
+}
+
+.header{
+    background:#2d2d2d;
+    padding:25px 20px;
+    display:flex;
+    align-items:center;
+}
+
+.avatar{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid white;
+}
+
+.info{
+    margin-left:18px;
+}
+
+.info h2{
+    margin-bottom:6px;
+}
+
+.info p{
+    color:#cfcfcf;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.btn{
+    display:inline-block;
+    padding:8px 15px;
+    background:#2d8cff;
+    color:white;
+    text-decoration:none;
+    border-radius:20px;
+    font-size:14px;
+}
+
+.list{
+    padding:15px;
+}
+
+.item{
+    display:flex;
+    align-items:center;
+    background:#2b2b2b;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:12px;
+    text-decoration:none;
+    color:white;
+    transition:.2s;
+}
+
+.item:hover{
+    background:#3b3b3b;
+}
+
+.icon{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    margin-right:15px;
+    color:white;
+}
+
+.fb{background:#1877F2;}
+.gmail{background:#EA4335;}
+.phone{background:#444;}
+.vk{background:#0077FF;}
+
+.title{
+    font-size:16px;
+    font-weight:bold;
+}
+
+.sub{
+    font-size:13px;
+    color:#bbbbbb;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <!-- Thay avatar.jpg bằng ảnh của bạn -->
+        <img class="avatar" src="avatar.png" alt="Avatar">
+
+        <div class="info">
+            <h2>Nguyễn Văn A</h2>
+            <p>Web Developer</p>
+
+            <a class="btn" href="#">Liên hệ</a>
+        </div>
+
+    </div>
+
+    <div class="list">
+
+        <a class="item" href="https://facebook.com/yourid" target="_blank">
+            <div class="icon fb">f</div>
+            <div>
+                <div class="title">Facebook</div>
+                <div class="sub">facebook.com/yourid</div>
+            </div>
+        </a>
+
+        <a class="item" href="mailto:example@gmail.com">
+            <div class="icon gmail">@</div>
+            <div>
+                <div class="title">Gmail</div>
+                <div class="sub">example@gmail.com</div>
+            </div>
+        </a>
+
+        <a class="item" href="tel:0123456789">
+            <div class="icon phone">☎</div>
+            <div>
+                <div class="title">Số điện thoại</div>
+                <div class="sub">0123 456 789</div>
+            </div>
+        </a>
+
+        <a class="item" href="https://vk.com/yourid" target="_blank">
+            <div class="icon vk">VK</div>
+            <div>
+                <div class="title">VK Contact</div>
+                <div class="sub">vk.com/yourid</div>
+            </div>
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
