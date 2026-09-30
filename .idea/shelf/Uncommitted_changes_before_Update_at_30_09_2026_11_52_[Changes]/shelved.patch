@@ -1,0 +1,565 @@
+Index: Source/Utils/CardInformation/card.html
+===================================================================
+diff --git a/Source/Utils/CardInformation/card.html b/Source/Utils/CardInformation/card.html
+deleted file mode 100644
+--- a/Source/Utils/CardInformation/card.html	(revision a3f632156a57a4474d5b945104e0a82be23c4f20)
++++ /dev/null	(revision a3f632156a57a4474d5b945104e0a82be23c4f20)
+@@ -1,177 +0,0 @@
+-<!DOCTYPE html>
+-<html lang="vi">
+-<head>
+-<meta charset="UTF-8">
+-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+-<title>Thông tin cá nhân</title>
+-
+-<style>
+-*{
+-    margin:0;
+-    padding:0;
+-    box-sizing:border-box;
+-    font-family:Arial, Helvetica, sans-serif;
+-}
+-
+-body{
+-    background:#181818;
+-    color:white;
+-    display:flex;
+-    justify-content:center;
+-    padding:30px 10px;
+-}
+-
+-.container{
+-    width:360px;
+-    background:#202020;
+-    border-radius:15px;
+-    overflow:hidden;
+-    box-shadow:0 0 20px rgba(0,0,0,.5);
+-}
+-
+-.header{
+-    background:#2d2d2d;
+-    padding:25px 20px;
+-    display:flex;
+-    align-items:center;
+-}
+-
+-.avatar{
+-    width:90px;
+-    height:90px;
+-    border-radius:50%;
+-    object-fit:cover;
+-    border:3px solid white;
+-}
+-
+-.info{
+-    margin-left:18px;
+-}
+-
+-.info h2{
+-    margin-bottom:6px;
+-}
+-
+-.info p{
+-    color:#cfcfcf;
+-    font-size:14px;
+-    margin-bottom:10px;
+-}
+-
+-.btn{
+-    display:inline-block;
+-    padding:8px 15px;
+-    background:#2d8cff;
+-    color:white;
+-    text-decoration:none;
+-    border-radius:20px;
+-    font-size:14px;
+-}
+-
+-.list{
+-    padding:15px;
+-}
+-
+-.item{
+-    display:flex;
+-    align-items:center;
+-    background:#2b2b2b;
+-    padding:15px;
+-    border-radius:10px;
+-    margin-bottom:12px;
+-    text-decoration:none;
+-    color:white;
+-    transition:.2s;
+-}
+-
+-.item:hover{
+-    background:#3b3b3b;
+-}
+-
+-.icon{
+-    width:45px;
+-    height:45px;
+-    border-radius:50%;
+-    display:flex;
+-    justify-content:center;
+-    align-items:center;
+-    font-size:22px;
+-    margin-right:15px;
+-    color:white;
+-}
+-
+-.fb{background:#1877F2;}
+-.gmail{background:#EA4335;}
+-.phone{background:#444;}
+-.vk{background:#0077FF;}
+-
+-.title{
+-    font-size:16px;
+-    font-weight:bold;
+-}
+-
+-.sub{
+-    font-size:13px;
+-    color:#bbbbbb;
+-}
+-</style>
+-</head>
+-
+-<body>
+-
+-<div class="container">
+-
+-    <div class="header">
+-
+-        <!-- Thay avatar.jpg bằng ảnh của bạn -->
+-        <img class="avatar" src="avatar.png" alt="Avatar">
+-
+-        <div class="info">
+-            <h2>Nguyễn Văn A</h2>
+-            <p>Web Developer</p>
+-
+-            <a class="btn" href="#">Liên hệ</a>
+-        </div>
+-
+-    </div>
+-
+-    <div class="list">
+-
+-        <a class="item" href="https://facebook.com/yourid" target="_blank">
+-            <div class="icon fb">f</div>
+-            <div>
+-                <div class="title">Facebook</div>
+-                <div class="sub">facebook.com/yourid</div>
+-            </div>
+-        </a>
+-
+-        <a class="item" href="mailto:example@gmail.com">
+-            <div class="icon gmail">@</div>
+-            <div>
+-                <div class="title">Gmail</div>
+-                <div class="sub">example@gmail.com</div>
+-            </div>
+-        </a>
+-
+-        <a class="item" href="tel:0123456789">
+-            <div class="icon phone">☎</div>
+-            <div>
+-                <div class="title">Số điện thoại</div>
+-                <div class="sub">0123 456 789</div>
+-            </div>
+-        </a>
+-
+-        <a class="item" href="https://vk.com/yourid" target="_blank">
+-            <div class="icon vk">VK</div>
+-            <div>
+-                <div class="title">VK Contact</div>
+-                <div class="sub">vk.com/yourid</div>
+-            </div>
+-        </a>
+-
+-    </div>
+-
+-</div>
+-
+-</body>
+-</html>
+\ No newline at end of file
+Index: .idea/copyright_protection.iml
+===================================================================
+diff --git a/.idea/copyright_protection.iml b/.idea/copyright_protection.iml
+deleted file mode 100644
+--- a/.idea/copyright_protection.iml	(revision a3f632156a57a4474d5b945104e0a82be23c4f20)
++++ /dev/null	(revision a3f632156a57a4474d5b945104e0a82be23c4f20)
+@@ -1,10 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module type="PYTHON_MODULE" version="4">
+-  <component name="NewModuleRootManager">
+-    <content url="file://$MODULE_DIR$">
+-      <excludeFolder url="file://$MODULE_DIR$/.venv" />
+-    </content>
+-    <orderEntry type="jdk" jdkName="Python 3.13 (copyright_protection)" jdkType="Python SDK" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-  </component>
+-</module>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"0c8b8900-12c5-4c22-8797-3ce249f75048\" name=\"Changes\" comment=\"Update project\">\r\n      <change afterPath=\"$PROJECT_DIR$/Source/Utils/CardInformation/card.html\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/Source/Utils/qr_create.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Source/Scripts/execute.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Source/Scripts/execute.py\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n        <option value=\"HTML File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;vieKH&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/vieKH/copyright_protection.git&quot;,\r\n    &quot;accountId&quot;: &quot;192a3571-cd48-49e8-abb0-01906dda2140&quot;\r\n  }\r\n}</component>\r\n  <component name=\"McpProjectServerCommands\">\r\n    <commands />\r\n    <urls />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"3BzyUXudo8HwWDOHjufhQlUs9er\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,\r\n    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,\r\n    &quot;Python.execute.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.extrac_by_blocks.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.extract by blocks.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.qr_create.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.research distorter.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.research extraction.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;ai.playground.ignore.import.keys.banner.in.settings&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hoang/OneDrive/Desktop/Study/copyright_protection&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\" selected=\"Python.execute\">\r\n    <configuration name=\"execute\" type=\"PythonConfigurationType\" factoryName=\"Python\">\r\n      <module name=\"copyright_protection\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"SDK_NAME\" value=\"Python 3.13 (copyright_protection)\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"C:\\Users\\Hoang\\OneDrive\\Desktop\\Study\\copyright_protection\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\r\n      <option name=\"RUN_TOOL\" value=\"\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Source/Scripts/execute.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"research distorter\" type=\"PythonConfigurationType\" factoryName=\"Python\">\r\n      <module name=\"copyright_protection\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"SDK_NAME\" value=\"Python 3.13 (copyright_protection)\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"C:\\Users\\Hoang\\OneDrive\\Desktop\\Study\\copyright_protection\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"RUN_TOOL\" value=\"\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Source/Scripts/research_distorter.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"research extraction\" type=\"PythonConfigurationType\" factoryName=\"Python\">\r\n      <module name=\"copyright_protection\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"SDK_NAME\" value=\"Python 3.13 (copyright_protection)\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"C:\\Users\\Hoang\\OneDrive\\Desktop\\Study\\copyright_protection\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"RUN_TOOL\" value=\"\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Source/Scripts/research_extraction.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"Python.execute\" />\r\n      <item itemvalue=\"Python.research distorter\" />\r\n      <item itemvalue=\"Python.research extraction\" />\r\n    </list>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-python-sdk-1cd77e80b48f-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.32098.74\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"0c8b8900-12c5-4c22-8797-3ce249f75048\" name=\"Changes\" comment=\"\" />\r\n      <created>1775506209409</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1775506209409</updated>\r\n      <workItem from=\"1775506210440\" duration=\"1568000\" />\r\n      <workItem from=\"1775550429828\" duration=\"1966000\" />\r\n      <workItem from=\"1775560585113\" duration=\"10313000\" />\r\n      <workItem from=\"1775589646968\" duration=\"4176000\" />\r\n      <workItem from=\"1775597255579\" duration=\"388000\" />\r\n      <workItem from=\"1775630802487\" duration=\"9751000\" />\r\n      <workItem from=\"1775649065796\" duration=\"2373000\" />\r\n      <workItem from=\"1775740064448\" duration=\"7152000\" />\r\n      <workItem from=\"1775756136777\" duration=\"680000\" />\r\n      <workItem from=\"1775813990062\" duration=\"1687000\" />\r\n      <workItem from=\"1775901353929\" duration=\"769000\" />\r\n      <workItem from=\"1775998263855\" duration=\"4893000\" />\r\n      <workItem from=\"1776026071695\" duration=\"947000\" />\r\n      <workItem from=\"1776056777478\" duration=\"1161000\" />\r\n      <workItem from=\"1776058743962\" duration=\"556000\" />\r\n      <workItem from=\"1776064894916\" duration=\"2400000\" />\r\n      <workItem from=\"1776144514938\" duration=\"211000\" />\r\n      <workItem from=\"1776186143431\" duration=\"1705000\" />\r\n      <workItem from=\"1776196702134\" duration=\"6917000\" />\r\n      <workItem from=\"1776234891218\" duration=\"19051000\" />\r\n      <workItem from=\"1776351039958\" duration=\"830000\" />\r\n      <workItem from=\"1776428593862\" duration=\"70000\" />\r\n      <workItem from=\"1777025578158\" duration=\"6000\" />\r\n      <workItem from=\"1777456938118\" duration=\"596000\" />\r\n      <workItem from=\"1777621022089\" duration=\"97000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"new +-\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1777829481082</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1777829481082</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"basic research\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1778236199673</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1778236199673</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"push .idea\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1778236228174</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1778236228174</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"commit for new version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1778237438763</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1778237438763</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"75%\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1778391332467</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1778391332467</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"80%\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1778500690447</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1778500690447</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"90%\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1778504570955</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1778504570955</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"Update project for HIPC\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1778530875919</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1778530875919</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"Update project for HIPC\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1778530881774</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1778530881774</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"Update project for HIPC ver2\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1778532668861</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1778532668861</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"Update project\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1778777672348</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1778777672348</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"12\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"new +-\" />\r\n    <MESSAGE value=\"basic research\" />\r\n    <MESSAGE value=\"push .idea\" />\r\n    <MESSAGE value=\"commit for new version\" />\r\n    <MESSAGE value=\"75%\" />\r\n    <MESSAGE value=\"80%\" />\r\n    <MESSAGE value=\"90%\" />\r\n    <MESSAGE value=\"Update project for HIPC\" />\r\n    <MESSAGE value=\"Update project for HIPC ver2\" />\r\n    <MESSAGE value=\"Update project\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Update project\" />\r\n  </component>\r\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\r\n    <SUITE FILE_PATH=\"coverage/copyright_protection$execute.coverage\" NAME=\"execute Coverage Results\" MODIFIED=\"1776272998944\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"C:\\Users\\Hoang\\OneDrive\\Desktop\\Study\\copyright_protection\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision a3f632156a57a4474d5b945104e0a82be23c4f20)
++++ b/.idea/workspace.xml	(date 1790509316811)
+@@ -4,24 +4,22 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="0c8b8900-12c5-4c22-8797-3ce249f75048" name="Changes" comment="Update project">
+-      <change afterPath="$PROJECT_DIR$/Source/Utils/CardInformation/card.html" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/Source/Utils/qr_create.py" afterDir="false" />
++    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/.idea/Diplom.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/copyright_protection.iml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Source/Scripts/execute.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/execute.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Source/Utils/extraction_research.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/extraction_research.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Source/Utils/my_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/my_function.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Source/Utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/utils.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+-  </component>
+-  <component name="FileTemplateManagerImpl">
+-    <option name="RECENT_TEMPLATES">
+-      <list>
+-        <option value="Python Script" />
+-        <option value="HTML File" />
+-      </list>
+-    </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -35,7 +33,7 @@
+   <component name="GithubPullRequestsUISettings">{
+   &quot;selectedUrlAndAccountId&quot;: {
+     &quot;url&quot;: &quot;https://github.com/vieKH/copyright_protection.git&quot;,
+-    &quot;accountId&quot;: &quot;192a3571-cd48-49e8-abb0-01906dda2140&quot;
++    &quot;accountId&quot;: &quot;c34c1730-74f3-4503-a782-6173ca48058a&quot;
+   }
+ }</component>
+   <component name="McpProjectServerCommands">
+@@ -45,22 +43,14 @@
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 3
+ }</component>
+-  <component name="ProjectId" id="3BzyUXudo8HwWDOHjufhQlUs9er" />
++  <component name="ProjectId" id="3GCUotJx6QjcPTLalOUlU64QIhR" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+   <component name="PropertiesComponent">{
+   &quot;keyToString&quot;: {
+-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+-    &quot;Python.execute.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.extrac_by_blocks.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.extract by blocks.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.qr_create.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.research distorter.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.research extraction.executor&quot;: &quot;Run&quot;,
+     &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+@@ -68,96 +58,18 @@
+     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+     &quot;ai.playground.ignore.import.keys.banner.in.settings&quot;: &quot;true&quot;,
++    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hoang/OneDrive/Desktop/Study/copyright_protection&quot;,
++    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+ }</component>
+-  <component name="RunManager" selected="Python.execute">
+-    <configuration name="execute" type="PythonConfigurationType" factoryName="Python">
+-      <module name="copyright_protection" />
+-      <option name="ENV_FILES" value="" />
+-      <option name="INTERPRETER_OPTIONS" value="" />
+-      <option name="PARENT_ENVS" value="true" />
+-      <envs>
+-        <env name="PYTHONUNBUFFERED" value="1" />
+-      </envs>
+-      <option name="SDK_HOME" value="" />
+-      <option name="SDK_NAME" value="Python 3.13 (copyright_protection)" />
+-      <option name="WORKING_DIRECTORY" value="C:\Users\Hoang\OneDrive\Desktop\Study\copyright_protection" />
+-      <option name="IS_MODULE_SDK" value="false" />
+-      <option name="ADD_CONTENT_ROOTS" value="true" />
+-      <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+-      <option name="RUN_TOOL" value="" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/execute.py" />
+-      <option name="PARAMETERS" value="" />
+-      <option name="SHOW_COMMAND_LINE" value="false" />
+-      <option name="EMULATE_TERMINAL" value="false" />
+-      <option name="MODULE_MODE" value="false" />
+-      <option name="REDIRECT_INPUT" value="false" />
+-      <option name="INPUT_FILE" value="" />
+-      <method v="2" />
+-    </configuration>
+-    <configuration name="research distorter" type="PythonConfigurationType" factoryName="Python">
+-      <module name="copyright_protection" />
+-      <option name="ENV_FILES" value="" />
+-      <option name="INTERPRETER_OPTIONS" value="" />
+-      <option name="PARENT_ENVS" value="true" />
+-      <envs>
+-        <env name="PYTHONUNBUFFERED" value="1" />
+-      </envs>
+-      <option name="SDK_HOME" value="" />
+-      <option name="SDK_NAME" value="Python 3.13 (copyright_protection)" />
+-      <option name="WORKING_DIRECTORY" value="C:\Users\Hoang\OneDrive\Desktop\Study\copyright_protection" />
+-      <option name="IS_MODULE_SDK" value="false" />
+-      <option name="ADD_CONTENT_ROOTS" value="true" />
+-      <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <option name="RUN_TOOL" value="" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/research_distorter.py" />
+-      <option name="PARAMETERS" value="" />
+-      <option name="SHOW_COMMAND_LINE" value="false" />
+-      <option name="EMULATE_TERMINAL" value="false" />
+-      <option name="MODULE_MODE" value="false" />
+-      <option name="REDIRECT_INPUT" value="false" />
+-      <option name="INPUT_FILE" value="" />
+-      <method v="2" />
+-    </configuration>
+-    <configuration name="research extraction" type="PythonConfigurationType" factoryName="Python">
+-      <module name="copyright_protection" />
+-      <option name="ENV_FILES" value="" />
+-      <option name="INTERPRETER_OPTIONS" value="" />
+-      <option name="PARENT_ENVS" value="true" />
+-      <envs>
+-        <env name="PYTHONUNBUFFERED" value="1" />
+-      </envs>
+-      <option name="SDK_HOME" value="" />
+-      <option name="SDK_NAME" value="Python 3.13 (copyright_protection)" />
+-      <option name="WORKING_DIRECTORY" value="C:\Users\Hoang\OneDrive\Desktop\Study\copyright_protection" />
+-      <option name="IS_MODULE_SDK" value="false" />
+-      <option name="ADD_CONTENT_ROOTS" value="true" />
+-      <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <option name="RUN_TOOL" value="" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/research_extraction.py" />
+-      <option name="PARAMETERS" value="" />
+-      <option name="SHOW_COMMAND_LINE" value="false" />
+-      <option name="EMULATE_TERMINAL" value="false" />
+-      <option name="MODULE_MODE" value="false" />
+-      <option name="REDIRECT_INPUT" value="false" />
+-      <option name="INPUT_FILE" value="" />
+-      <method v="2" />
+-    </configuration>
+-    <list>
+-      <item itemvalue="Python.execute" />
+-      <item itemvalue="Python.research distorter" />
+-      <item itemvalue="Python.research extraction" />
+-    </list>
+-  </component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+@@ -167,156 +79,17 @@
+   </component>
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+-      <changelist id="0c8b8900-12c5-4c22-8797-3ce249f75048" name="Changes" comment="" />
+-      <created>1775506209409</created>
++      <changelist id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="" />
++      <created>1783475222966</created>
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+-      <updated>1775506209409</updated>
+-      <workItem from="1775506210440" duration="1568000" />
+-      <workItem from="1775550429828" duration="1966000" />
+-      <workItem from="1775560585113" duration="10313000" />
+-      <workItem from="1775589646968" duration="4176000" />
+-      <workItem from="1775597255579" duration="388000" />
+-      <workItem from="1775630802487" duration="9751000" />
+-      <workItem from="1775649065796" duration="2373000" />
+-      <workItem from="1775740064448" duration="7152000" />
+-      <workItem from="1775756136777" duration="680000" />
+-      <workItem from="1775813990062" duration="1687000" />
+-      <workItem from="1775901353929" duration="769000" />
+-      <workItem from="1775998263855" duration="4893000" />
+-      <workItem from="1776026071695" duration="947000" />
+-      <workItem from="1776056777478" duration="1161000" />
+-      <workItem from="1776058743962" duration="556000" />
+-      <workItem from="1776064894916" duration="2400000" />
+-      <workItem from="1776144514938" duration="211000" />
+-      <workItem from="1776186143431" duration="1705000" />
+-      <workItem from="1776196702134" duration="6917000" />
+-      <workItem from="1776234891218" duration="19051000" />
+-      <workItem from="1776351039958" duration="830000" />
+-      <workItem from="1776428593862" duration="70000" />
+-      <workItem from="1777025578158" duration="6000" />
+-      <workItem from="1777456938118" duration="596000" />
+-      <workItem from="1777621022089" duration="97000" />
+-    </task>
+-    <task id="LOCAL-00001" summary="new +-">
+-      <option name="closed" value="true" />
+-      <created>1777829481082</created>
+-      <option name="number" value="00001" />
+-      <option name="presentableId" value="LOCAL-00001" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1777829481082</updated>
+-    </task>
+-    <task id="LOCAL-00002" summary="basic research">
+-      <option name="closed" value="true" />
+-      <created>1778236199673</created>
+-      <option name="number" value="00002" />
+-      <option name="presentableId" value="LOCAL-00002" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1778236199673</updated>
+-    </task>
+-    <task id="LOCAL-00003" summary="push .idea">
+-      <option name="closed" value="true" />
+-      <created>1778236228174</created>
+-      <option name="number" value="00003" />
+-      <option name="presentableId" value="LOCAL-00003" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1778236228174</updated>
+-    </task>
+-    <task id="LOCAL-00004" summary="commit for new version">
+-      <option name="closed" value="true" />
+-      <created>1778237438763</created>
+-      <option name="number" value="00004" />
+-      <option name="presentableId" value="LOCAL-00004" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1778237438763</updated>
+-    </task>
+-    <task id="LOCAL-00005" summary="75%">
+-      <option name="closed" value="true" />
+-      <created>1778391332467</created>
+-      <option name="number" value="00005" />
+-      <option name="presentableId" value="LOCAL-00005" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1778391332467</updated>
+-    </task>
+-    <task id="LOCAL-00006" summary="80%">
+-      <option name="closed" value="true" />
+-      <created>1778500690447</created>
+-      <option name="number" value="00006" />
+-      <option name="presentableId" value="LOCAL-00006" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1778500690447</updated>
++      <updated>1783475222966</updated>
++      <workItem from="1783475223987" duration="321000" />
++      <workItem from="1789410551258" duration="102000" />
+     </task>
+-    <task id="LOCAL-00007" summary="90%">
+-      <option name="closed" value="true" />
+-      <created>1778504570955</created>
+-      <option name="number" value="00007" />
+-      <option name="presentableId" value="LOCAL-00007" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1778504570955</updated>
+-    </task>
+-    <task id="LOCAL-00008" summary="Update project for HIPC">
+-      <option name="closed" value="true" />
+-      <created>1778530875919</created>
+-      <option name="number" value="00008" />
+-      <option name="presentableId" value="LOCAL-00008" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1778530875919</updated>
+-    </task>
+-    <task id="LOCAL-00009" summary="Update project for HIPC">
+-      <option name="closed" value="true" />
+-      <created>1778530881774</created>
+-      <option name="number" value="00009" />
+-      <option name="presentableId" value="LOCAL-00009" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1778530881774</updated>
+-    </task>
+-    <task id="LOCAL-00010" summary="Update project for HIPC ver2">
+-      <option name="closed" value="true" />
+-      <created>1778532668861</created>
+-      <option name="number" value="00010" />
+-      <option name="presentableId" value="LOCAL-00010" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1778532668861</updated>
+-    </task>
+-    <task id="LOCAL-00011" summary="Update project">
+-      <option name="closed" value="true" />
+-      <created>1778777672348</created>
+-      <option name="number" value="00011" />
+-      <option name="presentableId" value="LOCAL-00011" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1778777672348</updated>
+-    </task>
+-    <option name="localTasksCounter" value="12" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
+   </component>
+-  <component name="Vcs.Log.Tabs.Properties">
+-    <option name="TAB_STATES">
+-      <map>
+-        <entry key="MAIN">
+-          <value>
+-            <State />
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-  </component>
+-  <component name="VcsManagerConfiguration">
+-    <MESSAGE value="new +-" />
+-    <MESSAGE value="basic research" />
+-    <MESSAGE value="push .idea" />
+-    <MESSAGE value="commit for new version" />
+-    <MESSAGE value="75%" />
+-    <MESSAGE value="80%" />
+-    <MESSAGE value="90%" />
+-    <MESSAGE value="Update project for HIPC" />
+-    <MESSAGE value="Update project for HIPC ver2" />
+-    <MESSAGE value="Update project" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Update project" />
+-  </component>
+-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+-    <SUITE FILE_PATH="coverage/copyright_protection$execute.coverage" NAME="execute Coverage Results" MODIFIED="1776272998944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\Hoang\OneDrive\Desktop\Study\copyright_protection" />
+-  </component>
+ </project>
+\ No newline at end of file
+Index: .idea/Diplom.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Diplom.iml b/.idea/Diplom.iml
+new file mode 100644
+--- /dev/null	(date 1783475231997)
++++ b/.idea/Diplom.iml	(date 1783475231997)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="PYTHON_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <excludeFolder url="file://$MODULE_DIR$/.venv" />
++    </content>
++    <orderEntry type="jdk" jdkName="Python 3.14 (Diplom)" jdkType="Python SDK" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
