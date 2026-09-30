@@ -171,7 +171,8 @@ def merge_blocks(blocks: np.ndarray) -> np.ndarray:
     return arr.transpose(0, 2, 1, 3).reshape(n_rows * h, n_cols * w)
 
 
-def iter_offset_blocks(image: np.ndarray, block_size: int, start_x: int,  start_y: int) -> Iterator[Tuple[np.ndarray, int, int]]:
+def iter_offset_blocks(image: np.ndarray, block_size: int, start_x: int, start_y: int, stride: Optional[int] = None,
+) -> Iterator[Tuple[np.ndarray, int, int]]:
     """Yield square blocks from an offset extraction grid."""
     img = np.asarray(image)
     if img.ndim != 2:
@@ -181,9 +182,15 @@ def iter_offset_blocks(image: np.ndarray, block_size: int, start_x: int,  start_
     if not (0 <= start_x < block_size and 0 <= start_y < block_size):
         raise ValueError("start_x and start_y must satisfy 0 <= offset < block_size")
 
+    if stride is None:
+        stride = block_size
+
+    if stride <= 0:
+        raise ValueError("stride must be positive")
+
     height, width = img.shape
-    for r in range(start_x, height - block_size + 1, block_size):
-        for c in range(start_y, width - block_size + 1, block_size):
+    for r in range(start_x, height - block_size + 1, stride):
+        for c in range(start_y, width - block_size + 1, stride):
             yield img[r : r + block_size, c : c + block_size], r, c
 
 

@@ -112,14 +112,14 @@ def score_watermark_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int
 blind_score_map = score_watermark_map
 
 
-def collect_block_spectra(image: np.ndarray, block_size: int, start_x: int, start_y: int, phase_sign: int = 1,
-                          shuffle_blocks: bool = False, seed: Optional[int] = None) -> List[np.ndarray]:
+def collect_block_spectra(image: np.ndarray, block_size: int, start_x: int, start_y: int, stride: Optional[int] = None,
+    phase_sign: int = 1, shuffle_blocks: bool = False,  seed: Optional[int] = None) -> List[np.ndarray]:
     """Extract all valid offset blocks and return their phase-corrected spectra."""
     img = np.asarray(image)
     if img.ndim != 2:
         raise ValueError("Input image must be grayscale")
 
-    blocks = list(iter_offset_blocks(img, block_size, start_x, start_y))
+    blocks = list(iter_offset_blocks(img, block_size, start_x, start_y, stride=stride))
     if not blocks:
         raise ValueError("No blocks were extracted")
 
@@ -128,17 +128,26 @@ def collect_block_spectra(image: np.ndarray, block_size: int, start_x: int, star
         order = rng.permutation(len(blocks))
         blocks = [blocks[int(i)] for i in order]
 
-    phase_correction = _phase_correction_matrix(
-        block_size=block_size,
-        start_x=start_x,
-        start_y=start_y,
-        phase_sign=phase_sign,
-    )
+    spectra = []
 
-    return [
-        my_fft2(block.astype(np.float64)) * phase_correction
-        for block, _, _ in blocks
-    ]
+    for block, r, c in blocks:
+        shift_x = r % block_size
+        shift_y = c % block_size
+
+        phase_correction = _phase_correction_matrix(
+            block_size=block_size,
+            start_x=shift_x,
+            start_y=shift_y,
+            phase_sign=phase_sign,
+        )
+
+        spectrum = my_fft2(block.astype(np.float64))
+
+        spectra.append(
+            spectrum * phase_correction
+        )
+
+    return spectra
 
 
 def average_offset_spectrum( image: np.ndarray, block_size: int, start_x: int, start_y: int, phase_sign: int = 1) -> Tuple[np.ndarray, int]:
@@ -308,10 +317,10 @@ def extract_progressive_by_blocks( image: np.ndarray, qr_size: int, size_region:
                                    x: Optional[int] = None, y: Optional[int] = None, offset: Optional[int] = None,
                                    block_counts: Optional[Sequence[int]] = None, qr_true: Optional[np.ndarray] = None,
                                    phase_sign: int = 1, shuffle_blocks: bool = False, seed: Optional[int] = None,
-                                   detrend: bool = True) -> Tuple[List[ProgressiveExtractionResult], int]:
+                                   detrend: bool = True, stride: Optional[int] = None) -> Tuple[List[ProgressiveExtractionResult], int]:
     """Average 1, 2, 4, ... blocks and recover QR at each step."""
     x, y, offset = resolve_embedding_params(size_region, x, y, offset)
-    spectra = collect_block_spectra( image=image, block_size=size_region, start_x=start_x, start_y=start_y,
+    spectra = collect_block_spectra( image=image, block_size=size_region, start_x=start_x, start_y=start_y, stride=stride,
                                      phase_sign=phase_sign, shuffle_blocks=shuffle_blocks, seed=seed)
 
     n_available = len(spectra)

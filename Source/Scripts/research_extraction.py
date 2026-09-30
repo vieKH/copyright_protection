@@ -12,6 +12,7 @@ IMAGE_PATH = os.path.join("Image","lena.tif")
 OUTPUT_DIR = os.path.join("Results", "Extraction_Research")
 
 REGION_SIZE = 64
+EXTRACT_STRIDE = 32
 QR_SIZE = 14
 PHI = np.pi / 3
 EMBED_X = 8
@@ -104,6 +105,7 @@ if __name__ == "__main__":
         phi=PHI,
         start_x=start_x,
         start_y=start_y,
+        stride=EXTRACT_STRIDE,
         x=EMBED_X,
         y=EMBED_Y,
         offset=EMBED_OFFSET,
