@@ -252,8 +252,8 @@ def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: in
         x=x,
         y=y,
         offset=offset,
-        phase_sign_candidates=(1, -1),
-        detrend=(size_qr <= 8),
+        phase_sign_candidates=(-1,),
+        detrend=False,
     )
 
     qr_extracted = best["recovered_qr"]

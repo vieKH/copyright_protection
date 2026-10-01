@@ -3,6 +3,7 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
+from Source.Utils import calculate_q
 
 from Source.Utils import extract_progressive_by_blocks
 from Source.Utils import count_psnr, embed_watermark_into_image, generate_watermark
@@ -25,11 +26,9 @@ BLOCK_ORDER_SEED = 2026
 AVOID_ZERO_ZERO_START = True
 SHUFFLE_BLOCK_ORDER = True
 PHASE_SIGN = -1
-DETREND = QR_SIZE <= 8
+DETREND = False
 
 
-def calculate_q(s_param: float, qr_size: int, region_size: int) -> float:
-    return (255 * region_size * region_size) / (s_param * qr_size)
 
 
 def plot_figure_1(image: np.ndarray, qr_true: np.ndarray, watermarked: np.ndarray, results, save_path: str):
@@ -88,6 +87,7 @@ def plot_figure_2(results, save_path: str):
 
 
 if __name__ == "__main__":
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     image = plt.imread(IMAGE_PATH)
     qr_true = generate_watermark(QR_SIZE, seed=QR_SEED)
     q = calculate_q(S_PARAM, QR_SIZE, REGION_SIZE)
@@ -113,12 +113,13 @@ if __name__ == "__main__":
         phase_sign=PHASE_SIGN,
         shuffle_blocks=SHUFFLE_BLOCK_ORDER,
         seed=BLOCK_ORDER_SEED,
-        detrend=(QR_SIZE<=8),
+        detrend=DETREND,
     )
 
     print("Experiment config")
     print("- image_size:", image.shape)
     print("- region_size:", REGION_SIZE)
+    print("- extract_stride:", EXTRACT_STRIDE)
     print("- qr_size:", QR_SIZE)
     print("- q:", q)
     print("- PSNR:", count_psnr(image, watermarked))

@@ -6,6 +6,7 @@ import os
 import shutil
 import matplotlib.pyplot as plt
 import numpy as np
+from Source.Utils import calculate_q
 
 from PIL import Image
 from dataclasses import dataclass
@@ -19,6 +20,7 @@ IMAGE_PATH = os.path.join("Image", "lena.tif")
 OUTPUT_DIR = os.path.join("Results", "Distortion_Research")
 
 REGION_SIZE = 64
+EXTRACT_STRIDE = 32
 QR_SIZE = 14
 PHI = np.pi / 3
 EMBED_X = 8
@@ -29,7 +31,7 @@ QR_SEED = 42
 START_X = 5
 START_Y = 8
 PHASE_SIGN = -1
-DETREND = QR_SIZE <= 8
+DETREND = False
 MAX_GRID_COLS = 5
 
 
@@ -43,9 +45,6 @@ class AttackSpec:
     apply: Callable[[np.ndarray, Number], np.ndarray]
 
 
-def calculate_q(s_param: float, qr_size: int, region_size: int) -> float:
-    """ Calculate the QR decomposition of a signal """
-    return (255 * region_size * region_size) / (s_param * qr_size)
 
 
 def load_grayscale(path: str) -> np.ndarray:
@@ -379,6 +378,7 @@ def extract_last_result(image: np.ndarray, qr_true: np.ndarray):
         shuffle_blocks=False,
         seed=None,
         detrend=DETREND,
+        stride=EXTRACT_STRIDE,
     )
     return results[-1], n_available
 
@@ -419,6 +419,7 @@ def run_one_attack(spec: AttackSpec, watermarked: np.ndarray, qr_true: np.ndarra
             "start_x": int(START_X),
             "start_y": int(START_Y),
             "phase_sign": int(PHASE_SIGN),
+            "extract_stride": int(EXTRACT_STRIDE),
         }
         rows.append(row)
 
@@ -535,6 +536,7 @@ if __name__ == "__main__":
     print("Experiment config")
     print("- image_size:", image.shape)
     print("- region_size:", REGION_SIZE)
+    print("- extract_stride:", EXTRACT_STRIDE)
     print("- qr_size:", QR_SIZE)
     print("- q:", q)
     print("- PSNR original vs watermarked:", count_psnr(image, watermarked))

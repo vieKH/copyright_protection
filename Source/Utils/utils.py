@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import Dict, Iterator, List, Optional, Tuple
 
 import numpy as np
-from .my_function import my_fft2, my_ifft2
+from .my_function import my_ifft2
 EPSILON = 1e-6
 
 
@@ -49,8 +49,8 @@ def bit_accuracy(qr_true: np.ndarray, qr_pred: np.ndarray) -> float:
 
 def calculate_q(s_param: float, qr_size: int, region_size: int) -> float:
     """Compute the embedding strength Q used in experiments."""
-    if s_param == 0:
-        raise ValueError("s_param must be non-zero")
+    if not np.isfinite(s_param) or s_param <= 0:
+        raise ValueError("s_param must be finite and positive")
     if qr_size <= 0 or region_size <= 0:
         raise ValueError("qr_size and region_size must be positive")
     return float((255 * region_size * region_size) / (s_param * qr_size))
@@ -91,7 +91,7 @@ def max_qr_size_for_block(block_size: int) -> int:
         try:
             qr_to_spectrum_positions(qr_size, block_size, x, y, offset)
         except ValueError:
-            break
+            continue
         best = qr_size
 
     return best
@@ -141,6 +141,12 @@ def qr_to_spectrum_positions(qr_size: int, size_region: int, x: Optional[int] = 
             if not (0 <= u < size_region and 0 <= v < size_region):
                 raise ValueError("QR mapping index is out of bounds")
             positions.append({"qr_i": i, "qr_j": j, "row": u, "col": v})
+    # Every bit needs its own conjugate pair. Otherwise independent bits
+    # interfere, and the phase-projection decoder no longer applies.
+    coordinates = {(p["row"], p["col"]) for p in positions}
+    conjugates = {_conj_index(u, v, size_region) for u, v in coordinates}
+    if coordinates & conjugates:
+        raise ValueError("QR positions overlap conjugate positions (or self-conjugate bins)")
     return positions
 
 
@@ -197,9 +203,13 @@ def iter_offset_blocks(image: np.ndarray, block_size: int, start_x: int, start_y
 def build_wm_spectrum(qr: np.ndarray, size_region: int, phi: float, x: Optional[int] = None, y: Optional[int] = None,
                       offset: Optional[int] = None) -> np.ndarray:
     """Build the watermark spectrum for one image block."""
-    qr_bits = np.asarray(qr, dtype=np.uint8)
+    qr_bits = np.asarray(qr)
     if qr_bits.ndim != 2 or qr_bits.shape[0] != qr_bits.shape[1]:
         raise ValueError("qr must be a square 2D array")
+    if not np.all((qr_bits == 0) | (qr_bits == 1)):
+        raise ValueError("qr must contain only binary values 0 and 1")
+    if not np.isfinite(phi):
+        raise ValueError("phi must be finite")
 
     x, y, offset = resolve_embedding_params(size_region, x, y, offset)
     spectrum_qr = np.zeros((size_region, size_region), dtype=np.complex128)
@@ -230,18 +240,19 @@ def embed_watermark_into_image(image: np.ndarray, qr: np.ndarray,size_region: in
     img = np.asarray(image)
     if img.ndim != 2:
         raise ValueError("Input image must be grayscale")
+    if not np.all(np.isfinite(img)) or np.any(img < 0) or np.any(img > 255):
+        raise ValueError("image must contain finite pixel values in [0, 255]")
+    if not np.isfinite(q) or q < 0:
+        raise ValueError("q must be finite and non-negative")
 
     x, y, offset = resolve_embedding_params(size_region, x, y, offset)
     watermark_spectrum = build_wm_spectrum(qr=qr, size_region=size_region, phi=phi, x=x, y=y, offset=offset)
 
     blocks = split_into_blocks(img, block_size=size_region)
-    watermarked_blocks = np.empty_like(blocks, dtype=np.float64)
-
-    for row in range(blocks.shape[0]):
-        for col in range(blocks.shape[1]):
-            block = blocks[row, col].astype(np.float64)
-            spectrum = my_fft2(block) + q * watermark_spectrum
-            watermarked_blocks[row, col] = np.real(my_ifft2(spectrum))
+    # Linearity: IFFT(FFT(block) + q * W) = block + q * IFFT(W).
+    watermark = q * np.real(my_ifft2(watermark_spectrum))
+    watermarked_blocks = blocks.astype(np.float64) + watermark
 
     watermarked = merge_blocks(watermarked_blocks)
-    return np.clip(watermarked, 0, 255).astype(np.uint8)
+    # Round to nearest instead of introducing a downward truncation bias.
+    return np.rint(np.clip(watermarked, 0, 255)).astype(np.uint8)

@@ -1,45 +1,23 @@
-# import numpy as np
-import matplotlib.pyplot as plt
-import os
-# from Source.Utils import research_qr
-#
-# SIZE_QR = 14
-# SIZE_REGION = 64
-# X = SIZE_REGION // 8
-# Y = SIZE_REGION // 8
-# OFFSET = SIZE_REGION // 16
-# PHASE = np.pi / 3
-# S = 300
-#
-#
-# def calculate_q(snr: float, l: int, n: int) -> float:
-#     """ Calculate the QR decomposition of a signal """
-#     return (255 * n * n) / (snr * l)
-#
-IMAGE_PATH = os.path.join('Image', 'lena.tif')
-SAVE_PATH = os.path.join('Results','QR_Research')
-#
-# if __name__ == '__main__':
-#     os.makedirs(SAVE_PATH, exist_ok=True)
-#     image = plt.imread(IMAGE_PATH)
-#
-#     path_save = os.path.join(SAVE_PATH, 'QR_Research.png')
-#
-#     q = calculate_q(S, SIZE_QR, SIZE_REGION)
-#
-#     research_qr(image, SIZE_QR, SIZE_REGION, X, Y, OFFSET, PHASE, q, path_save)
-#
-#
+
+from pathlib import Path
 import numpy as np
+from PIL import Image
+from Source.Utils import (
+    bit_accuracy, calculate_q, count_psnr, embed_watermark_into_image,
+    extract_watermark, generate_watermark,
+)
 
-image = plt.imread(IMAGE_PATH)
-test = image[:64][:64]
-F = np.fft.fft2(test)
-N= 64
 
-for i in range(14):
-    F[i+1][i+1] += 300 * np.exp(np.pi/3)
-    F[N-i-1][N-i-1] += 300 * np.exp(-np.pi/3)
+def main():
+    image = np.array(Image.open(Path(__file__).resolve().parents[2] / 'Image' / 'lena.tif').convert('L'))
+    qr = generate_watermark(14, seed=42)
+    phi = np.pi / 3
+    wm = embed_watermark_into_image(image, qr, 64, calculate_q(300, 14, 64), phi)
+    recovered, _, _, count, _ = extract_watermark(wm, 14, 64, phi, 5, 8, stride=32)
+    print(f'PSNR: {count_psnr(image, wm):.4f} dB')
+    print(f'Extraction windows: {count}')
+    print(f'Bit accuracy: {bit_accuracy(qr, recovered):.6f}')
 
-print(np.sum(np.imag(F)))
-print(np.sum(np.real(F)))
+
+if __name__ == '__main__':
+    main()

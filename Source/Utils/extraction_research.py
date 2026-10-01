@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from functools import lru_cache
 from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
@@ -23,6 +24,9 @@ def random_extract_start( block_size: int, seed: Optional[int] = None, avoid_zer
     """Pick a reproducible random extraction offset inside one block."""
     if block_size <= 0:
         raise ValueError("block_size must be positive")
+
+    if block_size == 1 and avoid_zero_zero:
+        raise ValueError("No nonzero offset exists for block_size=1")
 
     rng = np.random.default_rng(seed)
     while True:
@@ -49,7 +53,10 @@ def progressive_block_counts(n_available_blocks: int) -> List[int]:
     return counts
 
 
+@lru_cache(maxsize=32)
 def _phase_correction_matrix(block_size: int, start_x: int, start_y: int, phase_sign: int) -> np.ndarray:
+    if phase_sign not in (-1, 1):
+        raise ValueError("phase_sign must be -1 or 1")
     uu, vv = np.meshgrid(np.arange(block_size), np.arange(block_size), indexing="ij")
     return np.exp( phase_sign * 1j * 2.0 * np.pi * ((uu * start_x + vv * start_y) / block_size))
 
@@ -68,21 +75,44 @@ def _robust_zscore(values: np.ndarray) -> np.ndarray:
     return (arr - median) / (1.4826 * mad + EPSILON)
 
 
-def recover_qr_from_score(score_map: np.ndarray) -> Tuple[np.ndarray, float]:
-    """Recover binary QR bits using the median score as threshold."""
+def recover_qr_from_score(score_map: np.ndarray, expected_ones: Optional[int] = None) -> Tuple[np.ndarray, float]:
+    """Median decoder for approximately balanced payloads, NOT arbitrary QR data.
+
+    With expected_ones, select exactly that many highest scores (known payload
+    weight, not the true bit positions). Ties use row-major order. Otherwise
+    equal-to-median scores are zero. This is NOT a watermark-presence test.
+    """
     flat = np.asarray(score_map, dtype=np.float64).ravel()
+    if flat.size == 0 or not np.all(np.isfinite(flat)):
+        raise ValueError("score_map must be nonempty and finite")
+    if expected_ones is not None:
+        if not isinstance(expected_ones, (int, np.integer)) or not 0 <= expected_ones <= flat.size:
+            raise ValueError("expected_ones must be an integer in [0, number of bits]")
+        order = np.argsort(-flat, kind="stable")
+        recovered = np.zeros(flat.size, dtype=np.uint8)
+        recovered[order[:expected_ones]] = 1
+        if expected_ones == 0:
+            threshold = float("inf")
+        elif expected_ones == flat.size:
+            threshold = float("-inf")
+        else:
+            threshold = float(0.5 * flat[order[expected_ones - 1]] + 0.5 * flat[order[expected_ones]])
+        return recovered.reshape(score_map.shape), threshold
     threshold = float(np.median(flat))
     recovered = (flat > threshold).astype(np.uint8)
     return recovered.reshape(score_map.shape), threshold
 
 
 def score_watermark_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int, phi: float, x: Optional[int] = None,
-                        y: Optional[int] = None, offset: Optional[int] = None, detrend: bool = True, ) -> np.ndarray:
+                        y: Optional[int] = None, offset: Optional[int] = None, detrend: bool = False, ) -> np.ndarray:
     """Build a normalized score map from an averaged extraction spectrum."""
     x, y, offset = resolve_embedding_params(size_region, x, y, offset)
     avg = np.asarray(avg_spectrum, dtype=np.complex128)
     if avg.shape != (size_region, size_region):
         raise ValueError("avg_spectrum shape must match (size_region, size_region)")
+
+    if not np.isfinite(phi) or not np.all(np.isfinite(avg)):
+        raise ValueError("phi and avg_spectrum must be finite")
 
     raw_score = np.zeros((qr_size, qr_size), dtype=np.float64)
     e_neg = np.exp(-1j * phi)
@@ -112,88 +142,67 @@ def score_watermark_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int
 blind_score_map = score_watermark_map
 
 
-def collect_block_spectra(image: np.ndarray, block_size: int, start_x: int, start_y: int, stride: Optional[int] = None,
-    phase_sign: int = 1, shuffle_blocks: bool = False,  seed: Optional[int] = None) -> List[np.ndarray]:
-    """Extract all valid offset blocks and return their phase-corrected spectra."""
+def _selected_blocks(image, block_size, start_x, start_y, stride, shuffle_blocks, seed):
     img = np.asarray(image)
-    if img.ndim != 2:
-        raise ValueError("Input image must be grayscale")
-
-    blocks = list(iter_offset_blocks(img, block_size, start_x, start_y, stride=stride))
+    if not np.all(np.isfinite(img)):
+        raise ValueError("image must contain finite values")
+    blocks = list(iter_offset_blocks(img, block_size, start_x, start_y, stride))
     if not blocks:
         raise ValueError("No blocks were extracted")
-
     if shuffle_blocks:
-        rng = np.random.default_rng(seed)
-        order = rng.permutation(len(blocks))
+        order = np.random.default_rng(seed).permutation(len(blocks))
         blocks = [blocks[int(i)] for i in order]
+    return blocks
 
-    spectra = []
 
+def _iter_spectra(blocks, block_size, phase_sign):
+    if phase_sign not in (-1, 1):
+        raise ValueError("phase_sign must be -1 or 1")
     for block, r, c in blocks:
-        shift_x = r % block_size
-        shift_y = c % block_size
-
-        phase_correction = _phase_correction_matrix(
-            block_size=block_size,
-            start_x=shift_x,
-            start_y=shift_y,
-            phase_sign=phase_sign,
+        correction = _phase_correction_matrix(
+            block_size, r % block_size, c % block_size, phase_sign
         )
-
-        spectrum = my_fft2(block.astype(np.float64))
-
-        spectra.append(
-            spectrum * phase_correction
-        )
-
-    return spectra
+        yield my_fft2(block) * correction
 
 
-def average_offset_spectrum( image: np.ndarray, block_size: int, start_x: int, start_y: int, phase_sign: int = 1) -> Tuple[np.ndarray, int]:
-    """Average all phase-corrected spectra from one offset extraction grid."""
-    spectra = collect_block_spectra(
-        image=image,
-        block_size=block_size,
-        start_x=start_x,
-        start_y=start_y,
-        phase_sign=phase_sign,
+def collect_block_spectra(image: np.ndarray, block_size: int, start_x: int, start_y: int,
+                          stride: Optional[int] = None, phase_sign: int = -1,
+                          shuffle_blocks: bool = False, seed: Optional[int] = None) -> List[np.ndarray]:
+    """Explicit materialization API; averaging/progressive APIs stream instead."""
+    blocks = _selected_blocks(image, block_size, start_x, start_y, stride, shuffle_blocks, seed)
+    return list(_iter_spectra(blocks, block_size, phase_sign))
+
+
+def average_offset_spectrum(image: np.ndarray, block_size: int, start_x: int, start_y: int,
+                            phase_sign: int = -1, stride: Optional[int] = None) -> Tuple[np.ndarray, int]:
+    """Average phase-corrected spectra without retaining every spectrum."""
+    return average_offset_spectrum_limited(
+        image, block_size, start_x, start_y, phase_sign=phase_sign, stride=stride
     )
-    return np.mean(spectra, axis=0), len(spectra)
 
 
 def average_offset_spectrum_limited(
-    image: np.ndarray,
-    block_size: int,
-    start_x: int,
-    start_y: int,
-    max_blocks: Optional[int] = None,
-    random_blocks: bool = False,
-    seed: Optional[int] = None,
-    phase_sign: int = 1,
+    image: np.ndarray, block_size: int, start_x: int, start_y: int,
+    max_blocks: Optional[int] = None, random_blocks: bool = False,
+    seed: Optional[int] = None, phase_sign: int = -1, stride: Optional[int] = None,
 ) -> Tuple[np.ndarray, int]:
-    """Average only a fixed number of offset-block spectra."""
-    spectra = collect_block_spectra(
-        image=image,
-        block_size=block_size,
-        start_x=start_x,
-        start_y=start_y,
-        phase_sign=phase_sign,
-        shuffle_blocks=random_blocks,
-        seed=seed,
-    )
-
+    """Select windows BEFORE computing FFTs, then accumulate in constant spectral memory."""
     if max_blocks is not None:
-        if max_blocks <= 0:
-            raise ValueError("max_blocks must be positive")
-        spectra = spectra[: min(max_blocks, len(spectra))]
-
-    return np.mean(spectra, axis=0), len(spectra)
+        if not isinstance(max_blocks, (int, np.integer)) or max_blocks <= 0:
+            raise ValueError("max_blocks must be a positive integer")
+    blocks = _selected_blocks(image, block_size, start_x, start_y, stride, random_blocks, seed)
+    if max_blocks is not None:
+        blocks = blocks[:max_blocks]
+    total = np.zeros((block_size, block_size), dtype=np.complex128)
+    for spectrum in _iter_spectra(blocks, block_size, phase_sign):
+        total += spectrum
+    return total / len(blocks), len(blocks)
 
 
 def extract_watermark( image: np.ndarray, qr_size: int, size_region: int, phi: float, start_x: int = 0, start_y: int = 0,
                        x: Optional[int] = None, y: Optional[int] = None, offset: Optional[int] = None,
-                       phase_sign: int = 1, detrend: bool = True) -> Tuple[np.ndarray, np.ndarray, np.ndarray, int, float]:
+                       phase_sign: int = -1, detrend: bool = False, stride: Optional[int] = None,
+                       expected_ones: Optional[int] = None) -> Tuple[np.ndarray, np.ndarray, np.ndarray, int, float]:
     """Extract a QR watermark from all available offset blocks."""
     avg_spectrum, blocks_used = average_offset_spectrum(
         image=image,
@@ -201,6 +210,7 @@ def extract_watermark( image: np.ndarray, qr_size: int, size_region: int, phi: f
         start_x=start_x,
         start_y=start_y,
         phase_sign=phase_sign,
+        stride=stride,
     )
     score_map = score_watermark_map(
         avg_spectrum=avg_spectrum,
@@ -212,14 +222,15 @@ def extract_watermark( image: np.ndarray, qr_size: int, size_region: int, phi: f
         offset=offset,
         detrend=detrend,
     )
-    recovered, threshold = recover_qr_from_score(score_map)
+    recovered, threshold = recover_qr_from_score(score_map, expected_ones=expected_ones)
     return recovered, score_map, avg_spectrum, blocks_used, threshold
 
 
 def extract_watermark_limited_blocks(image: np.ndarray, qr_size: int, size_region: int, phi: float, start_x: int,start_y: int,
                                      max_blocks: int, random_blocks: bool = False, seed: Optional[int] = None,
                                      x: Optional[int] = None, y: Optional[int] = None, offset: Optional[int] = None,
-                                     phase_sign: int = 1, detrend: bool = True) -> Tuple[np.ndarray, np.ndarray, np.ndarray, int, float]:
+                                     phase_sign: int = -1, detrend: bool = False, stride: Optional[int] = None,
+                       expected_ones: Optional[int] = None) -> Tuple[np.ndarray, np.ndarray, np.ndarray, int, float]:
     """Extract a QR watermark using at most max_blocks extraction blocks."""
     avg_spectrum, blocks_used = average_offset_spectrum_limited(
         image=image,
@@ -230,6 +241,7 @@ def extract_watermark_limited_blocks(image: np.ndarray, qr_size: int, size_regio
         random_blocks=random_blocks,
         seed=seed,
         phase_sign=phase_sign,
+        stride=stride,
     )
     score_map = score_watermark_map(
         avg_spectrum=avg_spectrum,
@@ -241,14 +253,18 @@ def extract_watermark_limited_blocks(image: np.ndarray, qr_size: int, size_regio
         offset=offset,
         detrend=detrend,
     )
-    recovered, threshold = recover_qr_from_score(score_map)
+    recovered, threshold = recover_qr_from_score(score_map, expected_ones=expected_ones)
     return recovered, score_map, avg_spectrum, blocks_used, threshold
 
 
 def extract_watermark_search_offsets( image: np.ndarray, qr_size: int, size_region: int, phi: float,
                                       offset_candidates: Sequence[Tuple[int, int]],  x: Optional[int] = None, y: Optional[int] = None,
-                                      offset: Optional[int] = None, phase_sign_candidates: Tuple[int, ...] = (1, -1), detrend: bool = True, ) -> Dict[str, object]:
-    """Try several extraction offsets and return the best separated score map."""
+                                      offset: Optional[int] = None, phase_sign_candidates: Tuple[int, ...] = (-1,), detrend: bool = False, stride: Optional[int] = None,
+                                      expected_ones: Optional[int] = None) -> Dict[str, object]:
+    """Heuristic window-grid selection, NOT synchronization after unknown cropping.
+
+    The separation metric does not prove correct bits or watermark presence.
+    """
     best: Optional[Dict[str, object]] = None
     diagnostics: List[Dict[str, object]] = []
 
@@ -266,6 +282,8 @@ def extract_watermark_search_offsets( image: np.ndarray, qr_size: int, size_regi
                 offset=offset,
                 phase_sign=phase_sign,
                 detrend=detrend,
+                stride=stride,
+                expected_ones=expected_ones,
             )
 
             flat = score_map.ravel()
@@ -316,14 +334,13 @@ def extract_watermark_search_offsets( image: np.ndarray, qr_size: int, size_regi
 def extract_progressive_by_blocks( image: np.ndarray, qr_size: int, size_region: int, phi: float, start_x: int, start_y: int,
                                    x: Optional[int] = None, y: Optional[int] = None, offset: Optional[int] = None,
                                    block_counts: Optional[Sequence[int]] = None, qr_true: Optional[np.ndarray] = None,
-                                   phase_sign: int = 1, shuffle_blocks: bool = False, seed: Optional[int] = None,
-                                   detrend: bool = True, stride: Optional[int] = None) -> Tuple[List[ProgressiveExtractionResult], int]:
+                                   phase_sign: int = -1, shuffle_blocks: bool = False, seed: Optional[int] = None,
+                                   detrend: bool = False, stride: Optional[int] = None,
+                                   expected_ones: Optional[int] = None) -> Tuple[List[ProgressiveExtractionResult], int]:
     """Average 1, 2, 4, ... blocks and recover QR at each step."""
     x, y, offset = resolve_embedding_params(size_region, x, y, offset)
-    spectra = collect_block_spectra( image=image, block_size=size_region, start_x=start_x, start_y=start_y, stride=stride,
-                                     phase_sign=phase_sign, shuffle_blocks=shuffle_blocks, seed=seed)
-
-    n_available = len(spectra)
+    blocks = _selected_blocks(image, size_region, start_x, start_y, stride, shuffle_blocks, seed)
+    n_available = len(blocks)
     if block_counts is None:
         counts = progressive_block_counts(n_available)
     else:
@@ -333,10 +350,10 @@ def extract_progressive_by_blocks( image: np.ndarray, qr_size: int, size_region:
         raise ValueError("block_counts does not contain any positive value")
 
     results: List[ProgressiveExtractionResult] = []
-    running_sum = np.zeros_like(spectra[0], dtype=np.complex128)
+    running_sum = np.zeros((size_region, size_region), dtype=np.complex128)
     target_idx = 0
 
-    for idx, spectrum in enumerate(spectra, start=1):
+    for idx, spectrum in enumerate(_iter_spectra(blocks[:counts[-1]], size_region, phase_sign), start=1):
         running_sum += spectrum
         if idx != counts[target_idx]:
             continue
@@ -352,7 +369,7 @@ def extract_progressive_by_blocks( image: np.ndarray, qr_size: int, size_region:
             offset=offset,
             detrend=detrend,
         )
-        recovered_qr, threshold = recover_qr_from_score(score_map)
+        recovered_qr, threshold = recover_qr_from_score(score_map, expected_ones=expected_ones)
         accuracy = None if qr_true is None else bit_accuracy(qr_true, recovered_qr)
 
         results.append(

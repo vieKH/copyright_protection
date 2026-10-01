@@ -3,10 +3,11 @@ import numpy as np
 from Source.Utils import  couple_of_points, phase_research, show_frequency, many_couple_of_points
 
 IMAGE_PATH = os.path.join('Image', 'lena.tif')
-# SAVE_PATH = os.path.join('Results','Basic')
+SAVE_PATH = os.path.join('Results','Basic')
 N = 64
 
 if __name__ == "__main__":
+    os.makedirs(SAVE_PATH, exist_ok=True)
     blackImage = np.zeros((N, N))
 
     path_couple_of_points = os.path.join(SAVE_PATH, "1_couple_of_points.png")
