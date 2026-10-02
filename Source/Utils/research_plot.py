@@ -190,7 +190,7 @@ def diff_spectrum(spectrum1: np.ndarray, spectrum2: np.ndarray, size_region: int
     return merge_blocks(diff_spectrum_compression)
 
 
-def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: int, offset: int, phase: float, q: float,  save_path: str):
+def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: int, offset: int, phase: float, q: float,  save_path: str, gap=None):
     """
     Show analyze when adding QR code in spectrum
     :param image: image in form np.ndarray
@@ -224,7 +224,7 @@ def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: in
     ax3.axis("off")
 
     ax4 = plt.subplot(2, 4, 4)
-    image_after_embedding = embed_watermark_into_image(image, qr, size_region, q, phase, x, y, offset)
+    image_after_embedding = embed_watermark_into_image(image, qr, size_region, q, phase, x, y, offset, gap=gap)
     ax4.imshow(image_after_embedding, cmap="gray")
     ax4.set_title("Image after adding QR code")
     ax4.axis("off")
@@ -252,6 +252,7 @@ def research_qr(image: np.ndarray, size_qr: int, size_region: int, x: int, y: in
         x=x,
         y=y,
         offset=offset,
+        gap=gap,
         phase_sign_candidates=(-1,),
         detrend=False,
     )

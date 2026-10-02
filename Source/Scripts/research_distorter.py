@@ -3,9 +3,11 @@ from __future__ import annotations
 import csv
 import math
 import os
-import shutil
+from pathlib import Path
+from Source.Utils.run_output import create_run_directory
 import matplotlib.pyplot as plt
 import numpy as np
+from Source import config
 from Source.Utils import calculate_q
 
 from PIL import Image
@@ -16,16 +18,17 @@ from Source.Utils import (bit_accuracy, count_psnr, embed_watermark_into_image, 
 
 Number = Union[int, float]
 
-IMAGE_PATH = os.path.join("Image", "lena.tif")
-OUTPUT_DIR = os.path.join("Results", "Distortion_Research")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+IMAGE_PATH = str(PROJECT_ROOT / "Image" / "lena.tif")
+OUTPUT_DIR = str(PROJECT_ROOT / "Results" / "Distortion_Research")
 
-REGION_SIZE = 64
-EXTRACT_STRIDE = 32
+REGION_SIZE = config.REGION_SIZE
+EXTRACT_STRIDE = config.EXTRACT_STRIDE
 QR_SIZE = 14
 PHI = np.pi / 3
-EMBED_X = 8
-EMBED_Y = 8
-EMBED_OFFSET = 4
+EMBED_X = config.EMBED_X
+EMBED_Y = config.EMBED_Y
+EMBED_OFFSET = config.EMBED_OFFSET
 S_PARAM = 300
 QR_SEED = 42
 START_X = 5
@@ -62,25 +65,10 @@ def ensure_dir(path: str) -> None:
     os.makedirs(path, exist_ok=True)
 
 
-def remove_path(path: str) -> None:
-    """Remove a file or directory if it already exists."""
-    if os.path.isdir(path):
-        shutil.rmtree(path)
-    elif os.path.exists(path):
-        os.remove(path)
-
-
-def reset_dir(path: str) -> None:
-    """Delete and recreate a directory to avoid stale files from previous runs."""
-    remove_path(path)
-    ensure_dir(path)
-
-
 def prepare_attack_dir(attack_dir: str) -> str:
-    """Keep only the figures folder inside every attack directory."""
+    """Create figures folder in the new run without deleting old results."""
     ensure_dir(attack_dir)
     figures_dir = os.path.join(attack_dir, "figures")
-    remove_path(figures_dir)
     ensure_dir(figures_dir)
     return figures_dir
 
@@ -372,6 +360,7 @@ def extract_last_result(image: np.ndarray, qr_true: np.ndarray):
         x=EMBED_X,
         y=EMBED_Y,
         offset=EMBED_OFFSET,
+        gap=config.EMBED_GAP,
         block_counts=[10**9],
         qr_true=qr_true,
         phase_sign=PHASE_SIGN,
@@ -420,6 +409,14 @@ def run_one_attack(spec: AttackSpec, watermarked: np.ndarray, qr_true: np.ndarra
             "start_y": int(START_Y),
             "phase_sign": int(PHASE_SIGN),
             "extract_stride": int(EXTRACT_STRIDE),
+            "embed_gap": int(config.EMBED_GAP),
+            "region_size": int(REGION_SIZE),
+            "qr_size": int(QR_SIZE),
+            "embed_x": int(EMBED_X),
+            "embed_y": int(EMBED_Y),
+            "embed_offset": int(EMBED_OFFSET),
+            "phi": float(PHI),
+            "q": calculate_q(S_PARAM, QR_SIZE, REGION_SIZE),
         }
         rows.append(row)
 
@@ -517,7 +514,7 @@ def save_summary_ber_plot(rows: Sequence[dict], save_path: str) -> None:
 
 
 if __name__ == "__main__":
-    reset_dir(OUTPUT_DIR)
+    OUTPUT_DIR = create_run_directory(OUTPUT_DIR, config.EMBED_GAP)
     summary_dir = os.path.join(OUTPUT_DIR, "summary")
     ensure_dir(summary_dir)
 
@@ -526,7 +523,7 @@ if __name__ == "__main__":
     q = calculate_q(S_PARAM, QR_SIZE, REGION_SIZE)
 
     watermarked = embed_watermark_into_image( image=image, qr=qr_true, size_region=REGION_SIZE, q=q,
-                                              phi=PHI, x=EMBED_X, y=EMBED_Y, offset=EMBED_OFFSET)
+                                              phi=PHI, x=EMBED_X, y=EMBED_Y, offset=EMBED_OFFSET, gap=config.EMBED_GAP)
 
     watermarked = np.clip(watermarked, 0, 255).astype(np.uint8)
 
@@ -537,6 +534,7 @@ if __name__ == "__main__":
     print("- image_size:", image.shape)
     print("- region_size:", REGION_SIZE)
     print("- extract_stride:", EXTRACT_STRIDE)
+    print("- embed_gap (empty spectral bins):", config.EMBED_GAP)
     print("- qr_size:", QR_SIZE)
     print("- q:", q)
     print("- PSNR original vs watermarked:", count_psnr(image, watermarked))

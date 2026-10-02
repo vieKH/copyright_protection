@@ -4,81 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="+">
+    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="Update code for optimizing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Basic/1_couple_of_points.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Basic/1_couple_of_points.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/contrast/figures/contrast_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/contrast/figures/contrast_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/contrast/figures/contrast_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/contrast/figures/contrast_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/contrast/figures/contrast_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/contrast/figures/contrast_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/contrast/figures/contrast_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/contrast/figures/contrast_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/cut/figures/cut_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/cut/figures/cut_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/cut/figures/cut_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/cut/figures/cut_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/cut/figures/cut_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/cut/figures/cut_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/cut/figures/cut_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/cut/figures/cut_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/gauss_blur/figures/gauss_blur_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/gauss_blur/figures/gauss_blur_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/gauss_blur/figures/gauss_blur_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/gauss_blur/figures/gauss_blur_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/gauss_blur/figures/gauss_blur_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/gauss_blur/figures/gauss_blur_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/gauss_blur/figures/gauss_blur_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/gauss_blur/figures/gauss_blur_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/jpeg/figures/jpeg_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/jpeg/figures/jpeg_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/jpeg/figures/jpeg_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/jpeg/figures/jpeg_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/jpeg/figures/jpeg_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/jpeg/figures/jpeg_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/jpeg/figures/jpeg_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/jpeg/figures/jpeg_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/median/figures/median_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/median/figures/median_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/median/figures/median_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/median/figures/median_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/median/figures/median_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/median/figures/median_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/median/figures/median_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/median/figures/median_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/rot_rest/figures/rot_rest_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/rot_rest/figures/rot_rest_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/rot_rest/figures/rot_rest_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/rot_rest/figures/rot_rest_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/rot_rest/figures/rot_rest_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/rot_rest/figures/rot_rest_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/rot_rest/figures/rot_rest_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/rot_rest/figures/rot_rest_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/rotation/figures/rotation_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/rotation/figures/rotation_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/rotation/figures/rotation_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/rotation/figures/rotation_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/rotation/figures/rotation_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/rotation/figures/rotation_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/rotation/figures/rotation_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/rotation/figures/rotation_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/salt_pepper/figures/salt_pepper_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/salt_pepper/figures/salt_pepper_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/salt_pepper/figures/salt_pepper_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/salt_pepper/figures/salt_pepper_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/salt_pepper/figures/salt_pepper_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/salt_pepper/figures/salt_pepper_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/salt_pepper/figures/salt_pepper_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/salt_pepper/figures/salt_pepper_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/scale/figures/scale_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/scale/figures/scale_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/scale/figures/scale_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/scale/figures/scale_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/scale/figures/scale_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/scale/figures/scale_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/scale/figures/scale_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/scale/figures/scale_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/scale_rest/figures/scale_rest_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/scale_rest/figures/scale_rest_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/scale_rest/figures/scale_rest_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/scale_rest/figures/scale_rest_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/scale_rest/figures/scale_rest_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/scale_rest/figures/scale_rest_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/scale_rest/figures/scale_rest_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/scale_rest/figures/scale_rest_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/sharpen/figures/sharpen_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/sharpen/figures/sharpen_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/sharpen/figures/sharpen_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/sharpen/figures/sharpen_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/sharpen/figures/sharpen_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/sharpen/figures/sharpen_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/sharpen/figures/sharpen_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/sharpen/figures/sharpen_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/shift/figures/shift_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/shift/figures/shift_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/shift/figures/shift_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/shift/figures/shift_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/shift/figures/shift_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/shift/figures/shift_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/shift/figures/shift_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/shift/figures/shift_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/smooth/figures/smooth_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/smooth/figures/smooth_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/smooth/figures/smooth_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/smooth/figures/smooth_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/smooth/figures/smooth_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/smooth/figures/smooth_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/smooth/figures/smooth_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/smooth/figures/smooth_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/summary/accuracy_summary_all_attacks.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/summary/accuracy_summary_all_attacks.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/summary/all_results.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/summary/all_results.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/summary/ber_summary_all_attacks.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/summary/ber_summary_all_attacks.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/watermarked.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/watermarked.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/wh_noise/figures/wh_noise_accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/wh_noise/figures/wh_noise_accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/wh_noise/figures/wh_noise_attacked_images.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/wh_noise/figures/wh_noise_attacked_images.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/wh_noise/figures/wh_noise_ber.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/wh_noise/figures/wh_noise_ber.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Distortion_Research/wh_noise/figures/wh_noise_extracted_qrs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Distortion_Research/wh_noise/figures/wh_noise_extracted_qrs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Extraction_Research/figure_1_extract_results_by_blocks.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Extraction_Research/figure_1_extract_results_by_blocks.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Extraction_Research/figure_2_accuracy_vs_blocks.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Extraction_Research/figure_2_accuracy_vs_blocks.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/basic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/basic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/check_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/check_function.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Extraction_Research/figure_1_extract_results_by_blocks.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Extraction_Research/figure_2_accuracy_vs_blocks.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Scripts/execute.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/execute.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/distorter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/distorter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Utils/extraction_research.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/extraction_research.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/my_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/my_function.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/qr_create.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Utils/research_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/research_plot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/utils.py" afterDir="false" />
     </list>
@@ -114,32 +47,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.basic.executor": "Run",
-    "Python.execute.executor": "Run",
-    "Python.research_distorter.executor": "Run",
-    "Python.research_extraction.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ai.playground.ignore.import.keys.banner.in.settings": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.basic.executor&quot;: &quot;Run&quot;,
+    &quot;Python.execute.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_distorter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_extraction.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ai.playground.ignore.import.keys.banner.in.settings&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.research_extraction">
     <configuration name="basic" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Diplom" />
@@ -285,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790754828736</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Update code for optimizing">
+      <option name="closed" value="true" />
+      <created>1790859472291</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1790859472291</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -294,6 +235,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="extra blocks" />
     <MESSAGE value="+" />
-    <option name="LAST_COMMIT_MESSAGE" value="+" />
+    <MESSAGE value="Update code for optimizing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update code for optimizing" />
   </component>
 </project>

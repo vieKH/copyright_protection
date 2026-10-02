@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import Dict, Iterator, List, Optional, Tuple
 
 import numpy as np
+from .. import config
 from .my_function import my_ifft2
 EPSILON = 1e-6
 
@@ -82,14 +83,22 @@ def _conj_index(u: int, v: int, n: int) -> Tuple[int, int]:
     return (-u) % n, (-v) % n
 
 
-def max_qr_size_for_block(block_size: int) -> int:
+def resolve_embedding_gap(gap: Optional[int] = None) -> int:
+    value = config.EMBED_GAP if gap is None else gap
+    if isinstance(value, (bool, np.bool_)) or not isinstance(value, (int, np.integer)) or value < 0:
+        raise ValueError("gap must be a non-negative integer (number of empty Fourier bins)")
+    return int(value)
+
+
+def max_qr_size_for_block(block_size: int, gap: Optional[int] = None) -> int:
     """Return the largest QR size supported by the current spectral layout."""
+    gap = resolve_embedding_gap(gap)
     x, y, offset = design_params(block_size)
     best = 0
 
     for qr_size in range(1, block_size + 1):
         try:
-            qr_to_spectrum_positions(qr_size, block_size, x, y, offset)
+            qr_to_spectrum_positions(qr_size, block_size, x, y, offset, gap=gap)
         except ValueError:
             continue
         best = qr_size
@@ -98,10 +107,11 @@ def max_qr_size_for_block(block_size: int) -> int:
 
 
 def qr_to_spectrum_positions(qr_size: int, size_region: int, x: Optional[int] = None, y: Optional[int] = None,
-                             offset: Optional[int] = None) -> List[Dict[str, int]]:
+                             offset: Optional[int] = None, gap: Optional[int] = None) -> List[Dict[str, int]]:
     """Map QR bit coordinates to Fourier-spectrum coordinates
-    The QR is split into a low-frequency left part and a high-frequency right
-    part. The conjugate coordinates are handled later by ``build_wm_spectrum``.
+    gap counts empty bins on both axes; None reads config.EMBED_GAP.
+    The left half is anchored at y; the right half ends at N-offset-1.
+    The QR is split into two column bands in the unshifted FFT array. The conjugate coordinates are handled later by ``build_wm_spectrum``.
     """
     if qr_size <= 0:
         raise ValueError("qr_size must be positive")
@@ -109,6 +119,7 @@ def qr_to_spectrum_positions(qr_size: int, size_region: int, x: Optional[int] = 
         raise ValueError("size_region must be positive")
 
     x, y, offset = resolve_embedding_params(size_region, x, y, offset)
+    step = resolve_embedding_gap(gap) + 1
     positions: List[Dict[str, int]] = []
 
     left_width = (qr_size + 1) // 2
@@ -116,14 +127,14 @@ def qr_to_spectrum_positions(qr_size: int, size_region: int, x: Optional[int] = 
 
     if x < 0 or y < 0 or offset < 0:
         raise ValueError("x, y, and offset must be non-negative")
-    if x + qr_size > size_region:
+    if x + (qr_size - 1) * step >= size_region:
         raise ValueError("QR exceeds row bound")
 
-    left_end = y + left_width - 1
+    left_end = y + (left_width - 1) * step
     if left_end >= size_region:
         raise ValueError("Left half exceeds column bound")
 
-    right_base_v = size_region - offset - right_width
+    right_base_v = size_region - offset - 1 - (right_width - 1) * step
     if right_width > 0:
         if right_base_v < 0:
             raise ValueError("Right half start is negative")
@@ -132,11 +143,11 @@ def qr_to_spectrum_positions(qr_size: int, size_region: int, x: Optional[int] = 
 
     for i in range(qr_size):
         for j in range(qr_size):
-            u = x + i
+            u = x + step * i
             if j < left_width:
-                v = y + j
+                v = y + step * j
             else:
-                v = right_base_v + (j - left_width)
+                v = right_base_v + step * (j - left_width)
 
             if not (0 <= u < size_region and 0 <= v < size_region):
                 raise ValueError("QR mapping index is out of bounds")
@@ -146,7 +157,7 @@ def qr_to_spectrum_positions(qr_size: int, size_region: int, x: Optional[int] = 
     coordinates = {(p["row"], p["col"]) for p in positions}
     conjugates = {_conj_index(u, v, size_region) for u, v in coordinates}
     if coordinates & conjugates:
-        raise ValueError("QR positions overlap conjugate positions (or self-conjugate bins)")
+        raise ValueError(f"Invalid spectral layout: gap={step - 1}, qr_size={qr_size}, block_size={size_region}; QR positions overlap conjugate positions (or self-conjugate bins). Change gap, QR/block size, or x/y/offset.")
     return positions
 
 
@@ -201,7 +212,7 @@ def iter_offset_blocks(image: np.ndarray, block_size: int, start_x: int, start_y
 
 
 def build_wm_spectrum(qr: np.ndarray, size_region: int, phi: float, x: Optional[int] = None, y: Optional[int] = None,
-                      offset: Optional[int] = None) -> np.ndarray:
+                      offset: Optional[int] = None, gap: Optional[int] = None) -> np.ndarray:
     """Build the watermark spectrum for one image block."""
     qr_bits = np.asarray(qr)
     if qr_bits.ndim != 2 or qr_bits.shape[0] != qr_bits.shape[1]:
@@ -216,7 +227,7 @@ def build_wm_spectrum(qr: np.ndarray, size_region: int, phi: float, x: Optional[
     e_pos = np.exp(1j * phi)
     e_neg = np.exp(-1j * phi)
 
-    positions = qr_to_spectrum_positions(qr_size=qr_bits.shape[0], size_region=size_region, x=x, y=y, offset=offset)
+    positions = qr_to_spectrum_positions(qr_size=qr_bits.shape[0], size_region=size_region, x=x, y=y, offset=offset, gap=gap)
 
     for pos in positions:
         i = pos["qr_i"]
@@ -235,7 +246,7 @@ def build_wm_spectrum(qr: np.ndarray, size_region: int, phi: float, x: Optional[
 
 
 def embed_watermark_into_image(image: np.ndarray, qr: np.ndarray,size_region: int, q: float,  phi: float,
-                               x: Optional[int] = None, y: Optional[int] = None, offset: Optional[int] = None) -> np.ndarray:
+                               x: Optional[int] = None, y: Optional[int] = None, offset: Optional[int] = None, gap: Optional[int] = None) -> np.ndarray:
     """Embed a binary QR watermark into every non-overlapping image block."""
     img = np.asarray(image)
     if img.ndim != 2:
@@ -246,7 +257,7 @@ def embed_watermark_into_image(image: np.ndarray, qr: np.ndarray,size_region: in
         raise ValueError("q must be finite and non-negative")
 
     x, y, offset = resolve_embedding_params(size_region, x, y, offset)
-    watermark_spectrum = build_wm_spectrum(qr=qr, size_region=size_region, phi=phi, x=x, y=y, offset=offset)
+    watermark_spectrum = build_wm_spectrum(qr=qr, size_region=size_region, phi=phi, x=x, y=y, offset=offset, gap=gap)
 
     blocks = split_into_blocks(img, block_size=size_region)
     # Linearity: IFFT(FFT(block) + q * W) = block + q * IFFT(W).

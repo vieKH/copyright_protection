@@ -1,24 +1,28 @@
 import math
 import os
+from pathlib import Path
+from Source.Utils.run_output import create_run_directory
 
 import matplotlib.pyplot as plt
 import numpy as np
+from Source import config
 from Source.Utils import calculate_q
 
 from Source.Utils import extract_progressive_by_blocks
 from Source.Utils import count_psnr, embed_watermark_into_image, generate_watermark
 
 
-IMAGE_PATH = os.path.join("Image","lena.tif")
-OUTPUT_DIR = os.path.join("Results", "Extraction_Research")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+IMAGE_PATH = str(PROJECT_ROOT / "Image" / "lena.tif")
+OUTPUT_DIR = str(PROJECT_ROOT / "Results" / "Extraction_Research")
 
-REGION_SIZE = 64
-EXTRACT_STRIDE = 32
+REGION_SIZE = config.REGION_SIZE
+EXTRACT_STRIDE = config.EXTRACT_STRIDE
 QR_SIZE = 14
 PHI = np.pi / 3
-EMBED_X = 8
-EMBED_Y = 8
-EMBED_OFFSET = 4
+EMBED_X = config.EMBED_X
+EMBED_Y = config.EMBED_Y
+EMBED_OFFSET = config.EMBED_OFFSET
 S_PARAM = 300
 QR_SEED = 42
 EXTRACT_START_SEED = 6513
@@ -87,13 +91,13 @@ def plot_figure_2(results, save_path: str):
 
 
 if __name__ == "__main__":
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    OUTPUT_DIR = create_run_directory(OUTPUT_DIR, config.EMBED_GAP)
     image = plt.imread(IMAGE_PATH)
     qr_true = generate_watermark(QR_SIZE, seed=QR_SEED)
     q = calculate_q(S_PARAM, QR_SIZE, REGION_SIZE)
 
     watermarked = embed_watermark_into_image(image=image, qr=qr_true, size_region=REGION_SIZE, q=q,
-                                             phi=PHI, x=EMBED_X, y=EMBED_Y, offset=EMBED_OFFSET)
+                                             phi=PHI, x=EMBED_X, y=EMBED_Y, offset=EMBED_OFFSET, gap=config.EMBED_GAP)
 
     start_x = 5
     start_y = 8
@@ -109,6 +113,7 @@ if __name__ == "__main__":
         x=EMBED_X,
         y=EMBED_Y,
         offset=EMBED_OFFSET,
+        gap=config.EMBED_GAP,
         qr_true=qr_true,
         phase_sign=PHASE_SIGN,
         shuffle_blocks=SHUFFLE_BLOCK_ORDER,
@@ -120,6 +125,7 @@ if __name__ == "__main__":
     print("- image_size:", image.shape)
     print("- region_size:", REGION_SIZE)
     print("- extract_stride:", EXTRACT_STRIDE)
+    print("- embed_gap (empty spectral bins):", config.EMBED_GAP)
     print("- qr_size:", QR_SIZE)
     print("- q:", q)
     print("- PSNR:", count_psnr(image, watermarked))
