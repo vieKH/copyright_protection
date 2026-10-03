@@ -49,3 +49,11 @@ __all__ = [
     "extract_watermark_search_offsets",
     "random_extract_start",
 ]
+
+from .synchronization import (
+    SyncSettings, SyncEstimate, SynchronizedExtraction, default_sync_settings,
+    embed_synchronized, estimate_synchronization, extract_synchronized,
+)
+__all__ += ["SyncSettings", "SyncEstimate", "SynchronizedExtraction",
+            "default_sync_settings", "embed_synchronized",
+            "estimate_synchronization", "extract_synchronized"]

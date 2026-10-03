@@ -91,6 +91,7 @@ def plot_figure_2(results, save_path: str):
 
 
 if __name__ == "__main__":
+    print("LEGACY baseline without synchronization. For sync use Source.Scripts.research_synchronization.")
     OUTPUT_DIR = create_run_directory(OUTPUT_DIR, config.EMBED_GAP)
     image = plt.imread(IMAGE_PATH)
     qr_true = generate_watermark(QR_SIZE, seed=QR_SEED)

@@ -514,6 +514,7 @@ def save_summary_ber_plot(rows: Sequence[dict], save_path: str) -> None:
 
 
 if __name__ == "__main__":
+    print("LEGACY baseline without synchronization. For sync use Source.Scripts.research_synchronization.")
     OUTPUT_DIR = create_run_directory(OUTPUT_DIR, config.EMBED_GAP)
     summary_dir = os.path.join(OUTPUT_DIR, "summary")
     ensure_dir(summary_dir)
