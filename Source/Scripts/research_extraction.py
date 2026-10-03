@@ -13,7 +13,7 @@ from Source.Utils import count_psnr, embed_watermark_into_image, generate_waterm
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-IMAGE_PATH = str(PROJECT_ROOT / "Image" / "lena.tif")
+IMAGE_PATH = str(PROJECT_ROOT / "Image" / "vn_people.tiff")
 OUTPUT_DIR = str(PROJECT_ROOT / "Results" / "Extraction_Research")
 
 REGION_SIZE = config.REGION_SIZE
