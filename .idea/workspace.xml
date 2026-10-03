@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="Update code">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Extraction_Research/figure_1_extract_results_by_blocks.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Extraction_Research/figure_2_accuracy_vs_blocks.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/execute.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/execute.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/config.py" afterDir="false" />
-    </list>
+    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="Update code" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -259,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790919451273</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Update code">
+      <option name="closed" value="true" />
+      <created>1791038414159</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1791038414159</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
