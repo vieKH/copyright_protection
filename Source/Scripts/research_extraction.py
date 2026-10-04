@@ -13,7 +13,7 @@ from Source.Utils import count_psnr, embed_watermark_into_image, generate_waterm
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-IMAGE_PATH = str(PROJECT_ROOT / "Image" / "vn_people.tiff")
+IMAGE_PATH = str(PROJECT_ROOT / "Image" / "vn_beach.tif")
 OUTPUT_DIR = str(PROJECT_ROOT / "Results" / "Extraction_Research")
 
 REGION_SIZE = config.REGION_SIZE
@@ -31,8 +31,6 @@ AVOID_ZERO_ZERO_START = True
 SHUFFLE_BLOCK_ORDER = True
 PHASE_SIGN = -1
 DETREND = False
-
-
 
 
 def plot_figure_1(image: np.ndarray, qr_true: np.ndarray, watermarked: np.ndarray, results, save_path: str):
@@ -92,10 +90,21 @@ def plot_figure_2(results, save_path: str):
 
 if __name__ == "__main__":
     print("LEGACY baseline without synchronization. For sync use Source.Scripts.research_synchronization.")
-    OUTPUT_DIR = create_run_directory(OUTPUT_DIR, config.EMBED_GAP)
+    q = calculate_q(S_PARAM, QR_SIZE, REGION_SIZE)
+
+    RUN_DIR = create_run_directory(
+        base=OUTPUT_DIR,
+        image_path=IMAGE_PATH,
+        qr_size=QR_SIZE,
+        block_size=REGION_SIZE,
+        gap_size=config.EMBED_GAP,
+        param_name="q",
+        param_value=q,
+    )
+
     image = plt.imread(IMAGE_PATH)
     qr_true = generate_watermark(QR_SIZE, seed=QR_SEED)
-    q = calculate_q(S_PARAM, QR_SIZE, REGION_SIZE)
+
 
     watermarked = embed_watermark_into_image(image=image, qr=qr_true, size_region=REGION_SIZE, q=q,
                                              phi=PHI, x=EMBED_X, y=EMBED_Y, offset=EMBED_OFFSET, gap=config.EMBED_GAP)
@@ -144,9 +153,9 @@ if __name__ == "__main__":
             f"threshold={r.threshold:.4f}"
         )
 
-    fig1_path = os.path.join(OUTPUT_DIR, "figure_1_extract_results_by_blocks.png")
-    fig2_path = os.path.join(OUTPUT_DIR, "figure_2_accuracy_vs_blocks.png")
+    fig1_path = os.path.join(RUN_DIR, "figure_1_extract_results_by_blocks.png")
 
+    fig2_path = os.path.join(RUN_DIR,"figure_2_accuracy_vs_blocks.png")
 
     plot_figure_1(image, qr_true, watermarked, results, fig1_path)
     plot_figure_2(results, fig2_path)

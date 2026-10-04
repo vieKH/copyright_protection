@@ -207,6 +207,112 @@ def save_metric_plot(rows: Sequence[dict], save_path: str, x_key: str, y_key: st
     plt.savefig(save_path, dpi=300, bbox_inches="tight")
     plt.close()
 
+def save_attack_pairs_grid(
+    original_image: np.ndarray,
+    original_qr: np.ndarray,
+    attacked_images: Sequence[np.ndarray],
+    extracted_qrs: Sequence[np.ndarray],
+    parameter_values: Sequence[str],
+    accuracies: Sequence[float],
+    param_symbol: str,
+    save_path: str,
+    suptitle: str,
+) -> None:
+    """
+    Display results as vertical pairs:
+
+        row 1: original image | attacked image 1 | attacked image 2 | ...
+        row 2: original QR    | extracted QR 1 | extracted QR 2 | ...
+
+    Each attacked-image column shows the attack parameter and extraction accuracy.
+    """
+
+    n_results = len(attacked_images)
+
+    if not (
+        len(extracted_qrs)
+        == len(parameter_values)
+        == len(accuracies)
+        == n_results
+    ):
+        raise ValueError(
+            "attacked_images, extracted_qrs, parameter_values "
+            "and accuracies must have the same length"
+        )
+
+    # +1 for original image / original QR pair
+    n_cols = n_results + 1
+
+    fig, axes = plt.subplots(
+        2,
+        n_cols,
+        figsize=(3.2 * n_cols, 6.5),
+        squeeze=False,
+    )
+
+    # First pair: original image + original QR
+    axes[0, 0].imshow(original_image, cmap="gray")
+    axes[0, 0].set_title("Watermarked image")
+    axes[0, 0].axis("off")
+
+    axes[1, 0].imshow(
+        original_qr,
+        cmap="gray",
+        vmin=0,
+        vmax=1,
+    )
+    axes[1, 0].set_title("Original QR")
+    axes[1, 0].axis("off")
+
+    # Remaining pairs: attacked image + extracted QR
+    for col, (
+        attacked,
+        recovered_qr,
+        value_text,
+        accuracy,
+    ) in enumerate(
+        zip(
+            attacked_images,
+            extracted_qrs,
+            parameter_values,
+            accuracies,
+        ),
+        start=1,
+    ):
+        # Row 1: attacked image
+        axes[0, col].imshow(attacked, cmap="gray")
+        axes[0, col].set_title(
+            f"{param_symbol}={value_text}\n"
+            f"acc={accuracy:.3f}"
+        )
+        axes[0, col].axis("off")
+
+        # Row 2: extracted QR
+        axes[1, col].imshow(
+            recovered_qr,
+            cmap="gray",
+            vmin=0,
+            vmax=1,
+        )
+        axes[1, col].set_title("Extracted QR")
+        axes[1, col].axis("off")
+
+    fig.suptitle(suptitle, fontsize=14)
+
+    plt.tight_layout(
+        rect=[0, 0, 1, 0.95]
+    )
+
+    ensure_dir(os.path.dirname(save_path))
+
+    plt.savefig(
+        save_path,
+        dpi=300,
+        bbox_inches="tight",
+    )
+
+    plt.close(fig)
+
 
 def build_attack_specs() -> List[AttackSpec]:
     """Attack parameter table.
@@ -377,9 +483,10 @@ def run_one_attack(spec: AttackSpec, watermarked: np.ndarray, qr_true: np.ndarra
 
     rows: List[dict] = []
     attacked_images: List[np.ndarray] = []
-    attacked_titles: List[str] = []
-    qr_images: List[np.ndarray] = [qr_true]
-    qr_titles: List[str] = ["Original QR"]
+    extracted_qrs: List[np.ndarray] = []
+
+    parameter_values: List[str] = []
+    accuracies: List[float] = []
 
     for value in spec.values:
         value_text = value_to_text(value)
@@ -391,6 +498,20 @@ def run_one_attack(spec: AttackSpec, watermarked: np.ndarray, qr_true: np.ndarra
         accuracy = float(bit_accuracy(qr_true, result.recovered_qr))
         ber = 1.0 - accuracy
         psnr_wm = float(count_psnr(watermarked, attacked))
+
+        attacked_images.append(attacked)
+
+        extracted_qrs.append(
+            result.recovered_qr
+        )
+
+        parameter_values.append(
+            value_text
+        )
+
+        accuracies.append(
+            accuracy
+        )
 
         row = {
             "attack": spec.name,
@@ -420,10 +541,7 @@ def run_one_attack(spec: AttackSpec, watermarked: np.ndarray, qr_true: np.ndarra
         }
         rows.append(row)
 
-        attacked_images.append(attacked)
-        attacked_titles.append(f"{spec.param_symbol}={value_text}\nacc={accuracy:.3f}")
-        qr_images.append(result.recovered_qr)
-        qr_titles.append(f"{spec.param_symbol}={value_text}\nacc={accuracy:.3f}")
+
 
         psnr_text = "inf" if np.isinf(psnr_wm) else f"{psnr_wm:.2f}"
         print(
@@ -432,20 +550,27 @@ def run_one_attack(spec: AttackSpec, watermarked: np.ndarray, qr_true: np.ndarra
             f"start=({START_X},{START_Y}) | phase={PHASE_SIGN}"
         )
 
-    save_image_grid(
-        images=attacked_images,
-        titles=attacked_titles,
-        save_path=os.path.join(figures_dir, f"{spec.name}_attacked_images.png"),
-        suptitle=f"{spec.name}: attacked images",
-    )
+    save_attack_pairs_grid(
+        original_image=watermarked,
+        original_qr=qr_true,
 
-    save_image_grid(
-        images=qr_images,
-        titles=qr_titles,
-        save_path=os.path.join(figures_dir, f"{spec.name}_extracted_qrs.png"),
-        suptitle=f"{spec.name}: extracted QRs",
-        vmin=0,
-        vmax=1,
+        attacked_images=attacked_images,
+        extracted_qrs=extracted_qrs,
+
+        parameter_values=parameter_values,
+        accuracies=accuracies,
+
+        param_symbol=spec.param_symbol,
+
+        save_path=os.path.join(
+            figures_dir,
+            f"{spec.name}_pairs.png"
+        ),
+
+        suptitle=(
+            f"{spec.name}: attacked image "
+            f"and extracted watermark"
+        ),
     )
 
     save_metric_plot(
@@ -515,7 +640,17 @@ def save_summary_ber_plot(rows: Sequence[dict], save_path: str) -> None:
 
 if __name__ == "__main__":
     print("LEGACY baseline without synchronization. For sync use Source.Scripts.research_synchronization.")
-    OUTPUT_DIR = create_run_directory(OUTPUT_DIR, config.EMBED_GAP)
+    q = calculate_q(S_PARAM, QR_SIZE, REGION_SIZE)
+
+    OUTPUT_DIR = create_run_directory(
+        base=OUTPUT_DIR,
+        image_path=IMAGE_PATH,
+        qr_size=QR_SIZE,
+        block_size=REGION_SIZE,
+        gap_size=config.EMBED_GAP,
+        param_name="q",
+        param_value=q,
+    )
     summary_dir = os.path.join(OUTPUT_DIR, "summary")
     ensure_dir(summary_dir)
 

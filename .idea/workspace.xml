@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="Update code for preventing geometry attack">
+    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="+-">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image/vn_mountan.tiff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image/vn_lake.tiff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image/vn_people.tiff" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/run_output.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/run_output.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/config.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -287,7 +290,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791039314627</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="+-">
+      <option name="closed" value="true" />
+      <created>1791039845594</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1791039845594</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,6 +310,7 @@
     <MESSAGE value="Update code for optimizing" />
     <MESSAGE value="Update code" />
     <MESSAGE value="Update code for preventing geometry attack" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update code for preventing geometry attack" />
+    <MESSAGE value="+-" />
+    <option name="LAST_COMMIT_MESSAGE" value="+-" />
   </component>
 </project>
