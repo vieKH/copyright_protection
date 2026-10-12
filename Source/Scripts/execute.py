@@ -8,14 +8,15 @@ from Source import config
 from PIL import Image
 from Source.Utils import (
     bit_accuracy, calculate_q, count_psnr, embed_watermark_into_image,
-    extract_watermark, generate_watermark, embed_synchronized, extract_synchronized,
+    extract_watermark, generate_watermark, embed_synchronized, extract_synchronized, configured_phase,
 )
 
 
 def main():
     image = np.array(Image.open(Path(__file__).resolve().parents[2] / 'Image' / 'lena.tif').convert('L'))
     qr = generate_watermark(14, seed=42)
-    phi = np.pi / 3
+    # The synchronized research path retains its scalar-phase baseline.
+    phi = config.FIXED_PHASE if config.SYNC_ENABLED else configured_phase(qr.shape[0])
     n = config.REGION_SIZE
     layout = dict(x=config.EMBED_X, y=config.EMBED_Y, offset=config.EMBED_OFFSET,
                   gap=config.EMBED_GAP)
@@ -31,6 +32,7 @@ def main():
     else:
         recovered, _, _, count, _ = extract_watermark(
             wm,14,n,phi,5,8,stride=config.EXTRACT_STRIDE,**layout)
+    print(f'Phase mode: {"fixed (synchronized baseline)" if config.SYNC_ENABLED else config.PHASE_MODE}')
     print(f'Block size: {n}')
     print(f'Embed gap: {config.EMBED_GAP}')
     print(f'PSNR: {count_psnr(image, wm):.4f} dB')

@@ -8,9 +8,15 @@ EMBED_X = REGION_SIZE // 8
 EMBED_Y = REGION_SIZE // 8
 EMBED_OFFSET = REGION_SIZE // 16
 
-# execute.py uses the synchronized path by default. The two old research scripts
-# deliberately remain legacy baselines; use research_synchronization.py for sync.
-SYNC_ENABLED = True
+# Non-synchronized experiments use a shared per-bit phase map by default.
+PHASE_MODE = "random"  # "fixed" preserves the original scalar-phase baseline.
+PHASE_SEED = 20261011  # Independent of QR and block selection seeds.
+FIXED_PHASE = 1.0471975511965976  # pi / 3, radians.
+
+# execute.py uses the synchronized path only when explicitly enabled.
+# research_extraction/distorter stay on the block path; research_synchronization
+# retains its existing synchronized implementation and scalar-phase baseline.
+SYNC_ENABLED = False
 SYNC_SEED = 20261002
 SYNC_PILOT_PAIRS = 24
 # Fraction of the ORIGINAL payload energy allocated to synchronization.

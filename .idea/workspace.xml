@@ -4,19 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="+-">
+    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="Ready 70%">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_09_2026_11_52_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_09_2026_11_52__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image/vn_lake.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image/vn_people.tiff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image/goldhilf.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image/lena.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image/vn_beach.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image/vn_church.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image/vn_lake.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image/vn_liftfarm.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image/vn_liftfarm2.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image/vn_mountain.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image/vn_people.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Basic/2_many_couple_of_points.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Basic/2_many_couple_of_points.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Basic/3_phase_research.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Basic/3_phase_research.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/basic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/basic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/execute.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/execute.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/run_output.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/run_output.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/extraction_research.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/extraction_research.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/config.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,6 +72,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;Python.basic.executor&quot;: &quot;Run&quot;,
     &quot;Python.execute.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_dataset.executor&quot;: &quot;Run&quot;,
     &quot;Python.research_distorter.executor&quot;: &quot;Run&quot;,
     &quot;Python.research_extraction.executor&quot;: &quot;Run&quot;,
     &quot;Python.research_synchronization.executor&quot;: &quot;Run&quot;,
@@ -72,7 +95,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.research_distorter">
+  <component name="RunManager" selected="Python.research_dataset">
     <configuration name="basic" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Diplom" />
       <option name="ENV_FILES" value="" />
@@ -114,6 +137,30 @@
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/execute.py" />
       <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="research_dataset" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Diplom" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/research_dataset.py" />
+      <option name="PARAMETERS" value="--workers 16" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -196,6 +243,7 @@
     <list>
       <item itemvalue="Python.basic" />
       <item itemvalue="Python.execute" />
+      <item itemvalue="Python.research_dataset" />
       <item itemvalue="Python.research_distorter" />
       <item itemvalue="Python.research_extraction" />
       <item itemvalue="Python.research_synchronization" />
@@ -298,7 +346,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791039845594</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Ready 70%">
+      <option name="closed" value="true" />
+      <created>1791113113452</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1791113113452</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -311,6 +367,7 @@
     <MESSAGE value="Update code" />
     <MESSAGE value="Update code for preventing geometry attack" />
     <MESSAGE value="+-" />
-    <option name="LAST_COMMIT_MESSAGE" value="+-" />
+    <MESSAGE value="Ready 70%" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ready 70%" />
   </component>
 </project>

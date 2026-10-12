@@ -8,7 +8,7 @@ from Source.Utils.run_output import create_run_directory
 import matplotlib.pyplot as plt
 import numpy as np
 from Source import config
-from Source.Utils import calculate_q
+from Source.Utils import calculate_q, configured_phase
 
 from PIL import Image
 from dataclasses import dataclass
@@ -20,12 +20,14 @@ Number = Union[int, float]
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 IMAGE_PATH = str(PROJECT_ROOT / "Image" / "lena.tif")
-OUTPUT_DIR = str(PROJECT_ROOT / "Results" / "Distortion_Research")
+PHASE_RUN_NAME = (f"random_seed_{config.PHASE_SEED}" if config.PHASE_MODE == "random"
+                  else f"fixed_phase_{config.FIXED_PHASE:.6f}")
+OUTPUT_DIR = str(PROJECT_ROOT / "Results" / "Distortion_Research" / PHASE_RUN_NAME)
 
 REGION_SIZE = config.REGION_SIZE
 EXTRACT_STRIDE = config.EXTRACT_STRIDE
 QR_SIZE = 14
-PHI = np.pi / 3
+PHI = configured_phase(QR_SIZE)
 EMBED_X = config.EMBED_X
 EMBED_Y = config.EMBED_Y
 EMBED_OFFSET = config.EMBED_OFFSET
@@ -536,7 +538,9 @@ def run_one_attack(spec: AttackSpec, watermarked: np.ndarray, qr_true: np.ndarra
             "embed_x": int(EMBED_X),
             "embed_y": int(EMBED_Y),
             "embed_offset": int(EMBED_OFFSET),
-            "phi": float(PHI),
+            "phase_mode": config.PHASE_MODE,
+            "phase_seed": config.PHASE_SEED if config.PHASE_MODE == "random" else "",
+            "phi": float(PHI) if np.ndim(PHI) == 0 else "",
             "q": calculate_q(S_PARAM, QR_SIZE, REGION_SIZE),
         }
         rows.append(row)
@@ -639,7 +643,7 @@ def save_summary_ber_plot(rows: Sequence[dict], save_path: str) -> None:
 
 
 if __name__ == "__main__":
-    print("LEGACY baseline without synchronization. For sync use Source.Scripts.research_synchronization.")
+    print("Block phase-projection experiment without synchronization.")
     q = calculate_q(S_PARAM, QR_SIZE, REGION_SIZE)
 
     OUTPUT_DIR = create_run_directory(
@@ -658,6 +662,8 @@ if __name__ == "__main__":
     qr_true = generate_watermark(QR_SIZE, seed=QR_SEED)
     q = calculate_q(S_PARAM, QR_SIZE, REGION_SIZE)
 
+    np.save(os.path.join(OUTPUT_DIR, "phase_map.npy"), np.broadcast_to(PHI, (QR_SIZE, QR_SIZE)))
+
     watermarked = embed_watermark_into_image( image=image, qr=qr_true, size_region=REGION_SIZE, q=q,
                                               phi=PHI, x=EMBED_X, y=EMBED_Y, offset=EMBED_OFFSET, gap=config.EMBED_GAP)
 
@@ -672,6 +678,8 @@ if __name__ == "__main__":
     print("- extract_stride:", EXTRACT_STRIDE)
     print("- embed_gap (empty spectral bins):", config.EMBED_GAP)
     print("- qr_size:", QR_SIZE)
+    print("- phase_mode:", config.PHASE_MODE)
+    print("- phase_seed:", config.PHASE_SEED if config.PHASE_MODE == "random" else None)
     print("- q:", q)
     print("- PSNR original vs watermarked:", count_psnr(image, watermarked))
     print("- embed x/y/offset:", (EMBED_X, EMBED_Y, EMBED_OFFSET))

@@ -4,6 +4,7 @@ from typing import Dict, Iterator, List, Optional, Tuple
 import numpy as np
 from .. import config
 from .my_function import my_ifft2
+from .phases import Phase, resolve_phase_map
 EPSILON = 1e-6
 
 
@@ -211,21 +212,19 @@ def iter_offset_blocks(image: np.ndarray, block_size: int, start_x: int, start_y
             yield img[r : r + block_size, c : c + block_size], r, c
 
 
-def build_wm_spectrum(qr: np.ndarray, size_region: int, phi: float, x: Optional[int] = None, y: Optional[int] = None,
+def build_wm_spectrum(qr: np.ndarray, size_region: int, phi: Phase, x: Optional[int] = None, y: Optional[int] = None,
                       offset: Optional[int] = None, gap: Optional[int] = None) -> np.ndarray:
-    """Build the watermark spectrum for one image block."""
+    """Build a Hermitian spectrum using a scalar or one phase per bit."""
     qr_bits = np.asarray(qr)
     if qr_bits.ndim != 2 or qr_bits.shape[0] != qr_bits.shape[1]:
         raise ValueError("qr must be a square 2D array")
     if not np.all((qr_bits == 0) | (qr_bits == 1)):
         raise ValueError("qr must contain only binary values 0 and 1")
-    if not np.isfinite(phi):
-        raise ValueError("phi must be finite")
+    phases = resolve_phase_map(phi, qr_bits.shape[0])
 
     x, y, offset = resolve_embedding_params(size_region, x, y, offset)
     spectrum_qr = np.zeros((size_region, size_region), dtype=np.complex128)
-    e_pos = np.exp(1j * phi)
-    e_neg = np.exp(-1j * phi)
+    carriers = np.exp(1j * phases)
 
     positions = qr_to_spectrum_positions(qr_size=qr_bits.shape[0], size_region=size_region, x=x, y=y, offset=offset, gap=gap)
 
@@ -237,15 +236,15 @@ def build_wm_spectrum(qr: np.ndarray, size_region: int, phi: float, x: Optional[
 
         u = pos["row"]
         v = pos["col"]
-        spectrum_qr[u, v] += e_pos
+        spectrum_qr[u, v] += carriers[i, j]
 
         uc, vc = _conj_index(u, v, size_region)
-        spectrum_qr[uc, vc] += e_neg
+        spectrum_qr[uc, vc] += np.conj(carriers[i, j])
 
     return spectrum_qr
 
 
-def embed_watermark_into_image(image: np.ndarray, qr: np.ndarray,size_region: int, q: float,  phi: float,
+def embed_watermark_into_image(image: np.ndarray, qr: np.ndarray,size_region: int, q: float,  phi: Phase,
                                x: Optional[int] = None, y: Optional[int] = None, offset: Optional[int] = None, gap: Optional[int] = None) -> np.ndarray:
     """Embed a binary QR watermark into every non-overlapping image block."""
     img = np.asarray(image)

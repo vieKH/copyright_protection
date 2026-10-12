@@ -13,12 +13,14 @@ if __name__ == "__main__":
     path_couple_of_points = os.path.join(SAVE_PATH, "1_couple_of_points.png")
     couple_of_points(blackImage, 3, 4, path_couple_of_points)
 
-    x = np.array([2, 4, 14])
-    y = np.array([2, 8, 2])
+    x = np.array([2, 4])
+    y = np.array([2, 8])
 
     path_many_couple_of_points = os.path.join(SAVE_PATH, "2_many_couple_of_points.png")
     many_couple_of_points(blackImage, x, y, path_many_couple_of_points )
 
+    x = np.array([10, 50])
+    y = np.array([4, 50])
     path_phase_research = os.path.join(SAVE_PATH, "3_phase_research.png")
     phase_research(blackImage, x, y, path_phase_research, np.pi / 3)
 

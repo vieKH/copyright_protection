@@ -7,6 +7,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 import numpy as np
 
 from .my_function import my_fft2
+from .phases import Phase, resolve_phase_map
 from .utils import  EPSILON,  bit_accuracy, _conj_index, iter_offset_blocks, qr_to_spectrum_positions, resolve_embedding_params, resolve_embedding_gap
 
 
@@ -103,7 +104,7 @@ def recover_qr_from_score(score_map: np.ndarray, expected_ones: Optional[int] = 
     return recovered.reshape(score_map.shape), threshold
 
 
-def score_watermark_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int, phi: float, x: Optional[int] = None,
+def score_watermark_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int, phi: Phase, x: Optional[int] = None,
                         y: Optional[int] = None, offset: Optional[int] = None, detrend: bool = False, gap: Optional[int] = None) -> np.ndarray:
     """Build a normalized score map from an averaged extraction spectrum."""
     x, y, offset = resolve_embedding_params(size_region, x, y, offset)
@@ -111,12 +112,12 @@ def score_watermark_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int
     if avg.shape != (size_region, size_region):
         raise ValueError("avg_spectrum shape must match (size_region, size_region)")
 
-    if not np.isfinite(phi) or not np.all(np.isfinite(avg)):
-        raise ValueError("phi and avg_spectrum must be finite")
+    phases = resolve_phase_map(phi, qr_size)
+    if not np.all(np.isfinite(avg)):
+        raise ValueError("avg_spectrum must be finite")
 
     raw_score = np.zeros((qr_size, qr_size), dtype=np.float64)
-    e_neg = np.exp(-1j * phi)
-    e_pos = np.exp(1j * phi)
+    carriers = np.exp(1j * phases)
 
     positions = qr_to_spectrum_positions( qr_size=qr_size, size_region=size_region, x=x, y=y, offset=offset, gap=gap)
 
@@ -128,7 +129,8 @@ def score_watermark_map(avg_spectrum: np.ndarray, qr_size: int, size_region: int
         uc, vc = _conj_index(u, v, size_region)
 
         signal = 0.5 * (
-            np.real(avg[u, v] * e_neg) + np.real(avg[uc, vc] * e_pos)
+            np.real(avg[u, v] * np.conj(carriers[qi, qj]))
+            + np.real(avg[uc, vc] * carriers[qi, qj])
         )
         raw_score[qi, qj] = signal
 
@@ -197,11 +199,12 @@ def average_offset_spectrum_limited(
     return total / len(blocks), len(blocks)
 
 
-def extract_watermark( image: np.ndarray, qr_size: int, size_region: int, phi: float, start_x: int = 0, start_y: int = 0,
+def extract_watermark( image: np.ndarray, qr_size: int, size_region: int, phi: Phase, start_x: int = 0, start_y: int = 0,
                        x: Optional[int] = None, y: Optional[int] = None, offset: Optional[int] = None,
                        phase_sign: int = -1, detrend: bool = False, stride: Optional[int] = None,
                        expected_ones: Optional[int] = None, gap: Optional[int] = None) -> Tuple[np.ndarray, np.ndarray, np.ndarray, int, float]:
     """Extract a QR watermark from all available offset blocks."""
+    phi = resolve_phase_map(phi, qr_size)
     gap = resolve_embedding_gap(gap)
     qr_to_spectrum_positions(qr_size, size_region, x, y, offset, gap=gap)
     avg_spectrum, blocks_used = average_offset_spectrum(
@@ -227,12 +230,13 @@ def extract_watermark( image: np.ndarray, qr_size: int, size_region: int, phi: f
     return recovered, score_map, avg_spectrum, blocks_used, threshold
 
 
-def extract_watermark_limited_blocks(image: np.ndarray, qr_size: int, size_region: int, phi: float, start_x: int,start_y: int,
+def extract_watermark_limited_blocks(image: np.ndarray, qr_size: int, size_region: int, phi: Phase, start_x: int,start_y: int,
                                      max_blocks: int, random_blocks: bool = False, seed: Optional[int] = None,
                                      x: Optional[int] = None, y: Optional[int] = None, offset: Optional[int] = None,
                                      phase_sign: int = -1, detrend: bool = False, stride: Optional[int] = None,
                        expected_ones: Optional[int] = None, gap: Optional[int] = None) -> Tuple[np.ndarray, np.ndarray, np.ndarray, int, float]:
     """Extract a QR watermark using at most max_blocks extraction blocks."""
+    phi = resolve_phase_map(phi, qr_size)
     gap = resolve_embedding_gap(gap)
     qr_to_spectrum_positions(qr_size, size_region, x, y, offset, gap=gap)
     avg_spectrum, blocks_used = average_offset_spectrum_limited(
@@ -261,7 +265,7 @@ def extract_watermark_limited_blocks(image: np.ndarray, qr_size: int, size_regio
     return recovered, score_map, avg_spectrum, blocks_used, threshold
 
 
-def extract_watermark_search_offsets( image: np.ndarray, qr_size: int, size_region: int, phi: float,
+def extract_watermark_search_offsets( image: np.ndarray, qr_size: int, size_region: int, phi: Phase,
                                       offset_candidates: Sequence[Tuple[int, int]],  x: Optional[int] = None, y: Optional[int] = None,
                                       offset: Optional[int] = None, phase_sign_candidates: Tuple[int, ...] = (-1,), detrend: bool = False, stride: Optional[int] = None,
                                       expected_ones: Optional[int] = None, gap: Optional[int] = None) -> Dict[str, object]:
@@ -269,6 +273,7 @@ def extract_watermark_search_offsets( image: np.ndarray, qr_size: int, size_regi
 
     The separation metric does not prove correct bits or watermark presence.
     """
+    phi = resolve_phase_map(phi, qr_size)
     gap = resolve_embedding_gap(gap)
     qr_to_spectrum_positions(qr_size, size_region, x, y, offset, gap=gap)
     best: Optional[Dict[str, object]] = None
@@ -338,13 +343,14 @@ def extract_watermark_search_offsets( image: np.ndarray, qr_size: int, size_regi
     return best
 
 
-def extract_progressive_by_blocks( image: np.ndarray, qr_size: int, size_region: int, phi: float, start_x: int, start_y: int,
+def extract_progressive_by_blocks( image: np.ndarray, qr_size: int, size_region: int, phi: Phase, start_x: int, start_y: int,
                                    x: Optional[int] = None, y: Optional[int] = None, offset: Optional[int] = None,
                                    block_counts: Optional[Sequence[int]] = None, qr_true: Optional[np.ndarray] = None,
                                    phase_sign: int = -1, shuffle_blocks: bool = False, seed: Optional[int] = None,
                                    detrend: bool = False, stride: Optional[int] = None,
                                    expected_ones: Optional[int] = None, gap: Optional[int] = None) -> Tuple[List[ProgressiveExtractionResult], int]:
     """Average 1, 2, 4, ... blocks and recover QR at each step."""
+    phi = resolve_phase_map(phi, qr_size)
     gap = resolve_embedding_gap(gap)
     qr_to_spectrum_positions(qr_size, size_region, x, y, offset, gap=gap)
     x, y, offset = resolve_embedding_params(size_region, x, y, offset)
