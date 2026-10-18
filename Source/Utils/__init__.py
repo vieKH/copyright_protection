@@ -60,3 +60,6 @@ __all__ += ["SyncSettings", "SyncEstimate", "SynchronizedExtraction",
 
 from .phases import generate_phase_map, resolve_phase_map, configured_phase
 __all__ += ["generate_phase_map", "resolve_phase_map", "configured_phase"]
+
+from .detection import WatermarkDetector, DetectionResult, calibrate_threshold
+__all__ += ["WatermarkDetector", "DetectionResult", "calibrate_threshold"]

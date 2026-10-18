@@ -131,7 +131,8 @@ class BatchDecoder:
         self.carrier = np.exp(1j * resolve_phase_map(phi,qr_size).ravel())
         self.corrections = {}
 
-    def decode(self, image):
+    def score_map(self, image):
+        """Return the soft phase-projection map and number of windows."""
         image = np.asarray(image)
         if image.ndim != 2 or not np.all(np.isfinite(image)):
             raise ValueError('Input must be finite grayscale pixels')
@@ -156,5 +157,9 @@ class BatchDecoder:
             raise ValueError('No complete extraction window is available')
         raw = 0.5*(np.real(total*np.conj(self.carrier))+np.real(total_conj*self.carrier))/used
         score = _robust_zscore(raw.reshape(self.qr_size,self.qr_size))
+        return score, used
+
+    def decode(self, image):
+        score, used = self.score_map(image)
         recovered,threshold = recover_qr_from_score(score)
         return recovered,used,threshold
