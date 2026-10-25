@@ -2,7 +2,7 @@ import os
 import numpy as np
 from Source.Utils import  couple_of_points, phase_research, show_frequency, many_couple_of_points
 
-IMAGE_PATH = os.path.join('Image', 'lena.tif')
+IMAGE_PATH = os.path.join('Image', "512",'512 (1).tif')
 SAVE_PATH = os.path.join('Results','Basic')
 N = 64
 
@@ -13,10 +13,16 @@ if __name__ == "__main__":
     path_couple_of_points = os.path.join(SAVE_PATH, "1_couple_of_points.png")
     couple_of_points(blackImage, 3, 4, path_couple_of_points)
 
-    x = np.array([2, 4])
-    y = np.array([2, 8])
+    x = np.array([2, 4, 6, 10])
+    y = np.array([2, 8, 6, 10])
 
-    path_many_couple_of_points = os.path.join(SAVE_PATH, "2_many_couple_of_points.png")
+    path_many_couple_of_points = os.path.join(SAVE_PATH, "2_many_couple_of_points_1.png")
+    many_couple_of_points(blackImage, x, y, path_many_couple_of_points )
+
+    x = np.array([2, 4, 50, 55])
+    y = np.array([2, 8, 6, 10])
+
+    path_many_couple_of_points = os.path.join(SAVE_PATH, "2_many_couple_of_points_2.png")
     many_couple_of_points(blackImage, x, y, path_many_couple_of_points )
 
     x = np.array([10, 50])

@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="Test dataset">
+    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="add detector">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/batch_research.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/batch_research.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/basic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/basic.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +53,7 @@
     &quot;Python.basic.executor&quot;: &quot;Run&quot;,
     &quot;Python.execute.executor&quot;: &quot;Run&quot;,
     &quot;Python.research_dataset.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_detection.executor&quot;: &quot;Run&quot;,
     &quot;Python.research_distorter.executor&quot;: &quot;Run&quot;,
     &quot;Python.research_extraction.executor&quot;: &quot;Run&quot;,
     &quot;Python.research_synchronization.executor&quot;: &quot;Run&quot;,
@@ -76,7 +76,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.research_detection">
+  <component name="RunManager" selected="Python.chapter1_figures">
     <configuration name="basic" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Diplom" />
       <option name="ENV_FILES" value="" />
@@ -93,6 +93,30 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/basic.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="chapter1_figures" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Diplom" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/chapter1_figures.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -246,6 +270,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.chapter1_figures" />
       <item itemvalue="Python.research_detection" />
       <item itemvalue="Python.research_dataset" />
       <item itemvalue="Python.basic" />
@@ -368,7 +393,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791828816446</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="add detector">
+      <option name="closed" value="true" />
+      <created>1792313212683</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1792313212683</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -394,6 +427,7 @@
     <MESSAGE value="+-" />
     <MESSAGE value="Ready 70%" />
     <MESSAGE value="Test dataset" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test dataset" />
+    <MESSAGE value="add detector" />
+    <option name="LAST_COMMIT_MESSAGE" value="add detector" />
   </component>
 </project>

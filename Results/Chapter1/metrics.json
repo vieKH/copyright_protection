@@ -1,0 +1,41 @@
+{
+  "image": "C:\\Users\\tryha\\OneDrive\\Desktop\\Diplom\\Image\\512\\512 (1).tif",
+  "image_shape": [
+    512,
+    512
+  ],
+  "period": [
+    64,
+    64
+  ],
+  "payload_shape": [
+    21,
+    21
+  ],
+  "number_of_one_bits": 220,
+  "S": 300.0,
+  "q": 165.7904761904762,
+  "gap": 1,
+  "payload_seed": 42,
+  "phase_seed": 20261011,
+  "extraction_start": [
+    5,
+    8
+  ],
+  "PSNR_dB": 48.97037870882067,
+  "SSIM": 0.9929855305295255,
+  "MSE_actual_after_quantization": 0.82421875,
+  "MSE_theoretical_before_quantization": 0.7208616780045353,
+  "baseline_one_block_accuracy": 0.5238095238095238,
+  "baseline_one_block_BER": 0.47619047619047616,
+  "baseline_threshold": 407.14332956106836,
+  "phase_aware_one_block_accuracy": 0.6235827664399093,
+  "phase_aware_one_block_BER": 0.3764172335600907,
+  "phase_aware_threshold": 0.0,
+  "dft_checks": {
+    "roundtrip_max_abs": 1.4210854715202004e-13,
+    "parseval_relative": 0.0,
+    "shift_relative": 4.817347290068657e-16,
+    "hermitian_relative": 0.0
+  }
+}
