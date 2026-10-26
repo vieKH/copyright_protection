@@ -1,0 +1,1230 @@
+{
+  "created_utc": "2026-10-26T16:27:41.665807+00:00",
+  "groups": [
+    512,
+    1024
+  ],
+  "images_per_group": 100,
+  "n_images": 200,
+  "blocks_requested": [
+    1,
+    4,
+    16,
+    64
+  ],
+  "seed": 20261012,
+  "payload_seed": 42,
+  "phase_seed": 20261011,
+  "gap": 1,
+  "s_param": 300,
+  "shuffle_blocks": true,
+  "phase_vote": "per-window known-phase projection, median threshold, majority (tie=0)",
+  "magnitude_vote": "per-window FFT magnitudes, median threshold, majority (tie=0)",
+  "complex_average": "phase-compensated complex coefficient mean, projection, single median threshold",
+  "data_scope": "clean watermarked images; no attacks",
+  "source_commit": "record externally from git rev-parse HEAD",
+  "python": "3.14.6",
+  "numpy": "2.4.4",
+  "inputs": [
+    {
+      "dataset": 512,
+      "id": 1,
+      "filename": "512 (1).tif",
+      "sha256": "e34cbfd08eb5dcc6bbd6ec52eb139f1e98e8f3e6a53afe5f790648dc4dae5cc5"
+    },
+    {
+      "dataset": 512,
+      "id": 2,
+      "filename": "512 (2).tif",
+      "sha256": "3347b858c2f26f66a9dad4581e55aa0f58478e884920ef1402ffcb67bf235e08"
+    },
+    {
+      "dataset": 512,
+      "id": 3,
+      "filename": "512 (3).tif",
+      "sha256": "b44cdf08f2e1b61c5c7cb6aff45a9d292340ec74b8967ebbaba6d9b867d5dc24"
+    },
+    {
+      "dataset": 512,
+      "id": 4,
+      "filename": "512 (4).tif",
+      "sha256": "04efb32cd84f44ebfbb69020614ce80cda620c1d26497b0c5bd8add75eba28ba"
+    },
+    {
+      "dataset": 512,
+      "id": 5,
+      "filename": "512 (5).tif",
+      "sha256": "5e33e1b3419e61e6c4eb24b92c5f3ae3acd4aba8b123aa35c9bbf0c8b1a0e017"
+    },
+    {
+      "dataset": 512,
+      "id": 6,
+      "filename": "512 (6).tif",
+      "sha256": "b7a7242d285c0e952269cca22c4ada3bcf809523d397d2f7cb8e8548cb52d64c"
+    },
+    {
+      "dataset": 512,
+      "id": 7,
+      "filename": "512 (7).tif",
+      "sha256": "e46abece9ff114655b450ae005c58d28c201b86095f63741d6d2a05a14a4846e"
+    },
+    {
+      "dataset": 512,
+      "id": 8,
+      "filename": "512 (8).tif",
+      "sha256": "e53dc4f4c8024e6db3a0bcc809491840a2f679433c0a309f3715376b3aa312a0"
+    },
+    {
+      "dataset": 512,
+      "id": 9,
+      "filename": "512 (9).tif",
+      "sha256": "6e00e839956f0c7eedd85255f27232cfb98d90f951695754f254c75061847111"
+    },
+    {
+      "dataset": 512,
+      "id": 10,
+      "filename": "512 (10).tif",
+      "sha256": "5bace415878b5bf3ac12e5dbc0ac67827c928c7cdd32eb28a44d982fef316f60"
+    },
+    {
+      "dataset": 512,
+      "id": 11,
+      "filename": "512 (11).tif",
+      "sha256": "d5bbf74bce7fe65f20348246e0c32f90d6791699f3459af6c9c9ef10bf56f7a2"
+    },
+    {
+      "dataset": 512,
+      "id": 12,
+      "filename": "512 (12).tif",
+      "sha256": "95bfa11a0a5e4ff9d8d1bf25dd2bea251ff4ab91e39dc88b537efa7e285a67d4"
+    },
+    {
+      "dataset": 512,
+      "id": 13,
+      "filename": "512 (13).tif",
+      "sha256": "0ddc05dc9751eb18a563607dec553275b90c7940b6ce98f7a90f7c668e20d52a"
+    },
+    {
+      "dataset": 512,
+      "id": 14,
+      "filename": "512 (14).tif",
+      "sha256": "80bb599c605c3d7649913277a2e3d7811e6078ef288c95e72987624a999b8c77"
+    },
+    {
+      "dataset": 512,
+      "id": 15,
+      "filename": "512 (15).tif",
+      "sha256": "417eece58d11b4d1ce4cda602aacc403d9adb8cdd64086015dbddc209cc7a808"
+    },
+    {
+      "dataset": 512,
+      "id": 16,
+      "filename": "512 (16).tif",
+      "sha256": "aae30bff349490b77e021d2db5fe5a076a604b9a1a2bd0ff648c1b027959c39a"
+    },
+    {
+      "dataset": 512,
+      "id": 17,
+      "filename": "512 (17).tif",
+      "sha256": "92a4c16651cebfea09442482b3b9fe8722dc40258e4425daea27419297a9edfa"
+    },
+    {
+      "dataset": 512,
+      "id": 18,
+      "filename": "512 (18).tif",
+      "sha256": "e75918b82ff98dda3d7b11a1bf1f8f56255f23ade29f85114e49e0b803c86943"
+    },
+    {
+      "dataset": 512,
+      "id": 19,
+      "filename": "512 (19).tif",
+      "sha256": "af1e1aa9e8625fee9a0f9a2a25f905c9766b43dd57572ac8f731427015f70ef7"
+    },
+    {
+      "dataset": 512,
+      "id": 20,
+      "filename": "512 (20).tif",
+      "sha256": "5d16b9ed43e894f5520cbf48f1840835d81c24a02fd1c1fb0b08790708200153"
+    },
+    {
+      "dataset": 512,
+      "id": 21,
+      "filename": "512 (21).tif",
+      "sha256": "25a63f0b36ace7f5dae834a6400539d36c29a0be3b5329d12a7b0ea9495e0c05"
+    },
+    {
+      "dataset": 512,
+      "id": 22,
+      "filename": "512 (22).tif",
+      "sha256": "e7eb78ba2872c367427a7c08f43b6f17173f996de56f73e6d902e48c218d8dd4"
+    },
+    {
+      "dataset": 512,
+      "id": 23,
+      "filename": "512 (23).tif",
+      "sha256": "3e036ecde1c243f62a9a0a9d498c1b6915726ce71f70c26583f367bc6843bf9d"
+    },
+    {
+      "dataset": 512,
+      "id": 24,
+      "filename": "512 (24).tif",
+      "sha256": "ff712362a0ba00b3efe725d6de65ad66cc37db41452c76e2fcf46484039de63c"
+    },
+    {
+      "dataset": 512,
+      "id": 25,
+      "filename": "512 (25).tif",
+      "sha256": "aa9f86161b5f1db8929bab965aecd645afa70629e66753a4cc410277817162cc"
+    },
+    {
+      "dataset": 512,
+      "id": 26,
+      "filename": "512 (26).tif",
+      "sha256": "447f036362478265aed430e77ae87b81eea21440d63a6933ecf7b610ef46cb8c"
+    },
+    {
+      "dataset": 512,
+      "id": 27,
+      "filename": "512 (27).tif",
+      "sha256": "e7a20400a04b260fe889f8b7d5d303d9aa153e15014ffbf8d722171600772563"
+    },
+    {
+      "dataset": 512,
+      "id": 28,
+      "filename": "512 (28).tif",
+      "sha256": "d5e6f9794973bcc76eee0ac386cb392e3cdf2377c317daaa3994749228e4bd01"
+    },
+    {
+      "dataset": 512,
+      "id": 29,
+      "filename": "512 (29).tif",
+      "sha256": "c33066c6171b4fc37fbb5849ba52a67156910cca0b5a29f979522a7aef755a31"
+    },
+    {
+      "dataset": 512,
+      "id": 30,
+      "filename": "512 (30).tif",
+      "sha256": "53cb60db03d29fc7433f20fd21e914afe35e4f380c45b3725d4994d1a80d31ad"
+    },
+    {
+      "dataset": 512,
+      "id": 31,
+      "filename": "512 (31).tif",
+      "sha256": "81b1b2cae5bbae90f04bf557f9531769bc2177478c612f04806e023b08b47400"
+    },
+    {
+      "dataset": 512,
+      "id": 32,
+      "filename": "512 (32).tif",
+      "sha256": "1d63415c02ff2e3d46780c6dcfa45b812deb308c2c737b51f04eac2b0a53fb74"
+    },
+    {
+      "dataset": 512,
+      "id": 33,
+      "filename": "512 (33).tif",
+      "sha256": "c5069d63e2a0b41f34d87f1f689b148fbed48ff6b9f2bd9b2907ae0905cd5f96"
+    },
+    {
+      "dataset": 512,
+      "id": 34,
+      "filename": "512 (34).tif",
+      "sha256": "5f31aa4ae348c24ce8387fed25d7edd608db8e9f2d80e934861c15d923d8e9a9"
+    },
+    {
+      "dataset": 512,
+      "id": 35,
+      "filename": "512 (35).tif",
+      "sha256": "e6c53901a3e529092b7201e75a77b91e6cf7d694f7099ec3ebc12597d5ed0183"
+    },
+    {
+      "dataset": 512,
+      "id": 36,
+      "filename": "512 (36).tif",
+      "sha256": "46b8b48e66ba1e364ba530ae99a084598d53c001885271dcf8d5c9706ec78aa6"
+    },
+    {
+      "dataset": 512,
+      "id": 37,
+      "filename": "512 (37).tif",
+      "sha256": "15ef7bcddaa9d5e5d68aba59f4347d75ef6eee1a6fed2cf179996c94f4ce6cc7"
+    },
+    {
+      "dataset": 512,
+      "id": 38,
+      "filename": "512 (38).tif",
+      "sha256": "10ea6b0d577f7c6e8437e2e47e38c72e92f7f2cf00143660fd0dbc82bc06c83f"
+    },
+    {
+      "dataset": 512,
+      "id": 39,
+      "filename": "512 (39).tif",
+      "sha256": "f0285e9d8b64dcb78a27a530ffea0c316958490c59dfdc078e5c216e86ec3152"
+    },
+    {
+      "dataset": 512,
+      "id": 40,
+      "filename": "512 (40).tif",
+      "sha256": "025355747365a652ab1ba55a39f30568bf12e7f08807d0f700272e8fd3c38fc9"
+    },
+    {
+      "dataset": 512,
+      "id": 41,
+      "filename": "512 (41).tif",
+      "sha256": "8f413e8a51a4cc977a23222b97e68d0039555551bd9e6e1e8dc3758185923d2a"
+    },
+    {
+      "dataset": 512,
+      "id": 42,
+      "filename": "512 (42).tif",
+      "sha256": "7890e8f4297f2e772225f23848af48f6e93ae73c6ca8b0dcb28dd30754c02c6a"
+    },
+    {
+      "dataset": 512,
+      "id": 43,
+      "filename": "512 (43).tif",
+      "sha256": "06b1438cc86ef175f11f2608a58ee0127ef279609607ebf3f69dbaaef906e2d9"
+    },
+    {
+      "dataset": 512,
+      "id": 44,
+      "filename": "512 (44).tif",
+      "sha256": "be57015c1d002b07debe62d4f354c426fa1a9437315b63c859e7391d51e55705"
+    },
+    {
+      "dataset": 512,
+      "id": 45,
+      "filename": "512 (45).tif",
+      "sha256": "aba261c4139a8d5727e6c326e75e91703af8856b423caf56b28fa23393780d55"
+    },
+    {
+      "dataset": 512,
+      "id": 46,
+      "filename": "512 (46).tif",
+      "sha256": "d876c2624c5a53ce1db0c3b9c9e3c96bd7bd199942acdd110327e46eae704ddb"
+    },
+    {
+      "dataset": 512,
+      "id": 47,
+      "filename": "512 (47).tif",
+      "sha256": "02d1eea7b3e1d710bc8c0e95047792eafaf913a57948bc08de2fc2244bc9d0aa"
+    },
+    {
+      "dataset": 512,
+      "id": 48,
+      "filename": "512 (48).tif",
+      "sha256": "39fc3db446f6cc4d6f2b7cc580e875ddf2dff8b8877a378c5c929d327e10de35"
+    },
+    {
+      "dataset": 512,
+      "id": 49,
+      "filename": "512 (49).tif",
+      "sha256": "d177269d514785ab3e5be4b817c0156fe606003adfbd64203b16239fbeae59b5"
+    },
+    {
+      "dataset": 512,
+      "id": 50,
+      "filename": "512 (50).tif",
+      "sha256": "75da63e3d8af9e57f27b545473fd693aba81429af835f06e26beedfdeaa1f7d8"
+    },
+    {
+      "dataset": 512,
+      "id": 51,
+      "filename": "512 (51).tif",
+      "sha256": "519c0f50686fe274d18ce74c249fc52fd0c01599980a8e630c80615e601e2ddb"
+    },
+    {
+      "dataset": 512,
+      "id": 52,
+      "filename": "512 (52).tif",
+      "sha256": "34f2f7970fa560c385278a563afa8a4f57e5e0310d3eecc5bc979c737da73952"
+    },
+    {
+      "dataset": 512,
+      "id": 53,
+      "filename": "512 (53).tif",
+      "sha256": "d76d0f92f2c80862e46ccbff472f7ffc7be544ae1d80d45e5624b928ed117f1a"
+    },
+    {
+      "dataset": 512,
+      "id": 54,
+      "filename": "512 (54).tif",
+      "sha256": "36f8f50d79b4535a14feb6ca219b11e6ba24e00abd63659126646b267988236c"
+    },
+    {
+      "dataset": 512,
+      "id": 55,
+      "filename": "512 (55).tif",
+      "sha256": "21ac9beffd178868a1a08be39096774234947668c082f8ccea2f11db005db125"
+    },
+    {
+      "dataset": 512,
+      "id": 56,
+      "filename": "512 (56).tif",
+      "sha256": "8ca7059f67fd65effddc8486182865be8567a2cbd72c1b77a9bfba1b18cdc029"
+    },
+    {
+      "dataset": 512,
+      "id": 57,
+      "filename": "512 (57).tif",
+      "sha256": "bb48316bd0808a8dbdbc93c8c80dc7a2b901cb37945d7693257a89fce5ec81b0"
+    },
+    {
+      "dataset": 512,
+      "id": 58,
+      "filename": "512 (58).tif",
+      "sha256": "31ef2735e77ad9ed0e206fa66e1a7e89d9b072afd6d3e8eac63e81bbb8d496cf"
+    },
+    {
+      "dataset": 512,
+      "id": 59,
+      "filename": "512 (59).tif",
+      "sha256": "289ba6931a4242fbbd9acb1393eec3076c1993f068e91e6a273b6d098ca8ba33"
+    },
+    {
+      "dataset": 512,
+      "id": 60,
+      "filename": "512 (60).tif",
+      "sha256": "a87b2f4885e8bb17910c316840c5bbb16e3b73e9d52a86b8da91afbb8c7e6563"
+    },
+    {
+      "dataset": 512,
+      "id": 61,
+      "filename": "512 (61).tif",
+      "sha256": "59dca33a4f2e89df079b0bb10e8845a82cdec52eb478de2b8f43ae6016448df4"
+    },
+    {
+      "dataset": 512,
+      "id": 62,
+      "filename": "512 (62).tif",
+      "sha256": "656ef97afdffa7ca2ad9c104ae2427d752c74e6cdfef317c868a91ed0a1f395d"
+    },
+    {
+      "dataset": 512,
+      "id": 63,
+      "filename": "512 (63).tif",
+      "sha256": "15de8026c777125411ddb23dafaa6db1fe2fb9a6cc8c9d951815009818ab0f96"
+    },
+    {
+      "dataset": 512,
+      "id": 64,
+      "filename": "512 (64).tif",
+      "sha256": "d8818a2cb746dd85c154d8c4a31c337ed5fc7de5a87f9742f47d4d60af283815"
+    },
+    {
+      "dataset": 512,
+      "id": 65,
+      "filename": "512 (65).tif",
+      "sha256": "17930502577aabadbcdc69e51db951638828c33bbc50488e01b3fa0b81015dc8"
+    },
+    {
+      "dataset": 512,
+      "id": 66,
+      "filename": "512 (66).tif",
+      "sha256": "803681167b0a5a28d2bb79c81bac3badeea9ca12830e9721626e7308e44f25ee"
+    },
+    {
+      "dataset": 512,
+      "id": 67,
+      "filename": "512 (67).tif",
+      "sha256": "f2cb88d4b429c6b952a01ffcd1b7d2570d1a9913319801d1c4c69a883bfc5722"
+    },
+    {
+      "dataset": 512,
+      "id": 68,
+      "filename": "512 (68).tif",
+      "sha256": "a78beb52ddc1c6c8db7b58819afc280f27f489d5f6bfc91bda0615bc361f1048"
+    },
+    {
+      "dataset": 512,
+      "id": 69,
+      "filename": "512 (69).tif",
+      "sha256": "3431ac3f28f9158bbe915b37faededcd7976b7317a6e63a663c9ee646b2d96e3"
+    },
+    {
+      "dataset": 512,
+      "id": 70,
+      "filename": "512 (70).tif",
+      "sha256": "365cdd633a84bf4bd4e4ef90fb5403332d60fed6f3e5911076d214ba8de51bc3"
+    },
+    {
+      "dataset": 512,
+      "id": 71,
+      "filename": "512 (71).tif",
+      "sha256": "c4d27412f85bf12af753de34e0b5728db1b08ed849b5d6fc88c73fc210c17bc8"
+    },
+    {
+      "dataset": 512,
+      "id": 72,
+      "filename": "512 (72).tif",
+      "sha256": "4d2a47ba3b2f1feac04e5a7bee4d22f55f7ed0764d53436405bcc812c3a9c4cc"
+    },
+    {
+      "dataset": 512,
+      "id": 73,
+      "filename": "512 (73).tif",
+      "sha256": "2370c71246b923b8dbb50146627a1c64bbcfe380fc6bd20ec36d59f4848ebe6e"
+    },
+    {
+      "dataset": 512,
+      "id": 74,
+      "filename": "512 (74).tif",
+      "sha256": "533710cff53634f201a9bb3150a6a8c717d464ab9ec2a4b4728fb26c11757b0f"
+    },
+    {
+      "dataset": 512,
+      "id": 75,
+      "filename": "512 (75).tif",
+      "sha256": "5a4a3d67794dad6f98b9fccd91d80f11e5ea2952923648397440ffe0b2b92aaf"
+    },
+    {
+      "dataset": 512,
+      "id": 76,
+      "filename": "512 (76).tif",
+      "sha256": "37ae7d929e23719dba990b967e0a4d39cff906e5ba5ee9a909d4a9524339217c"
+    },
+    {
+      "dataset": 512,
+      "id": 77,
+      "filename": "512 (77).tif",
+      "sha256": "700e111c0c0be40dc14b40cc2898974c1c521c5e6887e9833f9d31767f78a077"
+    },
+    {
+      "dataset": 512,
+      "id": 78,
+      "filename": "512 (78).tif",
+      "sha256": "cd7b1fff0391ef56755b92597c79a2019c9e8a4cf135936598b7477d515cead9"
+    },
+    {
+      "dataset": 512,
+      "id": 79,
+      "filename": "512 (79).tif",
+      "sha256": "75492c8d9152dce7d80ca258953ece53c46c00454d96373cd08c25bd3b9012bd"
+    },
+    {
+      "dataset": 512,
+      "id": 80,
+      "filename": "512 (80).tif",
+      "sha256": "b9b821c0828716275ff373c8ee9fc8b2f023f9ef48fa32d93d2e13dbde57cd76"
+    },
+    {
+      "dataset": 512,
+      "id": 81,
+      "filename": "512 (81).tif",
+      "sha256": "8c900fccf0935e6ddeda96d388eae13bf2ca4c8ca62a02886a9f015f0a97cd09"
+    },
+    {
+      "dataset": 512,
+      "id": 82,
+      "filename": "512 (82).tif",
+      "sha256": "bc6faa8b9e51c409d5ae1eadf6ebd48dee15a60baafe346fd6ccdbd08a38003a"
+    },
+    {
+      "dataset": 512,
+      "id": 83,
+      "filename": "512 (83).tif",
+      "sha256": "04ce7d89dede8b20ec3d96897d9f9a7a0b4fe092ee28613b075510d559dbc44d"
+    },
+    {
+      "dataset": 512,
+      "id": 84,
+      "filename": "512 (84).tif",
+      "sha256": "a0e6873d659bd70c6d9b674d4d8f774dd4f352846c5dea511ad4241869a003e5"
+    },
+    {
+      "dataset": 512,
+      "id": 85,
+      "filename": "512 (85).tif",
+      "sha256": "529d18df286cf344f965e90b83b087c0895b835ac507e2370e95a224593b2dd9"
+    },
+    {
+      "dataset": 512,
+      "id": 86,
+      "filename": "512 (86).tif",
+      "sha256": "ab6a64329ade773f7c0db6c3b342c5bbd8bfaab9e50fdec5eebe90f292d66ad8"
+    },
+    {
+      "dataset": 512,
+      "id": 87,
+      "filename": "512 (87).tif",
+      "sha256": "7f52c83b980839470763ef8713df695ee0b49e36a7f31584778ab69d7077fd93"
+    },
+    {
+      "dataset": 512,
+      "id": 88,
+      "filename": "512 (88).tif",
+      "sha256": "809e41dcd2478cfc931760031cdf374e2d970e8c3e843fa4d2fa39fda9d1d8e3"
+    },
+    {
+      "dataset": 512,
+      "id": 89,
+      "filename": "512 (89).tif",
+      "sha256": "082261ffd968eca61d2e89a03673614798ffa5ba23b7147e6dc178116e73646f"
+    },
+    {
+      "dataset": 512,
+      "id": 90,
+      "filename": "512 (90).tif",
+      "sha256": "89860e064ce95ee926f38f8e53b6bcf383ddaae354257085ea61bf48ce5b7179"
+    },
+    {
+      "dataset": 512,
+      "id": 91,
+      "filename": "512 (91).tif",
+      "sha256": "5d4c404aa2b0b0fdb2178e01f49b12c9faa4b3d3c401b3ed54c7fc1438617240"
+    },
+    {
+      "dataset": 512,
+      "id": 92,
+      "filename": "512 (92).tif",
+      "sha256": "f39355cc76f12b133c1cfb028ec0b2f28ebe47eb8c14ae93ac9b93224396750e"
+    },
+    {
+      "dataset": 512,
+      "id": 93,
+      "filename": "512 (93).tif",
+      "sha256": "2d23aa7ba00e25e0d55b13c53e52d8acbd6e898a67d8784a6a958aed41c5b2f3"
+    },
+    {
+      "dataset": 512,
+      "id": 94,
+      "filename": "512 (94).tif",
+      "sha256": "864abd292b5f1cdc70043f2c81a45c2f9fe1a498bf03388a3c5def0d24425227"
+    },
+    {
+      "dataset": 512,
+      "id": 95,
+      "filename": "512 (95).tif",
+      "sha256": "f90b944ac3050929b85b4e612d8e522413b5038bb2eb3d9cec285516cff35277"
+    },
+    {
+      "dataset": 512,
+      "id": 96,
+      "filename": "512 (96).tif",
+      "sha256": "378051fd10894f01a5433e714aaf4ee0f6a50c4e9d33151914988d081dabc05d"
+    },
+    {
+      "dataset": 512,
+      "id": 97,
+      "filename": "512 (97).tif",
+      "sha256": "782636b9b93b2fb8e1374f0be44f1cda32b54e8c8b6dbaec5b1bfa1b365c8b1a"
+    },
+    {
+      "dataset": 512,
+      "id": 98,
+      "filename": "512 (98).tif",
+      "sha256": "1bcb6725cf1b18dff393ffeeb5ad7ecca6a0579abb71208a695c01f8554ae1d0"
+    },
+    {
+      "dataset": 512,
+      "id": 99,
+      "filename": "512 (99).tif",
+      "sha256": "42cdf95d4669e173f745d2f42d5b8eab8564a4510964913f962a8f895a66f5e2"
+    },
+    {
+      "dataset": 512,
+      "id": 100,
+      "filename": "512 (100).tif",
+      "sha256": "d67f46bc5e6c99dbf3d74930386b9f7bef663eb709e35e85c2395d5f19274b1d"
+    },
+    {
+      "dataset": 1024,
+      "id": 1,
+      "filename": "1024 (1).tif",
+      "sha256": "437a5244da1c928e90efc4b7e7406927be17894cae8262ecbd55e5e93153000f"
+    },
+    {
+      "dataset": 1024,
+      "id": 2,
+      "filename": "1024 (2).tif",
+      "sha256": "caab948594993872d29f67fea6c5f03902b58dbacccca4e76f09dc33cf189a7d"
+    },
+    {
+      "dataset": 1024,
+      "id": 3,
+      "filename": "1024 (3).tif",
+      "sha256": "f51d0eb1450b33a5972bbd46bbdad4c5d15a6ffc5109eacbd85330d02ed8a73a"
+    },
+    {
+      "dataset": 1024,
+      "id": 4,
+      "filename": "1024 (4).tif",
+      "sha256": "24f6eafd2715956b39e1ac17c22f5d334c54071afcc0f0473b71f1ee4e0140c6"
+    },
+    {
+      "dataset": 1024,
+      "id": 5,
+      "filename": "1024 (5).tif",
+      "sha256": "bfc9d7d27662142424ff0357d7ae14d6ddf0814d7f74536b096efe517fa4c695"
+    },
+    {
+      "dataset": 1024,
+      "id": 6,
+      "filename": "1024 (6).tif",
+      "sha256": "94f9ff0ca6d2263f55ff94ad6a23fc6f33b7efca92fbdad4073edeca8c8aab4a"
+    },
+    {
+      "dataset": 1024,
+      "id": 7,
+      "filename": "1024 (7).tif",
+      "sha256": "ca81d9d6aa8c7b8b6224897f29b431583eb4180043af541d69a9308334a88f3f"
+    },
+    {
+      "dataset": 1024,
+      "id": 8,
+      "filename": "1024 (8).tif",
+      "sha256": "58c729debe8a00e45ab309330581bc07d9773eecb5fa30758618a9db91c8dff2"
+    },
+    {
+      "dataset": 1024,
+      "id": 9,
+      "filename": "1024 (9).tif",
+      "sha256": "4b24eed125d7a329a9a2ae32eb5268987a0c10de753a0c4fc2f81aa62954dfca"
+    },
+    {
+      "dataset": 1024,
+      "id": 10,
+      "filename": "1024 (10).tif",
+      "sha256": "5ec4dc786f8eee253a01da8541ffe1b8067a8bc99b4d11409bce2eb1e6f3fa4d"
+    },
+    {
+      "dataset": 1024,
+      "id": 11,
+      "filename": "1024 (11).tif",
+      "sha256": "f1399547ed678cdc0d6d8a9bd88b206cd87a8107c0c1ae08f4071330c6c0a8e0"
+    },
+    {
+      "dataset": 1024,
+      "id": 12,
+      "filename": "1024 (12).tif",
+      "sha256": "2a8de7947cef3aac42c78a18af6bd23fcdc1746817e67ce5dee9bc5087f8f1d5"
+    },
+    {
+      "dataset": 1024,
+      "id": 13,
+      "filename": "1024 (13).tif",
+      "sha256": "f1d54521e64bbe6cd905eae8c411ec877bfb97980abccb8bed12a057af21a92e"
+    },
+    {
+      "dataset": 1024,
+      "id": 14,
+      "filename": "1024 (14).tif",
+      "sha256": "80aa0bbf088144177df895d12d6e469d8b8af978dc49a826cf641b121c77ca09"
+    },
+    {
+      "dataset": 1024,
+      "id": 15,
+      "filename": "1024 (15).tif",
+      "sha256": "e5bccfa361a7c439e0edb535ebf4d21cb034ced21e9dda68be5767bbc7215d91"
+    },
+    {
+      "dataset": 1024,
+      "id": 16,
+      "filename": "1024 (16).tif",
+      "sha256": "7b50e1a3df97c387ef3b4379d67c065cfe612602c0594c3ea450cd817465c5e6"
+    },
+    {
+      "dataset": 1024,
+      "id": 17,
+      "filename": "1024 (17).tif",
+      "sha256": "3266fcdf9063ce8bfa1379b373c72228eb6954ddd976851a0091edb1ba520dad"
+    },
+    {
+      "dataset": 1024,
+      "id": 18,
+      "filename": "1024 (18).tif",
+      "sha256": "28017588907ff50f9637aedb8bf5e4f2ab1d84dab86b69db5ac5a0c19565016b"
+    },
+    {
+      "dataset": 1024,
+      "id": 19,
+      "filename": "1024 (19).tif",
+      "sha256": "f90eee4f4b2f7f23e5b6682e7d4194d8dc9b5d962f9dd31c27b8fe58f0b25257"
+    },
+    {
+      "dataset": 1024,
+      "id": 20,
+      "filename": "1024 (20).tif",
+      "sha256": "957b8d2c08b9f14bc51ee63b90ed519838289b95d789bedf60a8de65fe2159e4"
+    },
+    {
+      "dataset": 1024,
+      "id": 21,
+      "filename": "1024 (21).tif",
+      "sha256": "8b9eaa44043fedaa5505ce570e8c2dfc427f92c61bf285d234a3222e594c557e"
+    },
+    {
+      "dataset": 1024,
+      "id": 22,
+      "filename": "1024 (22).tif",
+      "sha256": "b99c69f528ec3a77c8a37ff37dece72c46376cea8a00436f9aba8b5b17b8c7f6"
+    },
+    {
+      "dataset": 1024,
+      "id": 23,
+      "filename": "1024 (23).tif",
+      "sha256": "b51845186bfad3aefb722b1b4650775e4c02ba710b1d91c20ddf1d48765216d7"
+    },
+    {
+      "dataset": 1024,
+      "id": 24,
+      "filename": "1024 (24).tif",
+      "sha256": "5f09758ff8b2215c386af28d46acac350b5e507e321461e2b66bcd6ebf94a90e"
+    },
+    {
+      "dataset": 1024,
+      "id": 25,
+      "filename": "1024 (25).tif",
+      "sha256": "3b55451ebf9cc774652c50e69811121e07421c3cb4f44d875cd11edbd303640e"
+    },
+    {
+      "dataset": 1024,
+      "id": 26,
+      "filename": "1024 (26).tif",
+      "sha256": "a977644d240252ed9f90d9f7d799711cc40722f967892c6f77f3cdff8c5ed2e7"
+    },
+    {
+      "dataset": 1024,
+      "id": 27,
+      "filename": "1024 (27).tif",
+      "sha256": "4074dd24d993532667cfec38e61688b48115410d17fee3a6c4263171e2fb7030"
+    },
+    {
+      "dataset": 1024,
+      "id": 28,
+      "filename": "1024 (28).tif",
+      "sha256": "53b32dc773bd68f9b1874847a0fe3bbf53c413c67efffd0c8fec223afe9c910f"
+    },
+    {
+      "dataset": 1024,
+      "id": 29,
+      "filename": "1024 (29).tif",
+      "sha256": "e9291763626c34cf78dcffc9737b0b4473014b0d4b847c824d39c00a049590ec"
+    },
+    {
+      "dataset": 1024,
+      "id": 30,
+      "filename": "1024 (30).tif",
+      "sha256": "8512004f2cec8ed88a9b8dd55d3310a72303c920484359075ec0672989689008"
+    },
+    {
+      "dataset": 1024,
+      "id": 31,
+      "filename": "1024 (31).tif",
+      "sha256": "edce9fdb3805ea2cc1140fcd39bf2e0d55dd1f079dfa2011e7120fe135e5e2fb"
+    },
+    {
+      "dataset": 1024,
+      "id": 32,
+      "filename": "1024 (32).tif",
+      "sha256": "bdc85fad8b5c8d2d6919321a3e3c0dd81c18f6772b5f9bb16b222a6a151941ec"
+    },
+    {
+      "dataset": 1024,
+      "id": 33,
+      "filename": "1024 (33).tif",
+      "sha256": "523a891b67c66f628eb602a077b2340f56616a50ea6f81a3495d7991d1335eeb"
+    },
+    {
+      "dataset": 1024,
+      "id": 34,
+      "filename": "1024 (34).tif",
+      "sha256": "35f080720302d70f27a4ec0024a80380ace894a7066a642bdedd65afa2d693fa"
+    },
+    {
+      "dataset": 1024,
+      "id": 35,
+      "filename": "1024 (35).tif",
+      "sha256": "447d606caf659322df39dccbbff333f3522931485bf40b4acbc22f06972d31c1"
+    },
+    {
+      "dataset": 1024,
+      "id": 36,
+      "filename": "1024 (36).tif",
+      "sha256": "f42ecc95ebe158347731f86c37d331ce0ab078dad43b049d8c24a44976c5b888"
+    },
+    {
+      "dataset": 1024,
+      "id": 37,
+      "filename": "1024 (37).tif",
+      "sha256": "e487f03355bc5c0b5981bf228c40f5dee049f51a7e0ead7197373ee311462acd"
+    },
+    {
+      "dataset": 1024,
+      "id": 38,
+      "filename": "1024 (38).tif",
+      "sha256": "b0037e4dcc479efbd5a808fd6f98180aa514cf93d1933fdbc4a7d9b15d13ac04"
+    },
+    {
+      "dataset": 1024,
+      "id": 39,
+      "filename": "1024 (39).tif",
+      "sha256": "86f248323077ca121c28bd4b81ee0080e3dac43239403b8611ce17f42787b13a"
+    },
+    {
+      "dataset": 1024,
+      "id": 40,
+      "filename": "1024 (40).tif",
+      "sha256": "db6943587ac8a8abafe54f1b6de5529cc0d7e6e20c2cd1e1d0f10c2e70d416da"
+    },
+    {
+      "dataset": 1024,
+      "id": 41,
+      "filename": "1024 (41).tif",
+      "sha256": "caf6e601feddd017bcb354b706a7cf6203d1abeb57c0837706c8c6772e5409cc"
+    },
+    {
+      "dataset": 1024,
+      "id": 42,
+      "filename": "1024 (42).tif",
+      "sha256": "3efd3ba3c563bc7ab1e5ee9b52f526dcac585fbecfc3861f0672a7864d8d1d50"
+    },
+    {
+      "dataset": 1024,
+      "id": 43,
+      "filename": "1024 (43).tif",
+      "sha256": "5504ea37e08d96c8414efee1c923dac179c70d53f2b7afe900da518724117d9e"
+    },
+    {
+      "dataset": 1024,
+      "id": 44,
+      "filename": "1024 (44).tif",
+      "sha256": "59a46490ca19b1051569cff880396f128299a3c93bf21f06a253fa1648eaf6cc"
+    },
+    {
+      "dataset": 1024,
+      "id": 45,
+      "filename": "1024 (45).tif",
+      "sha256": "7bae5bfeee30a2e9d63c668089a2d010cdfeadd6da648805e3e7ede618a89c20"
+    },
+    {
+      "dataset": 1024,
+      "id": 46,
+      "filename": "1024 (46).tif",
+      "sha256": "1afb3d94d02a0052c23d8fbf6f10595acab144a329f9d876aacd2d86e534d4eb"
+    },
+    {
+      "dataset": 1024,
+      "id": 47,
+      "filename": "1024 (47).tif",
+      "sha256": "dfa28714f16eaf04d5ecc0aea649bfe6689c8f18842c5adc2b77197e0d14fdb3"
+    },
+    {
+      "dataset": 1024,
+      "id": 48,
+      "filename": "1024 (48).tif",
+      "sha256": "d6fb756607477ceff3e6fa8d513e7bb551606fa804ea4669310b137149a3e848"
+    },
+    {
+      "dataset": 1024,
+      "id": 49,
+      "filename": "1024 (49).tif",
+      "sha256": "461c4bff33ad189076223a53278e0525ce07ab4a57990f15ac1b527cda473286"
+    },
+    {
+      "dataset": 1024,
+      "id": 50,
+      "filename": "1024 (50).tif",
+      "sha256": "9738f6bd0cdb328a4f03abd300cad5cfe3ad59a3130f7886bf2c10fd762c459c"
+    },
+    {
+      "dataset": 1024,
+      "id": 51,
+      "filename": "1024 (51).tif",
+      "sha256": "0a5602cc5a3a83eeda92d251b5f2bbb772275dce32eb2627a741c693d22172c2"
+    },
+    {
+      "dataset": 1024,
+      "id": 52,
+      "filename": "1024 (52).tif",
+      "sha256": "c7e317dd6da6860b49c527701e334d4fe8f34da887ad1c47326ec3a87f911595"
+    },
+    {
+      "dataset": 1024,
+      "id": 53,
+      "filename": "1024 (53).tif",
+      "sha256": "4eecd6bd00d219daa9cd2377ad46e853c276e3a79aaef1498c8004acf1b87136"
+    },
+    {
+      "dataset": 1024,
+      "id": 54,
+      "filename": "1024 (54).tif",
+      "sha256": "7fd52251e42214d8b4b2c9b5dbca2c3700cf734afebc326db7c96b529124cef7"
+    },
+    {
+      "dataset": 1024,
+      "id": 55,
+      "filename": "1024 (55).tif",
+      "sha256": "3ffd7fe538f465048891b8aef8035f7e58a88cffcaddf3e62b9dd0730a10bde2"
+    },
+    {
+      "dataset": 1024,
+      "id": 56,
+      "filename": "1024 (56).tif",
+      "sha256": "d69c83d9137fbee9feb136743448575c3352da265c9d74f746b2de55f45b3a50"
+    },
+    {
+      "dataset": 1024,
+      "id": 57,
+      "filename": "1024 (57).tif",
+      "sha256": "8e7f65b00899622fadd075301d690e79ce0ccad48ffe8053a0ce93c968435291"
+    },
+    {
+      "dataset": 1024,
+      "id": 58,
+      "filename": "1024 (58).tif",
+      "sha256": "0b62351999135f44f1796be1d1a397259ffb1f1c90ead410682f8d671f0c6f82"
+    },
+    {
+      "dataset": 1024,
+      "id": 59,
+      "filename": "1024 (59).tif",
+      "sha256": "e4d26dd7bffb645ebd46eb5e4e9059ed8b4320f340732804d666007bedf48422"
+    },
+    {
+      "dataset": 1024,
+      "id": 60,
+      "filename": "1024 (60).tif",
+      "sha256": "492d41d61fac491e7d9871a72f638cc14b33ca5ad337483d1cec8fce2b6f15ea"
+    },
+    {
+      "dataset": 1024,
+      "id": 61,
+      "filename": "1024 (61).tif",
+      "sha256": "e1729d1af700d96f46476caaf5fd8add20ccce5139ea2b0354d9d023f26259b2"
+    },
+    {
+      "dataset": 1024,
+      "id": 62,
+      "filename": "1024 (62).tif",
+      "sha256": "1703158cc85e30420ddefe3da62e31a90f55e7e321c4a3e3f8328d3ab35384d5"
+    },
+    {
+      "dataset": 1024,
+      "id": 63,
+      "filename": "1024 (63).tif",
+      "sha256": "a1dce81a37efa4b1449fba0eec414720deeffd87087a7e8519c843214d2596c7"
+    },
+    {
+      "dataset": 1024,
+      "id": 64,
+      "filename": "1024 (64).tif",
+      "sha256": "d5b2a9e14b8203d666c27ecc1c58a1319f49f95689a879e03c8c1cb3dc6e2814"
+    },
+    {
+      "dataset": 1024,
+      "id": 65,
+      "filename": "1024 (65).tif",
+      "sha256": "672e7b6cd13134df2f64c10ddc9c17a4782f007776542983387bb235a70f35ad"
+    },
+    {
+      "dataset": 1024,
+      "id": 66,
+      "filename": "1024 (66).tif",
+      "sha256": "5db1c38cf2b714a9945058370320240e9782b41afe90efa48652241456030c66"
+    },
+    {
+      "dataset": 1024,
+      "id": 67,
+      "filename": "1024 (67).tif",
+      "sha256": "b26e98d5a765501550d5b1488fcf8ee44b51288123999bde23efdfb6fcb579c1"
+    },
+    {
+      "dataset": 1024,
+      "id": 68,
+      "filename": "1024 (68).tif",
+      "sha256": "e8efb7b85a7da198c7a0c8e81222de8061763d53aea142ea9c4181beba4c7668"
+    },
+    {
+      "dataset": 1024,
+      "id": 69,
+      "filename": "1024 (69).tif",
+      "sha256": "4f840b68c9cedfd0d6ce2d80f5d2cc46615e2f1cc0ecbfe91617a067c5cc0e66"
+    },
+    {
+      "dataset": 1024,
+      "id": 70,
+      "filename": "1024 (70).tif",
+      "sha256": "f8012c5f2b331c04984eb84001de181e2effd03198264afab2b1a28390faee3f"
+    },
+    {
+      "dataset": 1024,
+      "id": 71,
+      "filename": "1024 (71).tif",
+      "sha256": "8e06f91b26483fe3bea8a117ba303101d5beff0790d0002467042d21f4701eb3"
+    },
+    {
+      "dataset": 1024,
+      "id": 72,
+      "filename": "1024 (72).tif",
+      "sha256": "256b091799e86af4d46e7b3e6e5a1d57c87ca15c9374484ac4bbcdeb5ce227a6"
+    },
+    {
+      "dataset": 1024,
+      "id": 73,
+      "filename": "1024 (73).tif",
+      "sha256": "ad38127c2f61470b9718ae82a86bc24000dfa19fbec23f8c568f5c070fb8640a"
+    },
+    {
+      "dataset": 1024,
+      "id": 74,
+      "filename": "1024 (74).tif",
+      "sha256": "352dd0ec2ffb6c9977e41b9366e73a22e040a5b38f640b1930f1d9b90a4fe2ce"
+    },
+    {
+      "dataset": 1024,
+      "id": 75,
+      "filename": "1024 (75).tif",
+      "sha256": "3fe51fb3822f8276c8f33c15913405e7e1e27b406324281f8dedbbe3dbe98208"
+    },
+    {
+      "dataset": 1024,
+      "id": 76,
+      "filename": "1024 (76).tif",
+      "sha256": "b1ce1fe5245218f971cfc2dc4356147e0729ec91ac3bc508caad0a2c5a0348d8"
+    },
+    {
+      "dataset": 1024,
+      "id": 77,
+      "filename": "1024 (77).tif",
+      "sha256": "613728904967c648ebbc70250d215290863a2163cdc766976b728da79ab254bc"
+    },
+    {
+      "dataset": 1024,
+      "id": 78,
+      "filename": "1024 (78).tif",
+      "sha256": "30ce277d9b3bfcb18ea4836ed668e692cd2cba7b9afd58e0fca249facc84a90f"
+    },
+    {
+      "dataset": 1024,
+      "id": 79,
+      "filename": "1024 (79).tif",
+      "sha256": "d7de20dfe3eba3e4727514eb72c8ff1456f63199410d1ce74269bd35cd718895"
+    },
+    {
+      "dataset": 1024,
+      "id": 80,
+      "filename": "1024 (80).tif",
+      "sha256": "7750f9702ce8e3c0499c53126f95f2b63236ea8129cc75c6f6329a33d4cb3013"
+    },
+    {
+      "dataset": 1024,
+      "id": 81,
+      "filename": "1024 (81).tif",
+      "sha256": "70be77cf10c42e4f0157c48d4d9ef2127a31fc7afe03ab57b87cb2a624e062d6"
+    },
+    {
+      "dataset": 1024,
+      "id": 82,
+      "filename": "1024 (82).tif",
+      "sha256": "dd0763cf392b99ef753c3d0494899563c0d2c1792bccba3e05ff2c9f09d9af0c"
+    },
+    {
+      "dataset": 1024,
+      "id": 83,
+      "filename": "1024 (83).tif",
+      "sha256": "67aa3f3242866eefd1c4bd15e8c1f0155f897385cf1936a71c1fc83242992cd2"
+    },
+    {
+      "dataset": 1024,
+      "id": 84,
+      "filename": "1024 (84).tif",
+      "sha256": "e0f7ae20c4803285255302b57ae5fcae632910e29bba3c7bef0905291e04c788"
+    },
+    {
+      "dataset": 1024,
+      "id": 85,
+      "filename": "1024 (85).tif",
+      "sha256": "4ef43f621b8806061cd9dc8c416ce28f76f73c7f2b3df4b2b9cd70b475af7105"
+    },
+    {
+      "dataset": 1024,
+      "id": 86,
+      "filename": "1024 (86).tif",
+      "sha256": "4aa1e043d982d4660807ee7ec8ec5c28df011a6034bd41e105b2d20175ea32c4"
+    },
+    {
+      "dataset": 1024,
+      "id": 87,
+      "filename": "1024 (87).tif",
+      "sha256": "0d2e2b32265988c2676477c9146bf807b1494b72e3e0b02f7ce4bdc52d30d538"
+    },
+    {
+      "dataset": 1024,
+      "id": 88,
+      "filename": "1024 (88).tif",
+      "sha256": "86827153f087abce1f7c29e8248e5063361c05d6482b501cc9f0203b303c184a"
+    },
+    {
+      "dataset": 1024,
+      "id": 89,
+      "filename": "1024 (89).tif",
+      "sha256": "7aaf2b7ce03bfa9ba89cb22520c66d1c65627a75fec384c4ca39b3a9794bdf2f"
+    },
+    {
+      "dataset": 1024,
+      "id": 90,
+      "filename": "1024 (90).tif",
+      "sha256": "44f2ded09e4f98013dfd0889cf01482e39894f7b0bbc7558b06d085c6848e84e"
+    },
+    {
+      "dataset": 1024,
+      "id": 91,
+      "filename": "1024 (91).tif",
+      "sha256": "7ffc40219a4b6adc5f3ae8ad38c39728550d042ca6b1b3c49393cb0796d6d6e5"
+    },
+    {
+      "dataset": 1024,
+      "id": 92,
+      "filename": "1024 (92).tif",
+      "sha256": "0bf24434673448214bb80a0dd41fbb5bff4bc8f49089f6bb513b88590f63067d"
+    },
+    {
+      "dataset": 1024,
+      "id": 93,
+      "filename": "1024 (93).tif",
+      "sha256": "48476f4baab385d9c822631adb172409d31f1a1f6296f181592ac873ad662e6f"
+    },
+    {
+      "dataset": 1024,
+      "id": 94,
+      "filename": "1024 (94).tif",
+      "sha256": "6e8ecde836061c1b1d02d95fa17548e809ffbfca0bc7045bbf723d3b33dffd2c"
+    },
+    {
+      "dataset": 1024,
+      "id": 95,
+      "filename": "1024 (95).tif",
+      "sha256": "227b19f12367c30f67bf80b6f006ade423e613ee2172bf5422446808d8e7b92a"
+    },
+    {
+      "dataset": 1024,
+      "id": 96,
+      "filename": "1024 (96).tif",
+      "sha256": "6f360cfe797f172021ca99cccd1bf63be96f9da11441544fc0d18c3a55314257"
+    },
+    {
+      "dataset": 1024,
+      "id": 97,
+      "filename": "1024 (97).tif",
+      "sha256": "c4a8275b29291f15c227c1ceae9bd21a9570942e0137f205977a32a19a57fcb3"
+    },
+    {
+      "dataset": 1024,
+      "id": 98,
+      "filename": "1024 (98).tif",
+      "sha256": "2e20a5c2d05b9ee055254d42382fb152f19a2d845a2a9fa732916843df794f0d"
+    },
+    {
+      "dataset": 1024,
+      "id": 99,
+      "filename": "1024 (99).tif",
+      "sha256": "862b6a1034fc8f80cfd00e8e8bfc7162f54c77f622718a165d8a546f5e8e855d"
+    },
+    {
+      "dataset": 1024,
+      "id": 100,
+      "filename": "1024 (100).tif",
+      "sha256": "5e70695baa8eefa1aad4629dccaa3229ab25853a22f3817997463cd5928c4007"
+    }
+  ]
+}
