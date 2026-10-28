@@ -1,7 +1,3 @@
-"""Minimal reproducible embedding and overlapping-extraction example.
-
-Run from the repository root: python -m Source.Scripts.execute
-"""
 from pathlib import Path
 import numpy as np
 from Source import config

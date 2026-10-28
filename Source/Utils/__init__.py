@@ -23,6 +23,7 @@ from .extraction_research import (
     extract_watermark_limited_blocks,
     extract_watermark_search_offsets,
     random_extract_start)
+from .experiment import main
 
 __all__ = [
     "couple_of_points",
@@ -48,15 +49,8 @@ __all__ = [
     "extract_watermark_limited_blocks",
     "extract_watermark_search_offsets",
     "random_extract_start",
+    "main"
 ]
-
-from .synchronization import (
-    SyncSettings, SyncEstimate, SynchronizedExtraction, default_sync_settings,
-    embed_synchronized, estimate_synchronization, extract_synchronized,
-)
-__all__ += ["SyncSettings", "SyncEstimate", "SynchronizedExtraction",
-            "default_sync_settings", "embed_synchronized",
-            "estimate_synchronization", "extract_synchronized"]
 
 from .phases import generate_phase_map, resolve_phase_map, configured_phase
 __all__ += ["generate_phase_map", "resolve_phase_map", "configured_phase"]
