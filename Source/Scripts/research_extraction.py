@@ -13,7 +13,7 @@ from Source.Utils import count_psnr, embed_watermark_into_image, generate_waterm
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-IMAGE_PATH = str(PROJECT_ROOT / "Image" / "vn_beach.tif")
+IMAGE_PATH = str(PROJECT_ROOT / "Image" / "1024" / "1024 (50).tif")
 PHASE_RUN_NAME = (f"random_seed_{config.PHASE_SEED}" if config.PHASE_MODE == "random"
                   else f"fixed_phase_{config.FIXED_PHASE:.6f}")
 OUTPUT_DIR = str(PROJECT_ROOT / "Results" / "Extraction_Research" / PHASE_RUN_NAME)

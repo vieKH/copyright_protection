@@ -19,22 +19,22 @@ from Source.Utils import (bit_accuracy, count_psnr, embed_watermark_into_image, 
 Number = Union[int, float]
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-IMAGE_PATH = str(PROJECT_ROOT / "Image" / "lena.tif")
+IMAGE_PATH = str(PROJECT_ROOT / "Image" / "1024" / "1024 (50).tif")
 PHASE_RUN_NAME = (f"random_seed_{config.PHASE_SEED}" if config.PHASE_MODE == "random"
                   else f"fixed_phase_{config.FIXED_PHASE:.6f}")
 OUTPUT_DIR = str(PROJECT_ROOT / "Results" / "Distortion_Research" / PHASE_RUN_NAME)
 
 REGION_SIZE = config.REGION_SIZE
 EXTRACT_STRIDE = config.EXTRACT_STRIDE
-QR_SIZE = 14
+QR_SIZE = 41
 PHI = configured_phase(QR_SIZE)
 EMBED_X = config.EMBED_X
 EMBED_Y = config.EMBED_Y
 EMBED_OFFSET = config.EMBED_OFFSET
 S_PARAM = 300
 QR_SEED = 42
-START_X = 5
-START_Y = 8
+START_X = 10
+START_Y = 15
 PHASE_SIGN = -1
 DETREND = False
 MAX_GRID_COLS = 5
@@ -48,8 +48,6 @@ class AttackSpec:
     param_symbol: str
     values: Sequence[Number]
     apply: Callable[[np.ndarray, Number], np.ndarray]
-
-
 
 
 def load_grayscale(path: str) -> np.ndarray:
@@ -366,7 +364,7 @@ def build_attack_specs() -> List[AttackSpec]:
             group="geometric",
             param_name="scale_factor",
             param_symbol="k",
-            values=frange(0.55, 1.45, 0.15),
+            values=frange(0.5, 2.0, 0.3),
             apply=lambda img, v: ImageDistorter(img).scale(
                 float(v), interpolation="bilinear", fill_value=0
             ).image,

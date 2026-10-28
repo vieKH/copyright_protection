@@ -30,7 +30,7 @@ def geometry_cases():
     cases=[dict(name='clean')]
     for a in [-120,-25,-12,7,23,90,170]:
         cases.append(dict(name=f'rotate_{a}',angle=a))
-    for scale in [.8,.85,.95,1.05,1.15,1.2]:
+    for scale in [.5,.8,1.1,1.4,1.7,2.0]:
         cases.append(dict(name=f'scale_{scale}',scale=scale))
     for t in [(17,-23),(-39,51),(133,-145)]:
         cases.append(dict(name=f'translate_{t[0]}_{t[1]}',translation=t))
@@ -73,7 +73,7 @@ def legacy_extract(image, qr_size,n,phi,layout):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--images',nargs='+',default=['lena','goldhilf'])
+    parser.add_argument('--images',nargs='+',default=['1024 (50)', "1024 (32)"])
     parser.add_argument('--full',action='store_true',help='Also run all legacy configured attacks; no oracle for these')
     args=parser.parse_args()
     output=Path(create_run_directory(str(ROOT/'Results'/'Synchronization_Research'),config.EMBED_GAP))
@@ -89,7 +89,7 @@ def main():
     (output/'config.json').write_text(json.dumps(metadata,indent=2),encoding='utf-8')
     rows=[];negative=[]
     for name in args.images:
-        image=np.array(Image.open(ROOT/'Image'/f'{name}.tif').convert('L'))
+        image=np.array(Image.open(ROOT/'Image'/'1024'/f'{name}.tif').convert('L'))
         old=embed_watermark_into_image(image,bits,n,q,phi,**layout)
         marked=embed_synchronized(image,bits,n,q,phi,settings=settings,**layout)
         Image.fromarray(marked).save(output/f'{name}_synchronized.png')
