@@ -1,0 +1,105 @@
+{
+  "variance": 0.72,
+  "seeds": [
+    1729,
+    2718,
+    3141
+  ],
+  "windows": 3,
+  "decoder": "single-window magnitude top floor(L^2/2); windows averaged as repeated trials, never fused",
+  "configs": [
+    [
+      64,
+      7,
+      "high"
+    ],
+    [
+      64,
+      14,
+      "high"
+    ],
+    [
+      64,
+      21,
+      "high"
+    ],
+    [
+      64,
+      28,
+      "high"
+    ],
+    [
+      128,
+      7,
+      "high"
+    ],
+    [
+      128,
+      14,
+      "high"
+    ],
+    [
+      128,
+      21,
+      "high"
+    ],
+    [
+      128,
+      28,
+      "high"
+    ],
+    [
+      128,
+      41,
+      "high"
+    ],
+    [
+      256,
+      7,
+      "high"
+    ],
+    [
+      256,
+      14,
+      "high"
+    ],
+    [
+      256,
+      21,
+      "high"
+    ],
+    [
+      256,
+      28,
+      "high"
+    ],
+    [
+      256,
+      41,
+      "high"
+    ],
+    [
+      128,
+      14,
+      "low"
+    ],
+    [
+      128,
+      14,
+      "mid"
+    ],
+    [
+      64,
+      21,
+      "legacy"
+    ],
+    [
+      128,
+      41,
+      "legacy"
+    ]
+  ],
+  "python": "3.14.6",
+  "numpy": "2.4.4",
+  "pillow": "12.2.0"
+}

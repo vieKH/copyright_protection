@@ -1,0 +1,14 @@
+{
+  "primary": {
+    "L": 21,
+    "B": 256,
+    "bits": 441,
+    "band": "high"
+  },
+  "conservative": {
+    "L": 7,
+    "B": 256,
+    "band": "high"
+  },
+  "capacity_constant_weight_bits": 436.2794846522818
+}

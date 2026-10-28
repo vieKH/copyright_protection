@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="90%">
-      <change afterPath="$PROJECT_DIR$/Source/Utils/experiment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/execute.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Scripts/execute.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_synchronization.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/synchronization.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +49,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.analyze_results.executor": "Run",
     "Python.basic.executor": "Run",
     "Python.chapter1_figures.executor": "Run",
     "Python.execute.executor": "Run",
@@ -63,6 +59,7 @@
     "Python.research_detection.executor": "Run",
     "Python.research_distorter.executor": "Run",
     "Python.research_extraction.executor": "Run",
+    "Python.research_parameters.executor": "Run",
     "Python.research_random_phase.executor": "Run",
     "Python.research_scale.executor": "Run",
     "Python.research_synchronization.executor": "Run",
@@ -86,7 +83,31 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.analyze_results">
+    <configuration name="analyze_results" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Diplom" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/wmresearch/analyze_results.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="basic" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Diplom" />
       <option name="ENV_FILES" value="" />
@@ -303,6 +324,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="research_parameters" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Diplom" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/wmresearch/research_parameters.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="research_random_phase" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Diplom" />
       <option name="ENV_FILES" value="" />
@@ -352,6 +397,8 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.research_parameters" />
+      <item itemvalue="Python.analyze_results" />
       <item itemvalue="Python.chapter1_figures" />
       <item itemvalue="Python.research_voting_200" />
       <item itemvalue="Python.plot_existing_200" />
@@ -510,7 +557,15 @@
       <option name="project" value="LOCAL" />
       <updated>1793209788078</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="90%">
+      <option name="closed" value="true" />
+      <created>1793216075193</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1793216075193</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
