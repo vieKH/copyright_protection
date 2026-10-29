@@ -16,6 +16,7 @@ import json
 from pathlib import Path
 import platform
 import sys
+import subprocess
 
 import numpy as np
 from PIL import Image, ImageOps
@@ -74,6 +75,7 @@ def main():
     if missing:
         raise FileNotFoundError(f'Missing {len(missing)} image files, first: {missing[:3]}')
     out = args.output
+    if out.exists() and any(out.iterdir()): raise ValueError('Output must be empty')
     out.mkdir(parents=True,exist_ok=True)
     data=[]
     manifest=dict(
@@ -86,7 +88,8 @@ def main():
         magnitude_vote='per-window FFT magnitudes, median threshold, majority (tie=0)',
         complex_average='phase-compensated complex coefficient mean, projection, single median threshold',
         data_scope='clean watermarked images; no attacks',
-        source_commit='record externally from git rev-parse HEAD',
+        source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+        code_sha256={str(p.relative_to(ROOT)):_hash(p) for p in sorted((ROOT/'Source').rglob('*.py'))},
         python=platform.python_version(),numpy=np.__version__,
         inputs=[])
     for idx, (size, image_id, path) in enumerate(entries,1):

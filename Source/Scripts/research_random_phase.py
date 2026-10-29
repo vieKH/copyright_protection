@@ -13,17 +13,21 @@ from Source.Utils.utils import build_wm_spectrum
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--seeds', type=int, nargs='+', default=[2021,2022,2023,2024,2025])
-    parser.add_argument('--images', nargs='+', default=None, help='Image stems; default: every TIF in Image/')
+    parser.add_argument('--images', nargs='+', default=None, help='Image stems; default: every TIFF recursively in Image/')
     parser.add_argument('--output', type=Path, default=Path('Results/Random_Phase/smoke.csv'))
+    parser.add_argument('--limit',type=int,help='Maximum number of input images')
     args = parser.parse_args()
+    if args.limit is not None and args.limit<1: parser.error('--limit must be positive')
     root = Path(__file__).resolve().parents[2]
-    images = sorted((root/'Image').glob('*.tif'))
+    images = sorted(p for p in (root/'Image').rglob('*') if p.is_file() and p.suffix.lower() in {'.tif','.tiff'})
+    if not images: parser.error('No TIFF images found under Image/')
     if args.images is not None:
         available = {p.stem:p for p in images}
         missing = set(args.images)-available.keys()
         if missing:
             parser.error(f'Unknown images: {sorted(missing)}')
         images = [available[name] for name in args.images]
+    if args.limit is not None: images=images[:args.limit]
     n, qr_size, gap = 64,14,1
     qr = generate_watermark(qr_size,seed=42)
     q = calculate_q(300,qr_size,n)

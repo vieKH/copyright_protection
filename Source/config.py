@@ -13,9 +13,8 @@ PHASE_MODE = "random"  # "fixed" preserves the original scalar-phase baseline.
 PHASE_SEED = 20261011  # Independent of QR and block selection seeds.
 FIXED_PHASE = 1.0471975511965976  # pi / 3, radians.
 
-# execute.py uses the synchronized path only when explicitly enabled.
-# research_extraction/distorter stay on the block path; research_synchronization
-# retains its existing synchronized implementation and scalar-phase baseline.
+# Reserved: synchronization implementation is absent from this repository.
+# execute.py rejects SYNC_ENABLED=True. All current runs use block extraction.
 SYNC_ENABLED = False
 SYNC_SEED = 20261002
 SYNC_PILOT_PAIRS = 24

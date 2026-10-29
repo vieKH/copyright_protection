@@ -17,7 +17,7 @@ def count_psnr(image1: np.ndarray, image2: np.ndarray) -> float:
     img2 = np.asarray(image2, dtype=np.float64)
     mse = np.mean((img1 - img2) ** 2)
 
-    if mse < EPSILON:
+    if mse == 0:
         return float("inf")
     return float(10.0 * np.log10((255.0 ** 2) / mse))
 

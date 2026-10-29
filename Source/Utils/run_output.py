@@ -23,4 +23,4 @@ def create_run_directory(base, image_path, qr_size, block_size, gap_size, param_
         output = output / f"{param_name}_{value}"
 
     output.mkdir(parents=True, exist_ok=True)
-    return str(output)
+    return mkdtemp(prefix="run_", dir=output)
