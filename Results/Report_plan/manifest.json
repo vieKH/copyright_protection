@@ -1,6 +1,6 @@
 {
-  "created_at_utc": "2026-10-28T14:33:07.546981+00:00",
-  "repo_commit": "5913be7c2665758a33826e08b79fd9fa3532074a",
+  "created_at_utc": "2026-10-29T07:53:35.915971+00:00",
+  "repo_commit": "60828ab9dcaf50d2a8283d6279d914c2ed9d0fe7",
   "data_source": "Image/512 and Image/1024 TIFF files only",
   "n_input_images": 200,
   "experiments": [
@@ -16,12 +16,57 @@
     "payload": 42,
     "phase": 2026
   },
+  "status": "complete",
   "blocks": [
     1,
     4,
     16,
     64
   ],
+  "gap": 1,
+  "calibration_tolerance_dB": 0.08,
+  "layout_protocol": "fixed geometry per block/payload; explicit placement sweep",
+  "frequency_radius": "mean signed FFT carrier radius, cycles/pixel",
+  "versions": {
+    "python": "3.14.6",
+    "numpy": "2.4.4",
+    "pillow": "12.2.0"
+  },
+  "code_sha256": {
+    "Source\\config.py": "260b974a0b3a590b77f49c488ff0855091d1533efadd566dc5fa349ccc08b015",
+    "Source\\Scripts\\basic.py": "686273928bbe96bd2e573b51c4f24cb54bce2b8f766c0a9486da6cda5e5205e9",
+    "Source\\Scripts\\chapter1_figures.py": "030060c914df5df47a2fc2e2cb6e5e8090fdaedae2577b7e149c69dd9a7ab66f",
+    "Source\\Scripts\\check_function.py": "30f1628b7a5c965994b17fc6922c5ebebcabda8fd084b364b9b4796e3d9575c8",
+    "Source\\Scripts\\execute.py": "50570ff71a2839866cddd090615a425b7dfaa68f81b11bf78e2c757bc564d337",
+    "Source\\Scripts\\plot_existing_200.py": "506cf6dba6dd811f94786fefdc366448dea3941c5fd166b4f4f00b0ac5defb6a",
+    "Source\\Scripts\\report_plan.py": "d5cd1dc69327acfa1a8969c95939a61b1070aabf4cb3a4731c8509ff59bbe30d",
+    "Source\\Scripts\\research_dataset.py": "27976f086f94d60c87117f118442b26442d0d50c3884866975966b9c2f4afba6",
+    "Source\\Scripts\\research_detection.py": "c747266278d3fe36ffc841706781df7cedf04ca596e2873c53617809a3b7d4c2",
+    "Source\\Scripts\\research_distorter.py": "3e049882ed89ad7b3570e039c050fb44736c538048743898e49043209b1fdd02",
+    "Source\\Scripts\\research_extraction.py": "3aa2ddb8f1957082282bb84ac81913ca92adabd93570a06c39b1c1334721fae7",
+    "Source\\Scripts\\research_phase_parameters.py": "b33448cf12ea448556b4feae390228b48eba749cf669b601eacfca7d4a3c5a4e",
+    "Source\\Scripts\\research_random_phase.py": "9fc09d63b77b1feb4c798c7cc93974b96f9579cadc3699d695a3c3fbd6ee0293",
+    "Source\\Scripts\\research_rotation.py": "af50a581618ccf19ec398bcd7870f2289e1440b07d8e609ee360c9cf88969d14",
+    "Source\\Scripts\\research_scale.py": "9d1b0fe3932a0a97dd9f15c5bef1c118b4488d4b5e489470a83c40d3d4c6ae01",
+    "Source\\Scripts\\research_voting_200.py": "058b1d49ad4cf6ecec2315ac7c3951e82fa6b098e6cc4bb14b51d18e8bb0ce7d",
+    "Source\\Utils\\__init__.py": "820eb19985710a62ae14c89083a8bfd1141e7d6c962648dd5e896b7b13b1495b",
+    "Source\\Utils\\batch_research.py": "84a0bf9e6d15e8937aa290512de2cc2a9d46c8fd99623150e54e0308cc713b32",
+    "Source\\Utils\\chapter1_validation.py": "a474beee019b474c8383769c2f918da99bc8866d4fec24cf2f44de229139a3ef",
+    "Source\\Utils\\dataset_report.py": "c421d6660faa939b2976294783eac15be0122cd9170adfb2679161b433f2e893",
+    "Source\\Utils\\detection.py": "1d74dbfe652e177d1737d2d2e0c79953bb329e18c12a9c454ca559b70ef48576",
+    "Source\\Utils\\distorter.py": "3306dabfc4fa4a6f058b0889f4e2dbd8cc0d2bdbea3aedf80ca6f11be7e65d06",
+    "Source\\Utils\\experiment.py": "174ae11ecf055d5119550103d0053b546ff0477040cde6f3a9396ac75fb6b912",
+    "Source\\Utils\\extraction_research.py": "7c9ee3e2b282103ebdbe7d96de9cdb2e2d83bd999eb7b361536ca921e524598e",
+    "Source\\Utils\\my_function.py": "2fef94388db3c99ce5e7299774feffb19f9bfb67b923f5d4b3c2956776090f21",
+    "Source\\Utils\\phase_parameters.py": "a8865bc8fb400ea47ffa85a1555f42312d93092f64b44c3b801339e43323d469",
+    "Source\\Utils\\phases.py": "69f15078b93b5cac7612f299b5b94414e2cf3ab74475681d706221342456ef47",
+    "Source\\Utils\\research_plot.py": "1879daa4892fa4d405680107fa8c96bb7f3c705438b9d0c00e3f933c6f86e0b8",
+    "Source\\Utils\\run_output.py": "3d9a61ccc2c75697e0a176389aaef3f13266dec8f3f1a362ac527aae78867034",
+    "Source\\Utils\\utils.py": "de164ce2c33cf5522a23fb522dc9ba8e904c3cbd5bc8396690d97f45f03f900c",
+    "Source\\Utils\\voting_research.py": "0920722845c7525010fd733f7320743854cf495557c0bf427200d4e1b4d745d5",
+    "Source\\wmresearch\\analyze_results.py": "c015acf57e713258bc684cc44365e26618553ec7eb47715f07623bf936914deb",
+    "Source\\wmresearch\\research_parameters.py": "aaab27968132dbbdd9cd167a79bd5e1272a64cbc49c54c64fe1487293cefdaa5"
+  },
   "input_files": [
     {
       "path": "Image\\512\\512 (1).tif",
@@ -823,5 +868,8 @@
       "path": "Image\\1024\\1024 (100).tif",
       "sha256": "5e70695baa8eefa1aad4629dccaa3229ab25853a22f3817997463cd5928c4007"
     }
-  ]
+  ],
+  "n_records": 132300,
+  "n_errors": 0,
+  "n_skipped": 0
 }

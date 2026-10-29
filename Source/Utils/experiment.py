@@ -79,7 +79,7 @@ def save_csv(path, rows):
 
 
 def main(kind):
-    p = argparse.ArgumentParser(description=f'{kind} research with random phases and no synchronization')
+    p = argparse.ArgumentParser(description=f'{kind}: random-phase embedding; fixed-grid baselines and optional spectral geometric synchronization')
     p.add_argument('--input', type=Path, required=True, help='Image or directory; scanned recursively')
     p.add_argument('--output', type=Path, required=True, help='New directory (refuses overwrite)')
     p.add_argument('--values', type=float, nargs='+', default=([.5,.75,.9,.98,1,1.02,1.1,1.5,2] if kind=='scale' else [-120,-25,-12,-3,-1,0,1,3,7,23,90,170]))
@@ -90,11 +90,17 @@ def main(kind):
     p.add_argument('--s-param', type=float, default=300.)
     p.add_argument('--start', type=int, nargs=2, default=[0,0], metavar=('ROW','COL'))
     p.add_argument('--stride', type=int, default=None)
-    p.add_argument('--accuracy-target', type=float, default=.8, help='Descriptive target; NOT a presence detector')
+    p.add_argument('--accuracy-target', type=float, default=.75, help='Descriptive target; NOT a presence detector')
     p.add_argument('--interpolation', choices=['bilinear','bicubic'], default='bilinear')
     p.add_argument('--canvas', choices=['native','fixed'], default='fixed', help='Scale only; rotation always fixed canvas')
     p.add_argument('--limit', type=int)
     p.add_argument('--save-images', action='store_true')
+    p.add_argument('--spectral-search', action='store_true',
+                   help='OPT IN: blind Fourier-domain scale/angle estimation; this IS geometric synchronization')
+    p.add_argument('--search-scale-min',type=float,default=.5)
+    p.add_argument('--search-scale-max',type=float,default=2.)
+    p.add_argument('--search-scale-step',type=float,default=.002)
+    p.add_argument('--search-angle-step',type=float,default=.25)
     a = p.parse_args()
     n,m=a.block_size,a.payload_size
     if n<8 or m<2 or not np.isfinite(a.s_param) or a.s_param<=0: p.error('Invalid block/payload/strength')
@@ -114,6 +120,14 @@ def main(kind):
     try:
         for _,layout,_,_ in variants: qr_to_spectrum_positions(m,n,**layout)
     except ValueError as e: p.error(str(e))
+    if not (np.isfinite(a.search_scale_min) and np.isfinite(a.search_scale_max) and 0<a.search_scale_min<a.search_scale_max): p.error('Invalid scale search range')
+    if any(not np.isfinite(v) or v<=0 for v in (a.search_scale_step,a.search_angle_step)): p.error('Search steps must be finite and positive')
+    if a.spectral_search:
+        if kind=='rotation':
+            variants=[('phase',baseline,'phase',0)]
+        variants.append(('spectral_search',baseline,'spectral_search',0))
+        if kind=='scale':
+            variants.append(('spectral_search_lower',low,'spectral_search',0))
     a.output.mkdir(parents=True)
     bits=generate_watermark(m,a.payload_seed); q=calculate_q(a.s_param,m,n)
     np.save(a.output/'payload.npy',bits)
@@ -134,18 +148,36 @@ def main(kind):
                 embedding_psnr=count_psnr(host,wm)
                 for value in values:
                     transformed=attack(wm,kind,value,resample,a.canvas)
-                    try: recovered,score,blocks,threshold=decode(transformed,phase,n,layout,method,radius,tuple(a.start),a.stride)
+                    estimate=None; search_quality=None; supported_bits=m*m; hypotheses=0
+                    try:
+                        if method=='spectral_search':
+                            from .spectral_geometry import extract_spectral_geometry
+                            result=extract_spectral_geometry(transformed,m,n,kind,**layout,
+                                scale_min=a.search_scale_min,scale_max=a.search_scale_max,
+                                scale_step=a.search_scale_step,angle_step=a.search_angle_step)
+                            recovered,score,threshold=result.bits,result.score,result.threshold
+                            blocks=1  # One GLOBAL observed image, not an embedding block.
+                            estimate,search_quality=result.estimate,result.quality
+                            supported_bits,hypotheses=result.supported_bits,result.hypotheses
+                        else:
+                            recovered,score,blocks,threshold=decode(transformed,phase,n,layout,method,radius,tuple(a.start),a.stride)
                     except ValueError as e:
                         failures.append(dict(image=str(path),seed=seed,variant=variant,value=value,reason=str(e))); continue
                     acc=float(np.mean(recovered==bits))
-                    row=dict(image=str(path.resolve()),phase_seed=seed,variant=variant,value=value,accuracy=acc,ber=1-acc,meets_accuracy_target=int(acc>=a.accuracy_target),psnr_embedding=embedding_psnr,blocks_used=blocks,threshold=threshold,predicted_ones=int(recovered.sum()),height=transformed.shape[0],width=transformed.shape[1])
+                    row=dict(image=str(path.resolve()),phase_seed=seed,variant=variant,value=value,accuracy=acc,ber=1-acc,meets_accuracy_target=int(acc>=a.accuracy_target),psnr_embedding=embedding_psnr,blocks_used=blocks,threshold=threshold,predicted_ones=int(recovered.sum()),height=transformed.shape[0],width=transformed.shape[1],
+                             estimated_parameter=estimate,search_quality=search_quality,
+                             supported_bits=supported_bits,unsupported_bits=m*m-supported_bits,
+                             search_hypotheses=hypotheses,geometric_synchronization=(method=='spectral_search'),
+                             watermarked_sha256=hashlib.sha256(wm.tobytes()).hexdigest())
                     rows.append(row)
                     if a.save_images:
                         stem=f'{index:04d}_{seed}_{variant}_{value:g}'
                         Image.fromarray(transformed).save(a.output/(stem+'_attacked.png'))
                         Image.fromarray(recovered*255).save(a.output/(stem+'_bits.png'))
                 print(f'{index+1}/{len(paths)} {path.name} seed={seed} {variant}',flush=True)
-    manifest=dict(arguments={k:str(v) if isinstance(v,Path) else v for k,v in vars(a).items()},kind=kind,values=values,q=q,variants=variants,sources=sources,failures=failures,versions=dict(python=platform.python_version(),numpy=np.__version__,pillow=PIL.__version__),synchronization=False,protocol='fixed windows; no inverse transformation; upper-left crop to complete blocks')
+    manifest=dict(source_sha256={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [Path(__file__),Path(__file__).with_name('utils.py'),Path(__file__).with_name('phases.py'),Path(__file__).with_name('spectral_geometry.py')] if p.is_file()},arguments={k:str(v) if isinstance(v,Path) else v for k,v in vars(a).items()},kind=kind,values=values,q=q,variants=variants,sources=sources,failures=failures,versions=dict(python=platform.python_version(),numpy=np.__version__,pillow=PIL.__version__),synchronization=bool(a.spectral_search),
+                  protocol='fixed-window baselines; optional blind Fourier-domain geometric search; no inverse image transform; upper-left crop to complete blocks',
+                  search_protocol='Fixed public range for all observations; attack values and payload bits never passed to spectral extractor; rotation estimates modulo 180 degrees')
     (a.output/'manifest.json').write_text(json.dumps(manifest,indent=2,ensure_ascii=False),encoding='utf-8')
     if not rows: raise SystemExit('No valid results. See manifest.json')
     save_csv(a.output/'results.csv',rows)
@@ -168,5 +200,32 @@ def main(kind):
     ax.axhline(a.accuracy_target,color='gray',linestyle='--',label='descriptive target')
     ax.set(xlabel='Scale factor' if kind=='scale' else 'Angle (degrees)',ylabel='Mean bit accuracy',ylim=(0,1.02))
     ax.legend(); ax.grid(alpha=.3); fig.tight_layout(); fig.savefig(a.output/'accuracy.png',dpi=180); plt.close(fig)
+    if a.spectral_search:
+        from collections import defaultdict
+        paired=defaultdict(dict)
+        for r in rows: paired[(r['image'],r['phase_seed'],r['value'])][r['variant']]=r
+        effects=[]
+        comparisons=[('baseline' if kind=='scale' else 'phase','spectral_search')]
+        if kind=='scale': comparisons.append(('lower_band','spectral_search_lower'))
+        for base_name,new_name in comparisons:
+            for value in values:
+                observations=[]
+                for (image,seed,v),group in paired.items():
+                    if v==value and base_name in group and new_name in group:
+                        first,second=group[base_name],group[new_name]
+                        if first['watermarked_sha256']!=second['watermarked_sha256']:
+                            raise RuntimeError('Unpaired embeddings: cannot claim an extraction improvement')
+                        observations.append((image,second['accuracy']-first['accuracy']))
+                images=sorted({im for im,d in observations})
+                differences=np.array([np.mean([d for im,d in observations if im==image]) for image in images])
+                if not len(differences): continue
+                rng=np.random.default_rng(27029)
+                boot=differences[rng.integers(len(differences),size=(2000,len(differences)))].mean(axis=1)
+                effects.append(dict(baseline=base_name,candidate=new_name,value=value,images=len(images),trials=len(observations),
+                                    gain_accuracy=float(differences.mean()),
+                                    ci95_low=float(np.quantile(boot,.025)) if len(images)>1 else '',
+                                    ci95_high=float(np.quantile(boot,.975)) if len(images)>1 else '',
+                                    images_improved=int(np.sum(differences>0)),images_worsened=int(np.sum(differences<0))))
+        if effects: save_csv(a.output/'paired_gains.csv',effects)
     print(f'Saved {len(rows)} trials; {len(failures)} failures to {a.output}')
     if failures: raise SystemExit('Partial results: inspect failures in manifest.json')

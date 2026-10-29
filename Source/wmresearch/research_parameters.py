@@ -47,6 +47,7 @@ def jpeg(y,q):
 
 def run(args):
  out=Path(args.out)
+ if out.exists() and any(out.iterdir()): raise ValueError('Output must be empty; refusing mixed results')
  out.mkdir(parents=True,exist_ok=True)
  files = sorted(
   p for p in Path(args.data).rglob('*')
@@ -64,13 +65,14 @@ def run(args):
    print(f'{j+1}/{len(files)} {meta[0]["file"]}',flush=True)
  pd.DataFrame(rows).to_csv(out/'raw.csv',index=False)
  pd.DataFrame(manifest).to_csv(out/'manifest.csv',index=False)
- (out/'protocol.json').write_text(json.dumps(dict(variance=args.variance,seeds=args.seeds,windows=args.windows,decoder='single-window magnitude top floor(L^2/2); windows averaged as repeated trials, never fused',configs=configs,python=platform.python_version(),numpy=np.__version__,pillow=pillow_version),indent=2))
+ (out/'protocol.json').write_text(json.dumps(dict(code_sha256={str(p.relative_to(PROJECT_ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((PROJECT_ROOT/'Source').rglob('*.py'))},variance=args.variance,seeds=args.seeds,windows=args.windows,decoder='single-window magnitude top floor(L^2/2); windows averaged as repeated trials, never fused',configs=configs,python=platform.python_version(),numpy=np.__version__,pillow=pillow_version),indent=2))
  summarize(out)
 
 def evaluate(f,args,configs):
- checkpoint=Path(args.out)/'checkpoints'/f'{f.stem}.csv'
+ checkpoint=Path(args.out)/'checkpoints'/(hashlib.sha256(str(f.resolve()).encode()).hexdigest()[:16]+'.csv')
  rows=[];manifest=[]
- image=np.array(Image.open(f));assert image.ndim==2 and image.dtype==np.uint8
+ with Image.open(f) as im: image=np.array(im)
+ if image.ndim!=2 or image.dtype!=np.uint8: raise ValueError(f'{f}: expected uint8 grayscale TIFF')
  H,W=image.shape;manifest.append({'file':f.name,'sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'height':H,'width':W})
  for B,L,band in configs:
   if B>min(H,W):continue
@@ -86,7 +88,7 @@ def evaluate(f,args,configs):
    for attack,z in attacks.items():
     pred=decode(z,B,p,int(b.sum()),coords);bers=[float(np.mean(v!=b)) for v in pred]
     rows.append(dict(file=f.name,group=H,B=B,L=L,bits=L*L,band=band,seed=seed,attack=attack,ber=np.mean(bers),perfect=np.mean([v==0 for v in bers]),mse=mse,psnr=psnr,clip_fraction=np.mean((ideal<0)|(ideal>255)),alpha=a))
- checkpoint.parent.mkdir(exist_ok=True)
+ checkpoint.parent.mkdir(parents=True,exist_ok=True)
  pd.DataFrame(rows).to_csv(checkpoint,index=False)
  return rows,manifest
 
@@ -107,5 +109,6 @@ if __name__=='__main__':
  ap.add_argument('--seeds',type=int,nargs='+',default=[1729,2718,3141])
  ap.add_argument('--windows',type=int,default=3)
  args=ap.parse_args()
- if args.variance<=0 or args.windows<1:ap.error('variance and windows must be positive')
+ if not np.isfinite(args.variance) or args.variance<=0 or args.windows<1 or args.workers<1:ap.error('variance, windows and workers must be finite and positive')
+ if min(args.seeds)<0 or len(set(args.seeds))!=len(args.seeds):ap.error('Seeds must be distinct nonnegative integers')
  run(args)

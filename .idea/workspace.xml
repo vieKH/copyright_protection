@@ -4,8 +4,62 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="90%">
+    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="95">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Random_Phase/smoke.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Random_Phase/smoke.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_1024_complex_average.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_1024_magnitude_vote.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_1024_phase_vote.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_512_complex_average.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_512_magnitude_vote.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_512_phase_vote.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_per_image.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/attacks_per_image.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_1024_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_1024_complex_average.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_1024_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_1024_magnitude_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_1024_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_1024_phase_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_512_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_512_complex_average.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_512_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_512_magnitude_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_512_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_512_phase_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_per_image.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_per_image.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_1024_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_1024_complex_average.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_1024_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_1024_magnitude_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_1024_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_1024_phase_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_512_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_512_complex_average.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_512_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_512_magnitude_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_512_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_512_phase_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_per_image.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_per_image.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/errors.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_1024_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_1024_complex_average.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_1024_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_1024_magnitude_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_1024_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_1024_phase_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_512_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_512_complex_average.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_512_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_512_magnitude_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_512_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_512_phase_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_per_image.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_per_image.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_1024_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_1024_complex_average.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_1024_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_1024_magnitude_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_1024_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_1024_phase_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_512_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_512_complex_average.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_512_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_512_magnitude_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_512_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_512_phase_vote.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_per_image.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_per_image.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Report_plan/summary.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/summary.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180248_1jd_71xb/1024 (50)_synchronized.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180248_1jd_71xb/config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180248_1jd_71xb/phase_map.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180649__1fhe1ae/1024 (50)_synchronized.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180649__1fhe1ae/config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180649__1fhe1ae/phase_map.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/1024 (32)_synchronized.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/1024 (50)_synchronized.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/comparison.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/negative_controls.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/phase_map.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/results.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/experiment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/wmresearch/research_parameters.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/wmresearch/research_parameters.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +114,7 @@
     "Python.research_distorter.executor": "Run",
     "Python.research_extraction.executor": "Run",
     "Python.research_parameters.executor": "Run",
+    "Python.research_phase_parameters.executor": "Run",
     "Python.research_random_phase.executor": "Run",
     "Python.research_scale.executor": "Run",
     "Python.research_synchronization.executor": "Run",
@@ -83,7 +138,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Python.analyze_results">
+  <component name="RunManager" selected="Python.report_plan">
     <configuration name="analyze_results" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Diplom" />
       <option name="ENV_FILES" value="" />
@@ -348,6 +403,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="research_phase_parameters" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Diplom" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/research_phase_parameters.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="research_random_phase" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Diplom" />
       <option name="ENV_FILES" value="" />
@@ -398,6 +477,7 @@
     </configuration>
     <list>
       <item itemvalue="Python.research_parameters" />
+      <item itemvalue="Python.research_phase_parameters" />
       <item itemvalue="Python.analyze_results" />
       <item itemvalue="Python.chapter1_figures" />
       <item itemvalue="Python.research_voting_200" />
@@ -565,7 +645,23 @@
       <option name="project" value="LOCAL" />
       <updated>1793216075193</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="90%">
+      <option name="closed" value="true" />
+      <created>1793218567395</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1793218567395</updated>
+    </task>
+    <task id="LOCAL-00019" summary="95">
+      <option name="closed" value="true" />
+      <created>1793269719366</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1793269719366</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -595,6 +691,7 @@
     <MESSAGE value="Add for report (chap 1)" />
     <MESSAGE value="Add for report (chap 4)" />
     <MESSAGE value="90%" />
-    <option name="LAST_COMMIT_MESSAGE" value="90%" />
+    <MESSAGE value="95" />
+    <option name="LAST_COMMIT_MESSAGE" value="95" />
   </component>
 </project>
