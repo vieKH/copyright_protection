@@ -6,60 +6,42 @@
   <component name="ChangeListManager">
     <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="95">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Random_Phase/smoke.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Random_Phase/smoke.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_1024_complex_average.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_1024_magnitude_vote.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_1024_phase_vote.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_512_complex_average.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_512_magnitude_vote.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_512_phase_vote.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/attacks_per_image.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/attacks_per_image.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_1024_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_1024_complex_average.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_1024_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_1024_magnitude_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_1024_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_1024_phase_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_512_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_512_complex_average.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_512_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_512_magnitude_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_512_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_512_phase_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/blocks_per_image.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/blocks_per_image.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_1024_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_1024_complex_average.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_1024_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_1024_magnitude_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_1024_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_1024_phase_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_512_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_512_complex_average.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_512_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_512_magnitude_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_512_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_512_phase_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/capacity_per_image.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/capacity_per_image.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/errors.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_1024_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_1024_complex_average.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_1024_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_1024_magnitude_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_1024_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_1024_phase_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_512_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_512_complex_average.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_512_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_512_magnitude_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_512_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_512_phase_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_per_image.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/frequency_attacks_per_image.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_1024_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_1024_complex_average.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_1024_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_1024_magnitude_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_1024_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_1024_phase_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_512_complex_average.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_512_complex_average.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_512_magnitude_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_512_magnitude_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_512_phase_vote.png" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_512_phase_vote.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/layouts_per_image.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/layouts_per_image.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Report_plan/summary.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Results/Report_plan/summary.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180248_1jd_71xb/1024 (50)_synchronized.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180248_1jd_71xb/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180248_1jd_71xb/phase_map.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180649__1fhe1ae/1024 (50)_synchronized.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180649__1fhe1ae/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180649__1fhe1ae/phase_map.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/1024 (32)_synchronized.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/1024 (50)_synchronized.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/comparison.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/negative_controls.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/phase_map.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Synchronization_Research/random_seed_20261011/2026-10-28_synchronization_batch_14_128_1/180806_w10c2l6a/results.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Utils/experiment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/wmresearch/research_parameters.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/wmresearch/research_parameters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/basic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/chapter1_figures.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/check_function.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/execute.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/plot_existing_200.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/report_plan.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_dataset.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_detection.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_phase_parameters.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_random_phase.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_rotation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_scale.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_voting_200.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/batch_research.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/chapter1_validation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/dataset_report.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/detection.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/distorter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/experiment.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/extraction_research.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/my_function.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/phase_parameters.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/phases.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/research_plot.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/run_output.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/spectral_geometry.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Utils/voting_research.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/wmresearch/analyze_results.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/wmresearch/research_parameters.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,398 +82,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.analyze_results.executor": "Run",
-    "Python.basic.executor": "Run",
-    "Python.chapter1_figures.executor": "Run",
-    "Python.execute.executor": "Run",
-    "Python.plot_existing_200.executor": "Run",
-    "Python.report_plan.executor": "Run",
-    "Python.research_dataset.executor": "Run",
-    "Python.research_detection.executor": "Run",
-    "Python.research_distorter.executor": "Run",
-    "Python.research_extraction.executor": "Run",
-    "Python.research_parameters.executor": "Run",
-    "Python.research_phase_parameters.executor": "Run",
-    "Python.research_random_phase.executor": "Run",
-    "Python.research_scale.executor": "Run",
-    "Python.research_synchronization.executor": "Run",
-    "Python.research_voting_200.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ai.playground.ignore.import.keys.banner.in.settings": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.analyze_results.executor&quot;: &quot;Run&quot;,
+    &quot;Python.basic.executor&quot;: &quot;Run&quot;,
+    &quot;Python.chapter1_figures.executor&quot;: &quot;Run&quot;,
+    &quot;Python.execute.executor&quot;: &quot;Run&quot;,
+    &quot;Python.plot_existing_200.executor&quot;: &quot;Run&quot;,
+    &quot;Python.report_plan.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_dataset.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_detection.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_distorter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_extraction.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_parameters.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_phase_parameters.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_random_phase.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_scale.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_synchronization.executor&quot;: &quot;Run&quot;,
+    &quot;Python.research_voting_200.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ai.playground.ignore.import.keys.banner.in.settings&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Python.report_plan">
-    <configuration name="analyze_results" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/wmresearch/analyze_results.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="basic" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/basic.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="chapter1_figures" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/chapter1_figures.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="execute" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/execute.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="plot_existing_200" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/plot_existing_200.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="report_plan" type="PythonConfigurationType" factoryName="Python">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="C:\Users\tryha\OneDrive\Desktop\Diplom\Source\Scripts\report_plan.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="research_dataset" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/research_dataset.py" />
-      <option name="PARAMETERS" value="--workers 16" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="research_detection" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/research_detection.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="research_distorter" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/research_distorter.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="research_extraction" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/research_extraction.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="research_parameters" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/wmresearch/research_parameters.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="research_phase_parameters" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/research_phase_parameters.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="research_random_phase" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/research_random_phase.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="research_voting_200" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Diplom" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.14 (Diplom)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tryha\OneDrive\Desktop\Diplom" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/Scripts/research_voting_200.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Python.research_parameters" />
-      <item itemvalue="Python.research_phase_parameters" />
-      <item itemvalue="Python.analyze_results" />
-      <item itemvalue="Python.chapter1_figures" />
-      <item itemvalue="Python.research_voting_200" />
-      <item itemvalue="Python.plot_existing_200" />
-      <item itemvalue="Python.research_random_phase" />
-      <item itemvalue="Python.report_plan" />
-      <item itemvalue="Python.research_detection" />
-      <item itemvalue="Python.research_dataset" />
-      <item itemvalue="Python.basic" />
-      <item itemvalue="Python.execute" />
-      <item itemvalue="Python.research_distorter" />
-      <item itemvalue="Python.research_extraction" />
-    </list>
-  </component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
