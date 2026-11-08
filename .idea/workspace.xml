@@ -4,45 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="95">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/basic.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/chapter1_figures.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/check_function.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/execute.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/plot_existing_200.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/report_plan.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_dataset.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_detection.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_distorter.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_extraction.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_phase_parameters.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_random_phase.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_rotation.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_scale.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Scripts/research_voting_200.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/batch_research.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/chapter1_validation.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/dataset_report.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/detection.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/distorter.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/experiment.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/extraction_research.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/my_function.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/phase_parameters.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/phases.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/research_plot.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/run_output.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/spectral_geometry.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Utils/voting_research.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/wmresearch/analyze_results.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/wmresearch/research_parameters.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-    </list>
+    <list default="true" id="e7399c5b-079d-418f-bbe2-7b813649d71f" name="Changes" comment="Done" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -290,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1793269719366</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Done">
+      <option name="closed" value="true" />
+      <created>1794082676295</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1794082676295</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -321,6 +291,7 @@
     <MESSAGE value="Add for report (chap 4)" />
     <MESSAGE value="90%" />
     <MESSAGE value="95" />
-    <option name="LAST_COMMIT_MESSAGE" value="95" />
+    <MESSAGE value="Done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done" />
   </component>
 </project>
